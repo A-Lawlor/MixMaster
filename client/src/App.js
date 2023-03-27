@@ -14,6 +14,8 @@ import Homepage from "./pages/homepage";
 import GenerateDrink from "./pages/generatedrink";
 import About from "./pages/about";
 import Contact from "./pages/contact";
+import Trending from "./pages/trending";
+import Mixology from "./pages/mixology";
 
 const App = () => {
  return (
@@ -31,6 +33,8 @@ const App = () => {
        <Route path="/create" element={<Create />} />
        <Route path="/vault" element={<Vault />} />
        <Route path="/storage" element={<Storage />} />
+       <Route path="/trending" element={<Trending />} />
+       <Route path="/mixology" element={<Mixology />} />
      </Routes>
    </div>
  );

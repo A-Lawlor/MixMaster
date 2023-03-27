@@ -1,0 +1,46 @@
+/*Style of Generate Drink Button*/
+#generate-drink-btn {
+    background-color: #41C3FA;
+    color: #fff;
+    opacity: 85%;
+    width: 40vh;
+    padding: 2vh;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+    font-size: large;
+}
+
+#generate-drink-btn:hover {
+    transform: scale(1.05);
+}
+
+#trending-btn {
+    color: #fff;
+    opacity: 85%;
+    width: 40vh;
+    padding: 2vh;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+    font-size: large;
+}
+
+#trending-btn:hover {
+    transform: scale(1.05);
+}
+
+#mixology-btn {
+    color: #fff;
+    opacity: 85%;
+    width: 40vh;
+    padding: 2vh;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+    font-size: large;
+}
+
+#mixology-btn:hover {
+    transform: scale(1.05);
+}

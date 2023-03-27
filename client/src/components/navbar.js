@@ -33,14 +33,14 @@ export default function Navbar() {
   };
 
   return (
-  <nav className="navbar navbar-expand-lg navbar-light sticky-top" style={{ height: "60px", backgroundColor: "rgba(211, 211, 211, 0.9)" }}>
+  <nav className="navbar navbar-expand-lg navbar-light sticky-top" style={{ height: "60px", backgroundColor: "rgba(51, 51, 51, 0.9)" }}>
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/" style={{paddingRight: '0'}}>
           <img src="../../MixMaster.png" alt="Logo" style={{ width: "25%", objectFit: "contain" }} />
         </NavLink>
 
         <div className="d-flex justify-content-between align-items-center">
-          <div className="d-flex">
+          <div className="d-flex text-white">
             <NavLink className="nav-link mx-3" to="/">
               Home
             </NavLink>
