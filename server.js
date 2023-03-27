@@ -1,3 +1,5 @@
+require("dotenv").config();
+const path = require("path");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -9,6 +11,14 @@ app.use(require("./routes/drink"));
 // get driver connection
 const dbo = require("./db/conn");
  
+
+if (process.env.NODE_ENV === "productioin") {
+  app.use(express.static("client"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "index.html"));
+  });
+}
+
 app.listen(port, () => {
   // perform a database connection when server starts
   dbo.connectToServer(function (err) {
