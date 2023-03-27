@@ -1,0 +1,115 @@
+h1 {
+    font-size: 3.5em;
+    color:#3EB3E7;
+    background-color: #3d3d3d;
+    display:inline;
+    text-align: center;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-right: 0.8em;
+    padding-left: 0.8em;
+    border: 3px solid #000000;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.ingredients_wrapper {
+    color:#ffffff;
+    background: #3d3d3d;
+    font-size: 1.75em;
+    padding: 0.5em;
+    margin: 0;
+    width: 16em;
+    height: 35vh;
+    overflow-y: scroll;
+    border: 3px solid #000000;
+    border-bottom: none;
+    border-radius: 0.75em 0em 0em 0em;
+    text-align: left;
+}
+
+.ingredient {
+    padding-bottom: 0.25em;
+    margin-bottom: 0.25em;
+    border-bottom: 3px solid #000000;
+}
+
+/* CSS taken from https://getcssscan.com/css-buttons-examples */
+.button-84s {  
+    align-items: center;
+    background-color: #E3E3E3;
+    border: none;
+    border-radius: 0.5em;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    font-family: expo-brand-demi,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1.5em;
+    justify-content: center;
+    line-height: 1;
+    height: 2.25em;
+    margin: 0;
+    outline: none;
+    overflow: hidden;
+    padding: 0 32px;
+    text-align: center;
+    text-decoration: none;
+    transform: translate3d(0, 0, 0);
+    transition: all 150ms;
+    vertical-align: baseline;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-84s:hover {
+    box-shadow: rgba(0, 17, 0, 0.2) 0 2px 8px;
+    opacity: .9;
+}
+
+.button-84s:active {
+    outline: 0;
+}
+
+.button-84s:focus {
+    box-shadow: rgba(0, 0, 0, .5) 0 0 0 2px;
+}
+
+@media (max-width: 420px) {
+    .button-84s {
+        height: 48px;
+    }
+}
+
+#button-div {
+    border-radius: 0em 0em 0.75em 0.75em;
+    border: 3px solid #000000;
+    border-top: none;
+    font-size: 1.75em;
+    width: 16em;
+    background: #3d3d3d;
+}
+
+#button-two-line {
+    height: 3em;
+}
+
+#button-add {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 1em;
+    color:#ffffff;
+    background-color: #3EB3E7;
+    margin-right: 2em;
+}
+
+#button-edit {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 1em;
+    margin-left: 2em;
+}
