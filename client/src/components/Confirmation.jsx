@@ -26,7 +26,7 @@ export function Confirmation() {
             <strong className="me-auto">MixMaster</strong>
             <small>{ time }</small>
           </Toast.Header>
-          <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+          <Toast.Body>You have followed a new user!</Toast.Body>
         </Toast>
     </Row>
   );
