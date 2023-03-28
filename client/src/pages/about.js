@@ -27,7 +27,7 @@ function About() {
         <Col className="border border d-flex flex-column justify-content-center align-items-center bg-secondary">
           <div class="m-1">
             <img src={dalton}/>
-            <p class="profile_text">Aloha! I’m Dalton and I’m an undergraduate student at UML. I’ll be working for MITRE when I graduate this summer. Stitch and I chose are favorite drink to share with you all to be the Hawaiian Mimosa. It’s a fun easy to make drink for all you orange juice lovers. Sit back, relax, and find your dream drink here!</p>
+            <p class="profile_text">Aloha! I’m Dalton and I’m an undergraduate student at UML. I’ll be working for MITRE when I graduate this summer. Stitch and I chose our favorite drink to share with you all to be the Hawaiian Mimosa. It’s a fun easy to make drink for all you orange juice lovers. Sit back, relax, and find your dream drink here!</p>
           </div>
         </Col>
         <Col>
