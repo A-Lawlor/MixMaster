@@ -9,16 +9,22 @@ function Mixology() {
   return (
     <Container fluid>
       <Row className="mt-5">
-        <Col md={8}>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id dictum magna, eget scelerisque mi. Vestibulum dapibus, tellus ac elementum ullamcorper, ipsum sapien interdum magna, quis vehicula magna augue nec ipsum. Vestibulum euismod aliquet lacinia. Vestibulum lobortis pharetra purus, vitae maximus turpis lobortis eget. Vivamus luctus libero ut mi mollis, eu cursus elit commodo. Praesent eu odio est. Fusce eget tellus leo. Donec id arcu metus.
-          </p>
+      <Col md={1}></Col>
+        <Col md={5}>
+          <p className="bg-secondary">The art of mixing alcoholic drinks involves creating cocktails and other alcoholic beverages by combining different types of liquors, mixers, garnishes, and other ingredients. The aim is to create balanced and delicious drinks that enhance the flavors and qualities of the individual ingredients while also providing a unique and enjoyable drinking experience.</p>
         </Col>
+        <Col md={1}></Col>
         <Col md={4} className="text-center">
           <div className="App">
             <p>Mixology Tutorial</p>
             <YoutubeEmbed embedId="tFpqCyJ-nnw" />
           </div>
+        </Col>
+      </Row>
+      <Row className="mt-5">
+      <Col md={1}></Col>
+        <Col md={5}>
+          <p className="bg-secondary ">Learning how to make alcoholic drinks at home can be a fun and rewarding experience that can save you money, provide a fun social activity, and allow you to experiment with new flavors and ingredients.</p>        
         </Col>
       </Row>
     </Container>
