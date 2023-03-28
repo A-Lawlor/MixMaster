@@ -1,3 +1,4 @@
+const { json, response } = require("express");
 const express = require("express");
  
 // recordRoutes is an instance of the express router.
@@ -13,15 +14,17 @@ const ObjectId = require("mongodb").ObjectId;
  
  
 // This section will help you get a list of all the records.
+
+
 recordRoutes.route("/drink").get(function (req, res) {
  let db_connect = dbo.getDb("drinks");
  db_connect
    .collection("drinkfourm")
    .find({})
-   .toArray(function (err, result) {
-     if (err) throw err;
-     res.json(result);
-   });
+
+   .toArray()
+   .then ((result) => res.json(result))
+   .then(console.log)
 });
  
 // This section will help you get a single record by id
@@ -73,14 +76,14 @@ recordRoutes.route("/update/:id").post(function (req, response) {
 });
  
 // This section will help you delete a record
-recordRoutes.route("/:id").delete((req, response) => {
+recordRoutes.route("/drink/delete").delete((req, response) => {
  let db_connect = dbo.getDb();
- let myquery = { _id: ObjectId(req.params.id) };
- db_connect.collection("drinkfourm").deleteOne(myquery, function (err, obj) {
+ let myobj = {_id:new ObjectId(req.body._id)};
+ db_connect.collection("drinkfourm").deleteOne(myobj, function (err, res) {
    if (err) throw err;
-   console.log("1 document deleted");
-   response.json(obj);
+   response.json(res);
  });
+ return response.send(JSON.stringify(myobj));
 });
- 
+
 module.exports = recordRoutes;

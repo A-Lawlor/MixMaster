@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
- import { NavLink } from "react-router-dom";
- import { Button, Dropdown, Modal, Form } from "react-bootstrap";
- import "../css/navbar.css"
+import { NavLink } from "react-router-dom";
+import { Button, Dropdown, Modal, Form } from "react-bootstrap";
+import "../css/navbar.css"
 
 
  export default function Navbar() {
@@ -59,8 +59,8 @@ const handleLogout = () => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                 
-                   <Dropdown.Item as={NavLink} to="/storage">
-                     Storage
+                   <Dropdown.Item as={NavLink} to="/vault">
+                     Vault
                    </Dropdown.Item>
 
                    <Dropdown.Item as={NavLink} to="/following">

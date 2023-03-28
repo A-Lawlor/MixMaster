@@ -12,6 +12,7 @@ module.exports = {
     await client.connect();
     console.log("Connected successfully to server");
     _db = client.db("drinks");
+    _db = client.db("ingredients");
     console.log("Successfully connected to MongoDB");
   },
 
