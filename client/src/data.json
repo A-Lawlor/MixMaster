@@ -1,0 +1,45 @@
+[
+    {
+        "id":1,
+        "name": "HennyThingPossible",
+        "image":"/Users/dauryarg/Desktop/GUI MixMaster Pics/MixMaster_user1.jpeg",
+        "desc": "This is social media User #1",
+        "followers": 12
+    },
+    {
+        "id":2,
+        "name": "whiskeyAllDay",
+        "image":"/Users/dauryarg/Desktop/GUI MixMaster Pics/MixMaster_user1.jpeg",
+        "desc": "This is social media User #2",
+        "followers": 14
+    },
+    {
+        "id":3,
+        "name": "YaImDrunk",
+        "image":"/Users/dauryarg/Desktop/GUI MixMaster Pics/MixMaster_user1.jpeg",
+        "desc": "This is social media User #3",
+        "followers": 17
+    },
+    {
+        "id":4,
+        "name": "yolmaoImDrunk",
+        "image":"/Users/dauryarg/Desktop/GUI MixMaster Pics/MixMaster_user1.jpeg",
+        "desc": "This is social media User #4",
+        "followers": 17
+    },
+    {
+        "id":5,
+        "name": "klk",
+        "image":"/Users/dauryarg/Desktop/GUI MixMaster Pics/MixMaster_user1.jpeg",
+        "desc": "This is social media User #5",
+        "followers": 17
+    },
+    {
+        "id":6,
+        "name": "heheImDrunk",
+        "image":"/Users/dauryarg/Desktop/GUI MixMaster Pics/MixMaster_user1.jpeg",
+        "desc": "This is social media User #6",
+        "followers": 17
+    }
+
+]
