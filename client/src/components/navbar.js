@@ -58,13 +58,19 @@ const handleLogout = () => {
                   {username}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
+                
                    <Dropdown.Item as={NavLink} to="/storage">
                      Storage
                    </Dropdown.Item>
+
                    <Dropdown.Item as={NavLink} to="/following">
-                     Following
+                    Following
+                   <Dopdown.Item>
+                   
+                   <Dropdown.Item onClick={handleLogout} style={{ color: "red" }} as={NavLink} to="/">
+                    Logout
                    </Dropdown.Item>
-                   <Dropdown.Item onClick={handleLogout} style={{ color: "red" }} as={NavLink} to="/"> Logout</Dropdown.Item>
+
                  </Dropdown.Menu>
                </Dropdown>
              ) : (
