@@ -39,11 +39,6 @@ function Homepage() {
         <Button id="mixology-btn" as={NavLink} to="/mixology" className="btn btn-secondary">Mixology Tutorial</Button>
         </Col>
       </Row>
-      <Row className="justify-content-center align-items-center" style={{ marginTop: "2vh" }}>
-        <Col className="text-center"> 
-        <Button id="suggestionfollower-btn" as={NavLink} to="/suggestionfollower" className="btn btn-secondary">Suggestions</Button>
-        </Col>
-      </Row>
     </Container>
     
   );

@@ -26,7 +26,7 @@ function SuggestionFollowers() {
         {follow && <Confirmation toggle={setFollow} />}
         <Row>
           {users.map(data => (
-            <Col xs={3} className="mb-5" key={'${data.id}'}>
+            <Col xs={3} className="mt-5 ml-3 mr-3 mb-3" key={'${data.id}'}>
               <UserCard data={data} setFollow={displayConfirmation}/>
             </Col>
           ))}
