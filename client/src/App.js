@@ -16,6 +16,7 @@ import About from "./pages/about";
 import Contact from "./pages/contact";
 import Trending from "./pages/trending";
 import Mixology from "./pages/mixology";
+import SuggestionFollowers from "./pages/SuggestionFollowers";
 
 const App = () => {
  return (
@@ -35,6 +36,7 @@ const App = () => {
        <Route path="/storage" element={<Storage />} />
        <Route path="/trending" element={<Trending />} />
        <Route path="/mixology" element={<Mixology />} />
+       <Route path="/suggestionfollower" element={<SuggestionFollowers />} />
      </Routes>
    </div>
  );

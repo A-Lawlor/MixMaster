@@ -44,3 +44,19 @@
 #mixology-btn:hover {
     transform: scale(1.05);
 }
+
+#suggestionfollower-btn {
+    color: #fff;
+    opacity: 85%;
+    width: 40vh;
+    padding: 2vh;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+    font-size: large;
+}
+
+#suggestionfollower-btn:hover {
+    transform: scale(1.05);
+}
+
