@@ -65,7 +65,7 @@ const handleLogout = () => {
 
                    <Dropdown.Item as={NavLink} to="/following">
                     Following
-                   <Dopdown.Item>
+                   </Dropdown.Item>
                    
                    <Dropdown.Item onClick={handleLogout} style={{ color: "red" }} as={NavLink} to="/">
                     Logout
