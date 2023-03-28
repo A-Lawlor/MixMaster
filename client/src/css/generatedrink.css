@@ -1,0 +1,41 @@
+body{
+    background: linear-gradient(96.7deg, #CE54E2 15.84%, rgba(111, 58, 223, 0.78) 60.85%);
+}
+
+#generate_text{
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+#liqour_buttons {
+    width: 100px; /* Set the width to the same as the height to create a square */
+    height: 100px;
+    margin: 10px;
+    animation: pulse 0.5s;
+    background-color: white;
+    color: black;
+    font-size: small;
+    font-weight: bold;
+  }
+  
+  #taste_buttons {
+    width: 100px; /* Set the width to the same as the height to create a square */
+    height: 100px;
+    margin: 10px;
+    animation: pulse 0.5s;
+    background-color: white;
+    color: black;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+

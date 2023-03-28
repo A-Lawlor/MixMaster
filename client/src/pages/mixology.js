@@ -2,6 +2,8 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import YoutubeEmbed from "../components/youtube.js";
+import "../css/mixology.css";
+
 
 function Mixology() {
   return (
