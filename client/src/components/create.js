@@ -140,10 +140,10 @@ export default function Create() {
        
        <br></br>
 
-       <div className="form-group-taste">
-         <label htmlFor="name">Rating</label>
+       <div className="form-group">
+         <label htmlFor="rating">Rating</label>
          <input
-           type="text"
+           type="number"
            className="form-control"
            id="rating"
            value={form.rating}
