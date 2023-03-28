@@ -35,7 +35,11 @@ export default function Create() {
      window.alert(error);
      return;
    });
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> Main
    setForm({ name: "", liqour: "", taste: "", rating: ""});
    navigate("/");
  }

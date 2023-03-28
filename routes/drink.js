@@ -23,21 +23,8 @@ recordRoutes.route("/drink").get(function (req, res) {
    .find({})
 
    .toArray()
-   //.then ((result) => console.log(result))
    .then ((result) => res.json(result))
    .then(console.log)
-
-
-
-
-
-   /*(err, result) {
-    if (err){ 
-     console.log(err)
-    res.sendStatus(500);
-    }
-    res.json(result);
-  }*/
 });
  
 // This section will help you get a single record by id
@@ -99,10 +86,4 @@ recordRoutes.route("/drink/delete").delete((req, response) => {
  return response.send(JSON.stringify(myobj));
 });
 
-
-
-recordRoutes.route("/hello").get(function (req, res) {
-  res.send('hello')
- });
- 
 module.exports = recordRoutes;

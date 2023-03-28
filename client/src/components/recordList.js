@@ -21,17 +21,11 @@ const Record = (props) => (
  
 export default function RecordList() {
  const [records, setRecords] = useState([]);
+ 
  // This method fetches the records from the database.
  useEffect(() => {
    async function getRecords() {
-    
-    //fetch(`http://localhost:5005/drink`)
-    //.then((response)=>console.log(response))
-    //.then((data) => console.log(data))
-    
-
-     const response = await fetch(`http://localhost:5005/drink`);
-     console.log(response);
+     const response = await fetch(`http://localhost:5005/drink/`);
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
@@ -89,9 +83,7 @@ export default function RecordList() {
      );
    });
  }
-
-
-
+ 
  // This following section will display the table with the records of individuals.
  return (
    <div>
