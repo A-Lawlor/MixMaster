@@ -35,7 +35,7 @@ export default function FavoritesList() {
           <h2 class="drink_header">Gin & Tonic</h2>
           <span class="favorite_star">&#11088;</span>
           <h3 class="author_header">By: MixMaster</h3>
-          <img class="drink_picture" src="../../GinAndTonic.jpg" alt="Profile Picture"/>
+          <img class="drink_picture" src="../../GinAndTonic.jpg" alt="Drink Picture"/>
         </div>
       </div>
     </div>
