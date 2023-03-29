@@ -85,6 +85,3 @@ const Record = (props) => (
       </div>
     );
    }
-    
-
-

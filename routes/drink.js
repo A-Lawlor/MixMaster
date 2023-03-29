@@ -1,4 +1,3 @@
-const { json, response } = require("express");
 const express = require("express");
  
 // recordRoutes is an instance of the express router.
@@ -14,17 +13,27 @@ const ObjectId = require("mongodb").ObjectId;
  
  
 // This section will help you get a list of all the records.
-
-
 recordRoutes.route("/drink").get(function (req, res) {
  let db_connect = dbo.getDb("drinks");
  db_connect
    .collection("drinkfourm")
    .find({})
-
    .toArray()
+   //.then ((result) => console.log(result))
    .then ((result) => res.json(result))
    .then(console.log)
+
+
+
+
+
+   /*(err, result) {
+    if (err){ 
+     console.log(err)
+    res.sendStatus(500);
+    }
+    res.json(result);
+  }*/
 });
  
 // This section will help you get a single record by id
@@ -44,9 +53,9 @@ recordRoutes.route("/drink/add").post(function (req, response) {
  let db_connect = dbo.getDb();
  let myobj = {
    name: req.body.name,
-   liqour: req.body.position,
-   taste: req.body.position,
-   rating: req.body.level
+   liqour: req.body.liqour,
+   taste: req.body.taste,
+   rating: req.body.rating
  };
  db_connect.collection("drinkfourm").insertOne(myobj, function (err, res) {
    if (err) throw err;
@@ -77,13 +86,13 @@ recordRoutes.route("/update/:id").post(function (req, response) {
  
 // This section will help you delete a record
 recordRoutes.route("/drink/delete").delete((req, response) => {
- let db_connect = dbo.getDb();
- let myobj = {_id:new ObjectId(req.body._id)};
- db_connect.collection("drinkfourm").deleteOne(myobj, function (err, res) {
-   if (err) throw err;
-   response.json(res);
+  let db_connect = dbo.getDb();
+  let myobj = {_id:new ObjectId(req.body._id)};
+  db_connect.collection("drinkfourm").deleteOne(myobj, function (err, res) {
+    if (err) throw err;
+    response.json(res);
+  });
+  return response.send(JSON.stringify(myobj));
  });
- return response.send(JSON.stringify(myobj));
-});
-
-module.exports = recordRoutes;
+ 
+ module.exports = recordRoutes;
