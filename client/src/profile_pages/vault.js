@@ -21,10 +21,27 @@ export default function Vault() {
       navigate("../storage");
   }
  return (  
+<<<<<<< Updated upstream
   <div class="container-fluid" style={divStyle}>
     <div class="row">
       <div class="col text-center">
         <button onClick={clickMe} class = "button-84v">View Storage</button>
+=======
+  <div className="container-fluid" style={divStyle}>
+    <div className="row">
+      <div className="col text-center mt-5">
+        <button onClick={toEditProfile} className = "button-84v">Edit Profile</button>
+      </div>
+    </div>
+    <div className="row">
+      <div className="col text-center mt-5">
+        <button onClick={toFavoritesList} className = "button-84v">Favorites List</button>
+      </div>
+    </div>
+    <div className="row">
+      <div className="col text-center mt-5">
+        <button onClick={toStorage} className = "button-84v">View Storage</button>
+>>>>>>> Stashed changes
       </div>
     </div>
   </div>

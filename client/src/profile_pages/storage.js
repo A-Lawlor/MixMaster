@@ -34,6 +34,7 @@ export default function Storage() {
   }
 
  return (  
+<<<<<<< Updated upstream
   <div class="container-fluid" style={divStyle}>
     <div class="row">
       <div class="col-sm mt-1" align="center">
@@ -65,6 +66,37 @@ export default function Storage() {
             <button onClick={addClicked} class = "button-84s" id = "button-add">Add</button>
             <button onClick={editClicked} class = "button-84s" id = "button-edit">Edit</button>
           </div>
+=======
+  <div className="container-fluid" style={divStyle}>
+    <div className="row">
+      <div className="col-12 col-sm-6 mt-3" align="center">
+        <button onClick={backClicked} className = "button-84s">Back</button>
+      </div>
+      <div className="col-12 col-sm-6 mt-3" align="center">
+        <button onClick={findWithInvClicked} className = "button-84s button-two-line">Find a Drink to make<br></br> with my Inventory</button>
+      </div>
+    </div>
+    <div className="row mt-5">
+      <div className="col-sm" align="center">
+          <h1 id = "storagelist_header">Storage List</h1>
+      </div>
+    </div>
+    <div className="row mt-5">
+      <div className="col-sm" align="center">
+          <ul className="ingredients_wrapper">
+            <ul className="ingredient">Rum</ul>
+            <ul className="ingredient">Coke</ul>
+            <ul className="ingredient">Whiskey</ul>
+            <ul className="ingredient">Citron</ul>
+          </ul>
+      </div>
+    </div>
+    <div className="row">
+      <div className="col-sm" align="center">
+        <div id = "button-div">
+          <button onClick={addClicked} className = "button-84s button-special">Add</button>
+          <button onClick={editClicked} className = "button-84s" id = "button-edit">Edit</button>
+>>>>>>> Stashed changes
         </div>
       </div>
     </div>
