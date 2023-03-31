@@ -28,20 +28,20 @@ export default function Vault() {
       navigate("/favoriteslist");
   }
  return (  
-  <div class="container-fluid" style={divStyle}>
-    <div class="row">
-      <div class="col text-center mt-5">
-        <button onClick={toEditProfile} class = "button-84v">Edit Profile</button>
+  <div className="container-fluid" style={divStyle}>
+    <div className="row">
+      <div className="col text-center mt-5">
+        <button onClick={toEditProfile} className = "button-84v">Edit Profile</button>
       </div>
     </div>
-    <div class="row">
-      <div class="col text-center mt-5">
-        <button onClick={toFavoritesList} class = "button-84v">Favorites List</button>
+    <div className="row">
+      <div className="col text-center mt-5">
+        <button onClick={toFavoritesList} className = "button-84v">Favorites List</button>
       </div>
     </div>
-    <div class="row">
-      <div class="col text-center mt-5">
-        <button onClick={toStorage} class = "button-84v">View Storage</button>
+    <div className="row">
+      <div className="col text-center mt-5">
+        <button onClick={toStorage} className = "button-84v">View Storage</button>
       </div>
     </div>
   </div>
