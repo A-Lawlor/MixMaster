@@ -11,12 +11,15 @@ module.exports = {
   connectToServer: async (callback) => {
     await client.connect();
     console.log("Connected successfully to server");
-    _db = client.db("drinks");
-    _db = client.db("ingredients");
+    _dbDrinks = client.db("drinks");
+    _dbIngredient = client.db("ingredients");
     console.log("Successfully connected to MongoDB");
   },
 
-  getDb: function () {
-    return _db;
+  getDrinksDb: function () {
+    return _dbDrinks;
+  },
+  getIngredientsDb: function () {
+    return _dbIngredient;
   },
 };

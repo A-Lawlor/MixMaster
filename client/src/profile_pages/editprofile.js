@@ -30,37 +30,37 @@ export default function EditProfile() {
   }
 
  return (
-  <div class="container-fluid" style={divStyle}>
-    <div class = "editprofile_container">
-        <div class="row">
-            <div class="col-12 mt-4">
+  <div className="container-fluid" style={divStyle}>
+    <div className = "editprofile_container">
+        <div className="row">
+            <div className="col-12 mt-4">
                 <h1 id="editprofile_header">Edit Profile:</h1>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 mt-3">
+        <div className="row">
+            <div className="col-12 mt-3">
                 <TextField id="name" label="Name" variant="outlined"/>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 mt-3">
+        <div className="row">
+            <div className="col-12 mt-3">
                 <TextField id="username" label="Username" variant="outlined"/>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 mt-3">
+        <div className="row">
+            <div className="col-12 mt-3">
                 <h2>Update Picture:</h2>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <button onClick={browseClicked} class = "button-84s button-special editprofile_buttons">Browse</button>
-                <button onClick={resetClicked} class = "button-84s button-darker editprofile_buttons">Reset</button>
-                <img class="profile_picture" src="../../DefaultPicture.jpg" alt="Profile Picture"/>
+        <div className="row">
+            <div className="col-12">
+                <button onClick={browseClicked} className = "button-84s button-special editprofile_buttons">Browse</button>
+                <button onClick={resetClicked} className = "button-84s button-darker editprofile_buttons">Reset</button>
+                <img className="profile_picture" src="../../DefaultPicture.jpg" alt="Profile Pic Preview"/>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 mt-5">
+        <div className="row">
+            <div className="col-12 mt-5">
                 <TextField
                     id="outlined-multiline-static"
                     label="About Me"
@@ -70,10 +70,10 @@ export default function EditProfile() {
                 />
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 mt-3">
-                <button onClick={saveClicked} class = "button-84s button-special editprofile_buttons">Save</button>
-                <button onClick={cancelClicked} class = "button-84s button-darker editprofile_buttons">Cancel</button>
+        <div className="row">
+            <div className="col-12 mt-3">
+                <button onClick={saveClicked} className = "button-84s button-special editprofile_buttons">Save</button>
+                <button onClick={cancelClicked} className = "button-84s button-darker editprofile_buttons">Cancel</button>
             </div>
         </div>
     </div>

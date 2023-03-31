@@ -14,7 +14,6 @@ const divStyle = {
     backgroundSize: 'cover'
 };
 
-
 export default function StorageAdd() {
 
     const [ingredient_data, setIngredientData] = useState([]);
@@ -22,21 +21,15 @@ export default function StorageAdd() {
     useEffect(() => {
     async function getIngredientData() {  
         const response = await fetch(`http://localhost:5005/ingredient`);
-        console.log(response);
-
         if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
+            const message = `An error occurred: ${response.statusText}`;
+            window.alert(message);
+            return;
         }
-        
         const ingredient_data = await response.json();
-        console.log(ingredient_data);
         setIngredientData(ingredient_data);
     }
-   
     getIngredientData()       
- 
     return;
  } , [ingredient_data.length]);
 
@@ -50,33 +43,33 @@ export default function StorageAdd() {
   }
 
  return (  
-  <div class="container-fluid" style={divStyle}>
-    <div class="row">
-      <div class="col-sm mt-3" align="center">
+  <div className="container-fluid" style={divStyle}>
+    <div className="row">
+      <div className="col-sm mt-3" align="center">
         <div id = "top_button_placeholder"></div>
       </div>
     </div>
-    <div class="row mt-5">
-        <div class="col-sm" align="center">
+    <div className="row mt-5">
+        <div className="col-sm" align="center">
             <h1 id = "storagelist_header">Storage List</h1>
         </div>
     </div>
-    <div class="row mt-5">
-        <div class="col-sm" align="center">
-            <ul class="ingredients_wrapper">
+    <div className="row mt-5">
+        <div className="col-sm" align="center">
+            <ul className="ingredients_wrapper">
                 {ingredient_data.map( i => {
                     return(
-                        <ul class="ingredient">{i.name}</ul>
+                        <ul className="ingredient" key={i._id}>{i.name}</ul>
                     )
                 })}
             </ul>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm" align="center">
+    <div className="row">
+        <div className="col-sm" align="center">
             <div id = "button-div">
-            <button onClick={doneClicked} class = "button-84s button-special" id = "button-done">Done</button>
-            <button onClick={editClicked} class = "button-84s" id = "button-edit">Edit</button>
+            <button onClick={doneClicked} className = "button-84s button-special" id = "button-done">Done</button>
+            <button onClick={editClicked} className = "button-84s" id = "button-edit">Edit</button>
             </div>
         </div>
     </div>

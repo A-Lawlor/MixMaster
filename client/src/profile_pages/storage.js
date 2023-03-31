@@ -33,35 +33,35 @@ export default function Storage() {
   }
 
  return (  
-  <div class="container-fluid" style={divStyle}>
-    <div class="row">
-      <div class="col-12 col-sm-6 mt-3" align="center">
-        <button onClick={backClicked} class = "button-84s">Back</button>
+  <div className="container-fluid" style={divStyle}>
+    <div className="row">
+      <div className="col-12 col-sm-6 mt-3" align="center">
+        <button onClick={backClicked} className = "button-84s">Back</button>
       </div>
-      <div class="col-12 col-sm-6 mt-3" align="center">
-        <button onClick={findWithInvClicked} class = "button-84s button-two-line">Find a Drink to make<br></br> with my Inventory</button>
+      <div className="col-12 col-sm-6 mt-3" align="center">
+        <button onClick={findWithInvClicked} className = "button-84s button-two-line">Find a Drink to make<br></br> with my Inventory</button>
       </div>
     </div>
-    <div class="row mt-5">
-      <div class="col-sm" align="center">
+    <div className="row mt-5">
+      <div className="col-sm" align="center">
           <h1 id = "storagelist_header">Storage List</h1>
       </div>
     </div>
-    <div class="row mt-5">
-      <div class="col-sm" align="center">
-          <ul class="ingredients_wrapper">
-            <ul class="ingredient">Rum</ul>
-            <ul class="ingredient">Coke</ul>
-            <ul class="ingredient">Whiskey</ul>
-            <ul class="ingredient">Citron</ul>
+    <div className="row mt-5">
+      <div className="col-sm" align="center">
+          <ul className="ingredients_wrapper">
+            <ul className="ingredient">Rum</ul>
+            <ul className="ingredient">Coke</ul>
+            <ul className="ingredient">Whiskey</ul>
+            <ul className="ingredient">Citron</ul>
           </ul>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm" align="center">
+    <div className="row">
+      <div className="col-sm" align="center">
         <div id = "button-div">
-          <button onClick={addClicked} class = "button-84s button-special">Add</button>
-          <button onClick={editClicked} class = "button-84s" id = "button-edit">Edit</button>
+          <button onClick={addClicked} className = "button-84s button-special">Add</button>
+          <button onClick={editClicked} className = "button-84s" id = "button-edit">Edit</button>
         </div>
       </div>
     </div>

@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import {AiFillStar } from "react-icons/ai";
 import "../css/profile.css"; 
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
@@ -23,19 +22,19 @@ export default function FavoritesList() {
     navigate("/vault");
   }
  return (  
-  <div class="container-fluid" style={divStyle}>
-    <div class="row">
-      <div class="col-12 mt-3" align="center">
-        <button onClick={backClicked} class = "button-84s">Back</button>
+  <div className="container-fluid" style={divStyle}>
+    <div className="row">
+      <div className="col-12 mt-3" align="center">
+        <button onClick={backClicked} className = "button-84s">Back</button>
       </div>
     </div>
-    <div class="row mt-5">
-      <div class="col-sm" align="center">
-        <div class="drink_wrapper">
-          <h2 class="drink_header">Gin & Tonic</h2>
-          <span class="favorite_star">&#11088;</span>
-          <h3 class="author_header">By: MixMaster</h3>
-          <img class="drink_picture" src="../../GinAndTonic.jpg" alt="Drink Picture"/>
+    <div className="row mt-5">
+      <div className="col-sm" align="center">
+        <div className="drink_wrapper">
+          <h2 className="drink_header">Gin & Tonic</h2>
+          <span className="favorite_star">&#11088;</span>
+          <h3 className="author_header">By: MixMaster</h3>
+          <img className="drink_picture" src="../../GinAndTonic.jpg" alt="Favorite Drink"/>
         </div>
       </div>
     </div>

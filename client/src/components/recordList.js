@@ -68,8 +68,7 @@ export default function RecordList() {
     window.alert(error);
     return;
   });
-   
- }
+}
  
  // This method will map out the records on the table
  function recordList() {
