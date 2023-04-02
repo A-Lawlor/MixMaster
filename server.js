@@ -13,12 +13,6 @@ const dbo = require("./db/conn");
 //DB Config
 mongoose.connect(process.env.MONGO_URI).catch((err) => console.log(err));
 
-
-app.get("/", (req, res) => {
-  res.send("express is here");
-});
-
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
