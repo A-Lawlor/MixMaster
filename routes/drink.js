@@ -70,15 +70,37 @@ recordRoutes.route("/update/:id").post(function (req, response) {
    });
 });
  
-// This section will help you delete a record
-recordRoutes.route("/drink/delete").delete((req, response) => {
-  let db_connect = dbo.getDrinksDb();
-  let myobj = {_id:new ObjectId(req.body._id)};
-  db_connect.collection("drinkfourm").deleteOne(myobj, function (err, res) {
-    if (err) throw err;
-    response.json(res);
-  });
-  return response.send(JSON.stringify(myobj));
- });
  
- module.exports = recordRoutes;
+// This section will help you update a record by id.
+recordRoutes.route("/update/:id").post(function (req, response) {
+  let db_connect = dbo.getDrinksDb();
+  let myquery = { _id: ObjectId(req.params.id) };
+  let newvalues = {
+    $set: {
+     name: req.body.name,
+     liqour: req.body.position,
+     taste: req.body.position,
+     rating: req.body.level
+    },
+  };
+  db_connect
+    .collection("drinkfourm")
+    .updateOne(myquery, newvalues, function (err, res) {
+      if (err) throw err;
+      console.log("1 document updated");
+      response.json(res);
+    });
+ });
+  
+ // This section will help you delete a record
+ recordRoutes.route("/drink/delete").delete((req, response) => {
+   let db_connect = dbo.getDrinksDb();
+   let myobj = {_id:new ObjectId(req.body._id)};
+   db_connect.collection("drinkfourm").deleteOne(myobj, function (err, res) {
+     if (err) throw err;
+     response.json(res);
+   });
+   return response.send(JSON.stringify(myobj));
+  });
+  
+  module.exports = recordRoutes;
