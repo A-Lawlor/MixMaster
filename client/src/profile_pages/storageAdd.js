@@ -21,10 +21,7 @@ export default function StorageAdd() {
     useEffect(() => {
     async function getIngredientData() {  
         const location = window.location.hostname;
-        const response = await fetch(`http://localhost:5005/ingredient`);
-        if(process.env.NODE_ENV === "production"){
-            response = await fetch(`https://mix-master.herokuapp.com/ingredient`);
-        }
+        const response = await fetch(`https://mix-master.herokuapp.com/ingredient`);
         if (!response.ok) {
             const message = `An error occurred: ${response.statusText}`;
             window.alert(message);
