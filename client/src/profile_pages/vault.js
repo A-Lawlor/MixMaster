@@ -6,11 +6,12 @@ import "bootstrap/dist/css/bootstrap.css";
 
 const divStyle = {
     width: '100%',
-    height: '88.1vh',
-    paddingTop: '40vh',
+    height: '100vh',
+    paddingTop: '10vh',
     backgroundImage: 'url(../../WineCellar.jpg)',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'
+    backgroundSize: 'cover',
+    backgroundColor: '#7f00c9'
 };
 
 

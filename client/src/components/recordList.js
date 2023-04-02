@@ -32,15 +32,17 @@ export default function RecordList() {
        window.alert(message);
        return;
      }
- 
+     
      const records = await response.json();
+     console.log(records);
      setRecords(records);
    }
- 
-   getRecords();
+   
+   getRecords()       
  
    return;
- }, [records.length]);
+ } , [records.length]);
+
  
  // This method will delete a record
  async function deleteRecord(id) {

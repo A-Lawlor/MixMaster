@@ -39,9 +39,9 @@ recordRoutes.route("/drink/add").post(function (req, response) {
  let db_connect = dbo.getDrinksDb();
  let myobj = {
    name: req.body.name,
-   liqour: req.body.position,
-   taste: req.body.position,
-   rating: req.body.level
+   liqour: req.body.liqour,
+   taste: req.body.taste,
+   rating: req.body.rating
  };
  db_connect.collection("drinkfourm").insertOne(myobj, function (err, res) {
    if (err) throw err;
@@ -69,6 +69,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
      response.json(res);
    });
 });
+ 
  
 // This section will help you update a record by id.
 recordRoutes.route("/update/:id").post(function (req, response) {
