@@ -28,6 +28,9 @@ export default function RecordList() {
   useEffect(() => {
     async function getRecords() {
       const response = await fetch(`http://localhost:5005/drink/`);
+        if(process.env.NODE_ENV === "production"){
+            response = await fetch(`https://mix-master.herokuapp.com/drink`);
+        }
   
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
