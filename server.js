@@ -6,12 +6,8 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 app.use(require("./routes/drink"));
-<<<<<<< Updated upstream
-// get driver connection
-=======
 app.use(require("./routes/ingredient"));
 const { default: mongoose } = require("mongoose");
->>>>>>> Stashed changes
 const dbo = require("./db/conn");
 
 //DB Config

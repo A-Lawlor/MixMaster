@@ -44,15 +44,6 @@ export default function RecordList() {
  
  // This method will delete a record
  async function deleteRecord(id) {
-<<<<<<< Updated upstream
-   await fetch(`http://localhost:5005/${id}`, {
-     method: "DELETE"
-   });
- 
-   const newRecords = records.filter((el) => el._id !== id);
-   setRecords(newRecords);
- }
-=======
    await fetch("http://localhost:5005/drink/delete", {
      method: "DELETE",
      headers: {
@@ -76,7 +67,6 @@ export default function RecordList() {
     return;
   });
 }
->>>>>>> Stashed changes
  
  // This method will map out the records on the table
  function recordList() {

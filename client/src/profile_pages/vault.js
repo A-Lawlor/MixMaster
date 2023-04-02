@@ -17,16 +17,16 @@ const divStyle = {
 export default function Vault() {
   const navigate = useNavigate();
   
-  function clickMe() {
-      navigate("../storage");
+  function toStorage() {
+      navigate("/storage");
+  }
+  function toEditProfile() {
+      navigate("/editprofile");
+  }
+  function toFavoritesList() {
+      navigate("/favoriteslist");
   }
  return (  
-<<<<<<< Updated upstream
-  <div class="container-fluid" style={divStyle}>
-    <div class="row">
-      <div class="col text-center">
-        <button onClick={clickMe} class = "button-84v">View Storage</button>
-=======
   <div className="container-fluid" style={divStyle}>
     <div className="row">
       <div className="col text-center mt-5">
@@ -41,7 +41,6 @@ export default function Vault() {
     <div className="row">
       <div className="col text-center mt-5">
         <button onClick={toStorage} className = "button-84v">View Storage</button>
->>>>>>> Stashed changes
       </div>
     </div>
   </div>

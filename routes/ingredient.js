@@ -13,11 +13,7 @@ const ObjectId = require("mongodb").ObjectId;
 
 // This section will help you get a list of all the ingredients.
 ingredientRoutes.route("/ingredient").get(function (req, res) {
-<<<<<<< HEAD
- let db_connect = dbo.getDbIngredient("ingredients");
-=======
  let db_connect = dbo.getIngredientsDb("ingredients");
->>>>>>> 506ab3338ad01cfa7cb8b27dea266f7e102a0142
  db_connect
    .collection("ingridientslist")
    .find({})

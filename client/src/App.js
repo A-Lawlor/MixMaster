@@ -10,6 +10,7 @@ import Edit from "./components/edit";
 import Create from "./components/create";
 import Vault from "./profile_pages/vault";
 import Storage from "./profile_pages/storage";
+import StorageAdd from "./profile_pages/storageAdd";
 import Homepage from "./pages/homepage";
 import GenerateDrink from "./pages/generatedrink";
 import About from "./pages/about";
@@ -28,6 +29,7 @@ const App = () => {
        <Route path="/homepage" element={<Homepage />} />
        <Route path="/generatedrink" element={<GenerateDrink />} />
        <Route path="/storage" element={<Storage />} />
+       <Route path="/storageadd" element={<StorageAdd />} />
        <Route path="/vault" element={<Vault />} />
        <Route path="/about" element={<About />} />
        <Route path="/contact" element={<Contact />} />

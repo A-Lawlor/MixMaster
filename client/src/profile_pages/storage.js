@@ -1,17 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import "../css/storage.css"; 
+import "../css/profile.css"; 
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
 
 const divStyle = {
     width: '100%',
-    height: '88.1vh',
+    height: '100vh',
     paddingTop: '10vh',
     backgroundImage: 'url(../../Storage.jpg)',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'
+    backgroundSize: 'cover',
+    backgroundColor: '#7f00c9'
 };
 
 
@@ -21,52 +22,17 @@ export default function Storage() {
   function findWithInvClicked() {
       navigate("/");
   }
-
   function backClicked() {
-    navigate("../vault");
+    navigate("/vault");
   }
-
   function addClicked() {
-    alert("Adding ingredient to your storage");
+    navigate("/storageadd");
   }
   function editClicked() {
-    alert("Press X to remove ingredient from storage")
+    alert("Press X to remove ingredient from storage");
   }
 
  return (  
-<<<<<<< Updated upstream
-  <div class="container-fluid" style={divStyle}>
-    <div class="row">
-      <div class="col-sm mt-1" align="center">
-        <button onClick={backClicked} class = "button-84s">Back</button>
-      </div>
-      <div class="col-sm mt-1" align="center">
-      </div>
-      <div class="col-sm mt-1" align="center">
-        <button onClick={findWithInvClicked} class = "button-84s" id = "button-two-line">Find a Drink to make<br></br> with my Inventory</button>
-      </div>
-      <div class="row mt-4">
-        <div class="col-sm" align="center">
-            <h1>Storage List</h1>
-        </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-sm" align="center">
-            <ul class="ingredients_wrapper">
-              <ul class="ingredient">Rum</ul>
-              <ul class="ingredient">Coke</ul>
-              <ul class="ingredient">Whiskey</ul>
-              <ul class="ingredient">Citron</ul>
-            </ul>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm" align="center">
-          <div id = "button-div">
-            <button onClick={addClicked} class = "button-84s" id = "button-add">Add</button>
-            <button onClick={editClicked} class = "button-84s" id = "button-edit">Edit</button>
-          </div>
-=======
   <div className="container-fluid" style={divStyle}>
     <div className="row">
       <div className="col-12 col-sm-6 mt-3" align="center">
@@ -96,7 +62,6 @@ export default function Storage() {
         <div id = "button-div">
           <button onClick={addClicked} className = "button-84s button-special">Add</button>
           <button onClick={editClicked} className = "button-84s" id = "button-edit">Edit</button>
->>>>>>> Stashed changes
         </div>
       </div>
     </div>
