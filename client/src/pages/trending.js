@@ -4,12 +4,17 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 
 const Record = (props) => (
   <tr>
+    <td>{props.record.image}</td>
     <td>{props.record.name}</td>
     <td>{props.record.liqour}</td>
     <td>{props.record.taste}</td>
     <td>{props.record.rating}</td>
+    <td>{props.record.likes}</td>
+    <td>{props.record.dislikes}</td>
+    
+    
     <td>
-      <Link className="btn btn-link" to={`//components/edit/${props.record._id}`}>Edit</Link> |
+      
       <button className="btn btn-link"
         onClick={() => {
           props.deleteRecord(props.record._id);
@@ -19,6 +24,7 @@ const Record = (props) => (
       </button>
     </td>
   </tr>
+  //    <Link className="btn btn-link" to={`//components/edit/${props.record._id}`}>Edit</Link> |
 );
     
 export default function RecordList() {
@@ -94,10 +100,15 @@ export default function RecordList() {
         <table className="table table-striped" style={{ marginTop: 20 }}>
           <thead>
             <tr>
+              <th>image</th>
               <th>Drink Name</th>
               <th>Liquor</th>
               <th>Taste</th>
               <th>Rating</th>
+              <th>likes</th>
+              <th>dislikes</th>
+              
+              
             </tr>
           </thead>
           <tbody>{recordList()}</tbody>

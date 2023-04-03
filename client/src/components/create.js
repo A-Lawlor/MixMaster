@@ -3,10 +3,14 @@ import { useNavigate } from "react-router";
  
 export default function Create() {
  const [form, setForm] = useState({
+   image: "",
    name: "",
    liqour: "",
    taste: "",
    rating: "",
+   likes: "",
+   dislikes: ""
+   
  });
  const navigate = useNavigate();
  
@@ -45,6 +49,18 @@ export default function Create() {
    <div>
      <h3>Create New Drink</h3>
      <form onSubmit={onSubmit}>
+       <div className="form-group">
+         <label htmlFor="image">image</label>
+         <input
+           type="file"
+           accept="image/png, image/jpeg"
+           className="form-control"
+           id="image"
+           value={form.image}
+           onChange={(e) => updateForm({ image: e.target.value })}
+         />
+       </div>
+
        <div className="form-group">
          <label htmlFor="name">Drink Name</label>
          <input
@@ -150,6 +166,27 @@ export default function Create() {
            onChange={(e) => updateForm({ rating: e.target.value })}
          />
        </div>
+       <div className="form-group">
+         <label htmlFor="likes">likes</label>
+         <input
+           type="number"
+           className="form-control"
+           id="likes"
+           value={form.likes}
+           onChange={(e) => updateForm({ likes: e.target.value })}
+         />
+       </div>
+       <div className="form-group">
+         <label htmlFor="dislikes">dislikes</label>
+         <input
+           type="number"
+           className="form-control"
+           id="dislikes"
+           value={form.dislikes}
+           onChange={(e) => updateForm({ dislikes: e.target.value })}
+         />
+       </div>
+
 
        <br></br>
 

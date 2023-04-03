@@ -38,10 +38,13 @@ recordRoutes.route("/drink/:id").get(function (req, res) {
 recordRoutes.route("/drink/add").post(function (req, response) {
  let db_connect = dbo.getDrinksDb();
  let myobj = {
-   name: req.body.name,
-   liqour: req.body.liqour,
-   taste: req.body.taste,
-   rating: req.body.rating
+  image: req.body.image,
+  name: req.body.name,
+  liqour: req.body.liqour,
+  taste: req.body.taste,
+  rating: req.body.rating,
+  likes: req.body.likes,
+  dislikes: req.body.dislikes
  };
  db_connect.collection("drinkfourm").insertOne(myobj, function (err, res) {
    if (err) throw err;
@@ -54,11 +57,14 @@ recordRoutes.route("/update/:id").post(function (req, response) {
  let db_connect = dbo.getDrinksDb();
  let myquery = { _id: ObjectId(req.params.id) };
  let newvalues = {
-   $set: {
+  $set: {
+    image: req.body.image,
     name: req.body.name,
-    liqour: req.body.position,
-    taste: req.body.position,
-    rating: req.body.level
+    liqour: req.body.liqour,
+    taste: req.body.taste,
+    rating: req.body.rating,
+    likes: req.body.likes,
+    dislikes: req.body.dislikes
    },
  };
  db_connect
@@ -77,10 +83,24 @@ recordRoutes.route("/update/:id").post(function (req, response) {
   let myquery = { _id: ObjectId(req.params.id) };
   let newvalues = {
     $set: {
+     image: req.body.image,
      name: req.body.name,
-     liqour: req.body.position,
-     taste: req.body.position,
-     rating: req.body.level
+     liqour: req.body.liqour,
+     taste: req.body.taste,
+     rating: req.body.rating,
+     likes: req.body.likes,
+     dislikes: req.body.dislikes
+     
+     
+
+
+     /*<td>{props.record.name}</td>
+    <td>{props.record.liqour}</td>
+    <td>{props.record.taste}</td>
+    <td>{props.record.likes}</td>
+    <td>{props.record.dislikes}</td>
+    <td>{props.record.rating}</td>
+    <td>{props.record.image}</td>*/ 
     },
   };
   db_connect
