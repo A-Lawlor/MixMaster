@@ -7,6 +7,7 @@ app.use(cors());
 app.use(express.json());
 app.use(require("./routes/drink"));
 app.use(require("./routes/ingredient"));
+app.use(require("./routes/userstorage"));
 const { default: mongoose } = require("mongoose");
 const dbo = require("./db/conn");
 

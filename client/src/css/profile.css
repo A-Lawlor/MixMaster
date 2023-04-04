@@ -205,3 +205,12 @@
     text-align: right;
     font-size:40px;
 }
+
+.ingredient-button {
+    float: right;
+    background-color: transparent;
+    padding: 0;
+    padding-right: 10px;
+    border: none;
+    display: inline;
+}

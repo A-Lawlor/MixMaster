@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router";
+import $ from "jquery";
 import "../css/profile.css"; 
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
@@ -20,11 +21,16 @@ const divStyle = {
 };
 
 const UsersIngredient = (props) => (
-  <ul className="ingredient" key={props.index}>{props.ingredient}</ul>
+  <ul className="ingredient" key={props.index} id={props.ingredient+"-listitem"}>{props.ingredient}
+    <button className="ingredient-button" onClick={() => {
+      props.deleteUserIngredient(props.user, props.ingredient, props.index);
+    }}
+    >&#x274C;</button>
+  </ul>
 );
 
 
-export default function Storage() {
+export default function StorageEdit() {
   const [users_ingredients, setUsersIngredients] = useState([]);
 
   // This method fetches the user's ingredients from the database.
@@ -46,6 +52,38 @@ export default function Storage() {
     return;
   }, [users_ingredients.length]);
 
+  
+  async function deleteUserIngredient(_user, _name, index) {
+    const deleteIngredient = { 
+        name: _name, 
+        username: _user.username
+    };
+    await fetch("http://localhost:5005/userstorage/delete", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(deleteIngredient),
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+    })
+    .then(() => {
+        $("#"+_name+"-listitem").remove();
+        const currentUser = users_ingredients.filter((user) => user.username == "Dalton"); // REPLACE WITH LOGGED IN USERNAME VARIABLE
+        currentUser[0].my_ingredients.slice(index);
+        //const newUsersIngredients = currentUser[0].my_ingredients;
+        //setUsersIngredients(newUsersIngredients);
+        return;
+    })
+    .catch(error => {
+        window.alert(error);
+        return;
+    });
+  }
+
   function ingredientsList() {
     return(users_ingredients.map( user => {
       if(user.username == "Dalton") { // REPLACE WITH LOGGED IN USERNAME VARIABLE
@@ -53,7 +91,9 @@ export default function Storage() {
           user.my_ingredients.map( (ingredient, index) => {
             return(
               <UsersIngredient
+                user={user}
                 ingredient={ingredient}
+                deleteUserIngredient={() => deleteUserIngredient(user, ingredient, index)}
                 key={index}
               />
             )
@@ -65,28 +105,16 @@ export default function Storage() {
 
   const navigate = useNavigate();
 
-  function findWithInvClicked() {
-      navigate("/");
-  }
-  function backClicked() {
-    navigate("/vault");
-  }
-  function addClicked() {
-    navigate("/storageadd");
-  }
-  function editClicked() {
-    navigate("/storageedit");
+  function doneClicked() {
+    navigate("/storage");
   }
 
  return (  
   <div className="container-fluid" style={divStyle}>
     <div className="row">
-      <div className="col-12 col-sm-6 mt-3" align="center">
-        <button onClick={backClicked} className = "button-84s">Back</button>
-      </div>
-      <div className="col-12 col-sm-6 mt-3" align="center">
-        <button onClick={findWithInvClicked} className = "button-84s button-two-line">Find a Drink to make<br></br> with my Inventory</button>
-      </div>
+        <div className="col-sm mt-3" align="center">
+            <div id = "top_button_placeholder"></div>
+        </div>
     </div>
     <div className="row mt-5">
       <div className="col-sm" align="center">
@@ -103,8 +131,7 @@ export default function Storage() {
     <div className="row">
       <div className="col-sm" align="center">
         <div id = "button-div">
-          <button onClick={addClicked} className = "button-84s button-special">Add</button>
-          <button onClick={editClicked} className = "button-84s" id = "button-edit">Edit</button>
+          <button onClick={doneClicked} className = "button-84s button-special">Done</button>
         </div>
       </div>
     </div>
