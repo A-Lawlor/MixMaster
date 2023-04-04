@@ -6,10 +6,14 @@ import "../css/profile.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 const divStyle = {
+    background: "linear-gradient(#7000FF 0, rgba(175, 122, 243, 80) 35%, #1B00C3 100%)",
     width: '100%',
-    height: '100vh',
-    paddingTop: '5vh',
-    background: "linear-gradient(#7000FF 0, rgba(175, 122, 243, 80) 35%, #1B00C3 100%)"
+    height: '100%',
+    paddingTop: '10vh',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    zIndex: -1
 };
 
 

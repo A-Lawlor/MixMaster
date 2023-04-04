@@ -1,5 +1,5 @@
 const { MongoClient } = require("mongodb");
-const Db = process.env.ATLAS_URI;
+const Db = process.env.MONGO_URI;
  
 let _db;
 const client = new MongoClient(Db, {
@@ -13,6 +13,7 @@ module.exports = {
     console.log("Connected successfully to server");
     _dbDrinks = client.db("drinks");
     _dbIngredient = client.db("ingredients");
+    _dbUserStorage = client.db("users");
     console.log("Successfully connected to MongoDB");
   },
 
@@ -21,5 +22,8 @@ module.exports = {
   },
   getIngredientsDb: function () {
     return _dbIngredient;
+  },
+  getUsersStorageDb: function () {
+    return _dbUserStorage;
   },
 };
