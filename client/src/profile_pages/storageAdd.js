@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import "../css/profile.css"; 
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
+const cors = require("cors");
 
 const divStyle = {
     width: '100%',
