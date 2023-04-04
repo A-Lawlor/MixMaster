@@ -24,8 +24,11 @@ export default function StorageAdd() {
 
         if((process.env.NODE_ENV === 'production')){
             console.log("In production");
+        } else {
+            console.log("Local Testing");
         }
-        const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://your-app-name.herokuapp.com/ingredient' : 'http://localhost:5005/ingredient');
+        
+        const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/ingredient' : 'http://localhost:5005/ingredient');
         if (!response.ok) {
             const message = `An error occurred: ${response.statusText}`;
             window.alert(message);
