@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink,Link } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
-const cors = require("cors");
 
 const Record = (props) => (
   <tr>
