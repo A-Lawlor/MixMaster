@@ -123,11 +123,11 @@ export default function Navbar() {
                   </span>
                 </p>
                 <Form ref={formRef} onSubmit={handleLogin}>
-                <Form.Group controlId="formBasicEmail">
+                <Form.Group controlId="formBasicUsername">
                   <Form.Label>Email</Form.Label>
                     <Form.Control
                       type="email"
-                      name="email"
+                      name="username"
                       placeholder="Enter email"
                       required
                     />
