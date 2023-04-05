@@ -30,10 +30,7 @@ export default function Storage() {
   // This method fetches the user's ingredients from the database.
   useEffect(() => {
     async function getUsersIngredients() {
-      const response = await fetch(`http://localhost:5005/userstorage/`);
-      if(process.env.NODE_ENV === "production"){
-          response = await fetch(`https://mix-master.herokuapp.com/userstorage`);
-      }
+      const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage' : 'http://localhost:5005/userstorage');
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         window.alert(message);
