@@ -4,17 +4,26 @@ import { Button, Dropdown, Modal, Form } from "react-bootstrap";
 import "../css/navbar.css"
 
 export default function Navbar() {
-  const [show, setShow] = useState(false);
+  const [loginShow, setLoginShow] = useState(false);
+  const [registerShow, setRegisterShow] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const formRef = useRef(null);
 
-  const handleClose = () => {
-    setShow(false);
+
+  //Login Close function
+  const handleLoginClose = () => {
+    setLoginShow(false);
     formRef.current.reset();
   };
 
-  const handleShow = () => setShow(true);
+  //Register Close function
+  const handleRegisterClose = () => {
+    setRegisterShow(false);
+  };
+
+
+  const handleShow = () => setLoginShow(true);
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -23,13 +32,32 @@ export default function Navbar() {
     } else {
       setLoggedIn(true);
       setUsername(form.elements.username.value);
-      handleClose();
+      handleLoginClose();
     }
   };
   const handleLogout = () => {
     setLoggedIn(false);
     setUsername("");
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
   <nav className="navbar navbar-expand-sm navbar-light sticky-top" style={{ height: "60px", backgroundColor: "rgba(51, 51, 51, 0.9)" }}>
@@ -76,18 +104,31 @@ export default function Navbar() {
               Login
             </Button>
           )}
-          <Modal show={show} onHide={handleClose}>
+          <Modal show={loginShow} onHide={handleLoginClose}>
             <Modal.Header closeButton>
               <Modal.Title>Login</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <p className="register-text">
+                  Don't have an account?{' '}
+                  <span
+                    className="register-link"
+                    onClick={() => {
+                      setLoginShow(false); // hide the login modal
+                      setRegisterShow(true); // show the registration modal
+                      console.log('Register link clicked!');
+                    }}
+                  >
+                    Register
+                  </span>
+                </p>
                 <Form ref={formRef} onSubmit={handleLogin}>
-                  <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Username</Form.Label>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>Email</Form.Label>
                     <Form.Control
-                      type="text"
-                      name="username"
-                      placeholder="Enter username"
+                      type="email"
+                      name="email"
+                      placeholder="Enter email"
                       required
                     />
                   </Form.Group>
@@ -97,7 +138,7 @@ export default function Navbar() {
                     <Form.Control
                       type="password"
                       name="password"
-                      placeholder="Password"
+                      placeholder="Enter Password"
                       required
                     />
                   </Form.Group>
@@ -106,13 +147,73 @@ export default function Navbar() {
                     <Button style={{ backgroundColor: "#41C3FA", color: "#fff" }} type="submit">
                       Login
                     </Button>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={handleLoginClose}>
                       Close
                     </Button>
                   </Modal.Footer>
                 </Form>
               </Modal.Body>
             </Modal>
+            
+
+        <Modal show={registerShow} onHide={handleRegisterClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Register</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  placeholder="Enter email"
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicUsername">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="username"
+                  placeholder="Enter Username"
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  placeholder="Enter Password"
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicConfirmPassword">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  required
+                />
+              </Form.Group>
+
+              <Modal.Footer>
+                <Button style={{ backgroundColor: "#41C3FA", color: "#fff" }} type="submit">
+                  Register
+                </Button>
+                <Button variant="secondary" onClick={handleRegisterClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Form>
+          </Modal.Body>
+        </Modal>
+
         </div>
       </div>
       </div>

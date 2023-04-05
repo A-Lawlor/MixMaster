@@ -20,6 +20,7 @@ import FavoritesList from "./profile_pages/favoriteslist";
 import Trending from "./pages/trending";
 import Mixology from "./pages/mixology";
 import Following from "./pages/following";
+import Register from "./components/register";
 
 const App = () => {
  return (
@@ -42,6 +43,7 @@ const App = () => {
        <Route path="/trending" element={<Trending />} />
        <Route path="/mixology" element={<Mixology />} />
        <Route path="/following" element={<Following />} />
+       <Route path="/register" element={<Register />} />
      </Routes>
    </div>
  );

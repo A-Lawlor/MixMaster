@@ -4,3 +4,18 @@
     transition: all 0.2s ease-in-out;
   }
   
+
+  .register-text {
+    font-size: 12px;
+  }
+  
+  .register-text span {
+    text-decoration: underline;
+    color: #000;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .register-text span:hover {
+    color: #ffd700;
+  }
