@@ -40,10 +40,7 @@ export default function StorageAdd() {
     const [ingredient_data, setIngredientData] = useState([]);
     useEffect(() => {
         async function getIngredientData() {
-            const response = await fetch(`http://localhost:5005/ingredient/`);
-            if(process.env.NODE_ENV === "production"){
-                const response = await fetch(`https://mix-master.herokuapp.com/ingredient`);
-            }
+            const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/ingredient' : 'http://localhost:5005/ingredient');
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
                 window.alert(message);
@@ -61,10 +58,8 @@ export default function StorageAdd() {
     const [users_ingredients, setUsersIngredients] = useState([]);
     useEffect(() => {
         async function getUsersIngredients() {
-        const response = await fetch(`http://localhost:5005/userstorage/`);
-        if(process.env.NODE_ENV === "production"){
-            response = await fetch(`https://mix-master.herokuapp.com/userstorage`);
-        }
+            
+        const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage' : 'http://localhost:5005/userstorage');
         if (!response.ok) {
             const message = `An error occurred: ${response.statusText}`;
             window.alert(message);
