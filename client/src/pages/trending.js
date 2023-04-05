@@ -33,11 +33,13 @@ export default function RecordList() {
   // This method fetches the records from the database.
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`http://localhost:5005/drink/`);
-        if(process.env.NODE_ENV === "production"){
-            response = await fetch(`https://mix-master.herokuapp.com/drink`);
-        }
-  
+      if((process.env.NODE_ENV === 'production')){
+        console.log("In production");
+    } else {
+        console.log("Local Testing");
+    }
+    
+    const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/drink' : 'http://localhost:5005/drink');
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         window.alert(message);
