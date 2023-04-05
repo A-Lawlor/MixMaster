@@ -85,7 +85,8 @@ export default function StorageAdd() {
             name: ingredient.name, 
             username: _username
         };
-        await fetch("http://localhost:5005/userstorage/add", {  // REPLACE WITH DEVELOPMENT CONDITIONAL
+        let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage/add' : 'http://localhost:5005/userstorage/add');
+        await fetch(fetch_string, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

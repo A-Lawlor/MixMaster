@@ -21,9 +21,9 @@ const divStyle = {
 };
 
 const UsersIngredient = (props) => (
-  <ul className="ingredient" key={props.index} id={props.ingredient+"-listitem"}>{props.ingredient}
+  <ul className="ingredient" key={props.ingredient.replace(/ /g, "_")} id={props.ingredient.replace(/ /g, "_")+"-listitem"}>{props.ingredient}
     <button className="ingredient-button" onClick={() => {
-      props.deleteUserIngredient(props.user, props.ingredient, props.index);
+      props.deleteUserIngredient(props.user, props.ingredient);
     }}
     >&#x274C;</button>
   </ul>
@@ -53,12 +53,13 @@ export default function StorageEdit() {
   }, [users_ingredients.length]);
 
   
-  async function deleteUserIngredient(_user, _name, index) {
+  async function deleteUserIngredient(_user, _name) {
     const deleteIngredient = { 
         name: _name, 
         username: _user.username
     };
-    await fetch("http://localhost:5005/userstorage/delete", {
+    let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage/delete' : 'http://localhost:5005/userstorage/delete');
+    await fetch(fetch_string, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
@@ -71,9 +72,9 @@ export default function StorageEdit() {
         }
     })
     .then(() => {
-        $("#"+_name+"-listitem").remove();
-        const currentUser = users_ingredients.filter((user) => user.username == "Dalton"); // REPLACE WITH LOGGED IN USERNAME VARIABLE
-        currentUser[0].my_ingredients.slice(index);
+        $("#"+_name.replace(/ /g, "_")+"-listitem").remove();
+        //const currentUser = users_ingredients.filter((user) => user.username == "Dalton"); // REPLACE WITH LOGGED IN USERNAME VARIABLE
+        //currentUser[0].my_ingredients.slice(index);
         //const newUsersIngredients = currentUser[0].my_ingredients;
         //setUsersIngredients(newUsersIngredients);
         return;
@@ -88,13 +89,13 @@ export default function StorageEdit() {
     return(users_ingredients.map( user => {
       if(user.username == "Dalton") { // REPLACE WITH LOGGED IN USERNAME VARIABLE
         return(
-          user.my_ingredients.map( (ingredient, index) => {
+          user.my_ingredients.map( (ingredient) => {
             return(
               <UsersIngredient
                 user={user}
                 ingredient={ingredient}
-                deleteUserIngredient={() => deleteUserIngredient(user, ingredient, index)}
-                key={index}
+                deleteUserIngredient={() => deleteUserIngredient(user, ingredient)}
+                key={ingredient}
               />
             )
           })
