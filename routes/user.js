@@ -10,7 +10,8 @@ const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
 
 //For password security
-const bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
+
 
 const userSchema = {
     email: String,
