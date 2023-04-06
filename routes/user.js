@@ -14,7 +14,7 @@ const bcrypt = require('bcrypt');
 
 const userSchema = {
     email: String,
-   name: String,
+    name: String,
     password: String
 }
 const User = new mongoose.model("User", userSchema)
@@ -25,28 +25,52 @@ const myPlaintextPassword = 's0/\/\P4$$w0rD';
 const someOtherPlaintextPassword = 'not_bacon';
 
 
-userCredentialsRoutes.route("/user/login",(req,res)=>{
+
+async function checkPassword(password, hash){
+    const password_hashed = await bcrypt.hash(password, saltRounds);
+
+    // if (hash == this.password) {
+    //     return true;
+    // }
+    console.log(password);
+    console.log(hash);
+    const result = await bcrypt.compare(password, hash);
+    console.log(result);
+    return result;
+}
+
+
+userCredentialsRoutes.route("/user/login").post(function async(req, res) {
+    console.log("Getting into login");
     let db_connect = dbo.getUsersStorageDb(); //Change name of this to be just user eventually
-    const {email,password} =req.body;
     db_connect
         .collection("credentials")
-        .findone({email:email},(err,user)=>{
-        if(user){
-           if(password === user.password){
-               res.send({message:"login sucess",user:user})
-           }else{
-               res.send({message:"wrong credentials"})
-           }
-        }else{
-            res.send("not register")
+        .findOne({email: req.body.email})
+        .then(async (existingUser)=>{
+        if(existingUser){
+            console.log("is a user");
+            const match = await bcrypt.compare(req.body.password, existingUser.password);
+            if(match){
+                console.log("login successfull");
+                res.send({message:"Login Success",name: String(existingUser.name)})
+            }else{
+                console.log("wrong credentials");
+                return(res.json({message:"Incorrect Username or Password"}));
+            }
+        } else {
+            console.log("Not registered");
+            return(res.json({message:"Incorrect Username or Password"}));
         }
-    });
+    })
+        .catch((err)=>{
+            return(res.json({message:"Error"}));
+        }); 
 });
 
 userCredentialsRoutes.route("/user/register").post(function (req, res) {
-    console.log("Getting here");
     let db_connect = dbo.getUsersStorageDb(); //change name of this to be just user eventually
-    db_connect.collection("credentials").findOne({email: req.body.email})
+    db_connect.collection("credentials")
+        .findOne({email: req.body.email})
         .then((existingUser)=>{
             if (existingUser) {
                 console.log("Email already exists");
@@ -70,45 +94,5 @@ userCredentialsRoutes.route("/user/register").post(function (req, res) {
             res.send({message:"Error"});
         });
     });
-
-
-
-
-        //Handle errors  
-        
-//         } else {
-//             let  user = {
-//                 email: req.body.email,
-//                 name: req.body.name,
-//                 password: req.body.password,
-//             };
-//             db_connect.collection("credentials").insertOne(user, function (err, res) {
-//                 if(err){
-//                     res.send(err);
-//                 }else{
-//                     res.send({message:"sucessfull"});
-//                 }
-            
-//             });
-//         }
-//     });
-// });
-
-// userCredentialsRoutes.route("/user/register").post(function (req, res) {
-//     let db_connect = dbo.getUsersStorageDb(); //Change name of this to be just user eventually
-//     const user = new User({email: req.body.email, name: req.body.name, password: req.body.password,})
-
-//             db_connect.collection("credentials").insertOne(user, function (err, res) {
-//                 if(err){
-//                     res.send(err)
-//                 }else{
-//                     res.send({message:"sucessfull"})
-//                 }
-//             })
-//         });
-
-
-
-
-        
+   
 module.exports = userCredentialsRoutes;

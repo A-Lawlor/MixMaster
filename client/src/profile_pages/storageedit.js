@@ -84,7 +84,7 @@ export default function StorageEdit() {
 
   function ingredientsList() {
     return(users_ingredients.map( user => {
-      if(user.username == "Dalton") { // REPLACE WITH LOGGED IN USERNAME VARIABLE
+      if(user.username === "Dalton") { // REPLACE WITH LOGGED IN USERNAME VARIABLE
         return(
           user.my_ingredients.map( (ingredient) => {
             return(

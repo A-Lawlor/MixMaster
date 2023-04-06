@@ -114,7 +114,7 @@ export default function StorageAdd() {
 
     function ingredientsList() {
         return(users_ingredients.map( user => {
-            if(user.username == "Dalton") { // REPLACE WITH LOGGED IN USERNAME VARIABLE
+            if(user.username === "Dalton") { // REPLACE WITH LOGGED IN USERNAME VARIABLE
                 return ingredient_data.map((ingredient) => {
                     if(user.my_ingredients.includes(ingredient.name)) {
                         return (
