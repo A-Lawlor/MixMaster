@@ -24,6 +24,7 @@ const User = new mongoose.model("User", userSchema)
 const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
 const someOtherPlaintextPassword = 'not_bacon';
+let globalUsername = "";
 
 
 
@@ -41,6 +42,14 @@ async function checkPassword(password, hash){
 }
 
 
+userCredentialsRoutes.route("/user").get(function (req, res) {
+    return(res.json({username:globalUsername}));
+});
+userCredentialsRoutes.route("/user/logout").delete(function (req, res) {
+    globalUsername = "";
+    return(res.json({type:req.body.type}));
+});
+
 userCredentialsRoutes.route("/user/login").post(function async(req, res) {
     console.log("Getting into login");
     let db_connect = dbo.getUsersStorageDb(); //Change name of this to be just user eventually
@@ -53,6 +62,7 @@ userCredentialsRoutes.route("/user/login").post(function async(req, res) {
             const match = await bcrypt.compare(req.body.password, existingUser.password);
             if(match){
                 console.log("login successfull");
+                globalUsername = String(existingUser.name);
                 res.send({message:"Login Success",name: String(existingUser.name)})
             }else{
                 console.log("wrong credentials");
@@ -62,7 +72,7 @@ userCredentialsRoutes.route("/user/login").post(function async(req, res) {
             console.log("Not registered");
             return(res.json({message:"Incorrect Username or Password"}));
         }
-    })
+        })
         .catch((err)=>{
             return(res.json({message:"Error"}));
         }); 
@@ -85,6 +95,7 @@ userCredentialsRoutes.route("/user/register").post(function (req, res) {
                             if(err){
                                 res.send(err);
                             } else {
+                                globalUsername = String(existingUser.name);
                                 res.send({message:"sucessfull"});
                             }
                         });
@@ -94,6 +105,7 @@ userCredentialsRoutes.route("/user/register").post(function (req, res) {
         .catch((err)=>{
             res.send({message:"Error"});
         });
-    });
+});
+
    
 module.exports = userCredentialsRoutes;

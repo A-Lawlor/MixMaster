@@ -6,8 +6,8 @@ import "../css/navbar.css"
 export default function Navbar() {
   const [loginShow, setLoginShow] = useState(false);
   const [registerShow, setRegisterShow] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged_in'));
+  const [username, setUsername] = useState(localStorage.getItem('username'));
   const formRefLogin = useRef(null);
   const formRefRegister = useRef(null);
 
@@ -71,8 +71,10 @@ export default function Navbar() {
       .then(response => {
         if(String(response.message).localeCompare("Incorrect Username or Password")){
           console.log(response.name);
+          localStorage.setItem('logged_in', true);
           setLoggedIn(true);
           handleLoginClose();
+          localStorage.setItem('username', response.name);
           setUsername(response.name);
           setRegisterForm({ email: "", password: "" });
           return;
@@ -91,28 +93,52 @@ export default function Navbar() {
 
 
 
-  const handleLogout = () => {
-    setLoggedIn(false);
-    setUsername("");
-    
-  };
+    async function handleLogout () {
+      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/logout' : 'http://localhost:5005/user/logout');
+      await fetch(fetch_string, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+          type: "logout"
+        }),
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+      })
+      .then(() => {
+        localStorage.removeItem('logged_in');
+        setLoggedIn(false);
+        localStorage.removeItem('username');
+        setUsername("");
+        return;
+      })
+      .catch(error => {
+        window.alert(error);
+        return;
+      });
+    };
 
     async function handleRegister (event) {
-    const form = event.currentTarget;
-    console.log(form.elements.passwordReg.value)
-    console.log(form.elements.confirmPasswordReg.value)
-    event.preventDefault();
-    handleRegisterClose();
-    // if (form.checkValidity() === false) {
-    //   console.log("Getting to check validity");
-    //   event.stopPropagation();
-    // else 
+      const form = event.currentTarget;
+      console.log(form.elements.passwordReg.value);
+      console.log(form.elements.confirmPasswordReg.value);
+      event.preventDefault();
+      handleRegisterClose();
+      // if (form.checkValidity() === false) {
+      //   console.log("Getting to check validity");
+      //   event.stopPropagation();
+      // else 
       console.log("Getting into else statement");
       if(form.elements.passwordReg.value !== form.elements.confirmPasswordReg.value){
         console.log("Passwords do not match");
         formRefRegister.current.reset();
         return;
-    }
+      }
+      setStorage(registerForm.name);
 
       const newUser = { ...registerForm };
       let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/register' : 'http://localhost:5005/user/register');
@@ -136,6 +162,27 @@ export default function Navbar() {
       handleRegisterClose();
       setRegisterForm({ email: "", name: "", password: "" });
   };
+
+  async function setStorage (_username) {
+    const newUserStorage = { username:_username };
+    let fetch_string2 = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage/adduser' : 'http://localhost:5005/userstorage/adduser');
+    await fetch(fetch_string2, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUserStorage),
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log(response.message + " setting up ingredient storage for " + _username);
+      return;
+    })
+    .catch(error => {
+      window.alert(error);
+      return;
+    });
+  }
 
 
 
