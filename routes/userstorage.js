@@ -32,7 +32,22 @@ userStorageRoutes.route("/userstorage/:id").get(function (req, res) {
       if (err) throw err;
       res.json(result);
     });
- });
+});
+
+ // This section will help you create a new record.
+ userStorageRoutes.route("/userstorage/adduser").post(function (req, response) {
+  let db_connect = dbo.getUsersStorageDb();
+  console.log(req.body.username);
+  let myobj = {
+   username: req.body.username,
+   my_ingredients: []
+  };
+  db_connect.collection("storage").insertOne(myobj, function (err, res) {
+    if (err) throw err;
+    response.json(res);
+  });
+  return(response.json({message:"Success"}));
+});
 
  userStorageRoutes.route("/userstorage/add").post(function (req, res) {
   let db_connect = dbo.getUsersStorageDb();

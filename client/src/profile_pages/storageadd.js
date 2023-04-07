@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { Modal } from "react-bootstrap";
 import $ from "jquery";
 import "../css/profile.css"; 
 // We import bootstrap to make our application look better.
@@ -35,6 +36,27 @@ const OwnedIngredient = (props) => (
 );
 
 export default function StorageAdd() {
+
+    // This method fetches the user's ingredients from the database.
+    const [username, setUsername] = useState([]);
+    useEffect(() => {
+        async function getUsername() {
+            
+        const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user' : 'http://localhost:5005/user');
+        if (!response.ok) {
+            const message = `An error occurred: ${response.statusText}`;
+            window.alert(message);
+            return;
+        }
+        const username = await response.json();
+        setUsername(username);
+        if(username.username == "") {
+            handleNoLoginShow();
+        }
+        }
+        getUsername();
+        return;
+    }, [username.length]);
 
     // This method fetches the ingredients from the database.
     const [ingredient_data, setIngredientData] = useState([]);
@@ -74,10 +96,10 @@ export default function StorageAdd() {
 
 
     async function addUserIngredient(ingredient, id) {
-        let _username = "Dalton"; // REPLACE WITH LOGGED IN USERNAME VARIABLE
+        let _username = username.username;
 
         const addIngredient = { 
-            name: ingredient.name, 
+            name: ingredient.name,
             username: _username
         };
         let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage/add' : 'http://localhost:5005/userstorage/add');
@@ -108,13 +130,19 @@ export default function StorageAdd() {
     }
 
     const navigate = useNavigate();
+    const [show, setShow] = useState(false);
+    const handleNoLoginClose = () => {
+        setShow(false);
+        navigate("/");
+    };
+    const handleNoLoginShow = () => setShow(true);
     function doneClicked() {
         navigate("/storage");
     }
 
     function ingredientsList() {
         return(users_ingredients.map( user => {
-            if(user.username === "Dalton") { // REPLACE WITH LOGGED IN USERNAME VARIABLE
+            if(user.username == username.username) {
                 return ingredient_data.map((ingredient) => {
                     if(user.my_ingredients.includes(ingredient.name)) {
                         return (
@@ -162,6 +190,14 @@ export default function StorageAdd() {
             </div>
         </div>
     </div>
+    <>
+      <Modal show={show} onHide={handleNoLoginClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>ERROR</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>You must be logged in to access the storage page.<br></br>Closing this window will return you to the homepage!</Modal.Body>
+      </Modal>
+    </>
   </div>
  );
 }
