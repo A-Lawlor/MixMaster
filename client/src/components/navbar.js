@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { Button, Dropdown, Modal, Form } from "react-bootstrap";
 import "../css/navbar.css"
@@ -49,6 +49,23 @@ export default function Navbar() {
     formRefRegister.current.reset();
   };
 
+  // This method fetches the ingredients from the database.
+  const [all_users, setAllUsers] = useState([]);
+  useEffect(() => {
+    async function getAllUsers() {
+      const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user' : 'http://localhost:5005/user');
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+      const all_users = await response.json();
+      setAllUsers(all_users);
+    }
+    getAllUsers()       
+    return;
+  } , [all_users.length]);
+
 
   const handleShow = () => setLoginShow(true);
   async function handleLogin (event) {
@@ -56,20 +73,21 @@ export default function Navbar() {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
-    } else {
+    } 
+    else {
       const newUser = { ...loginForm };
 
       let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/login' : 'http://localhost:5005/user/login');
       await fetch(fetch_string, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(newUser),
       })
       .then(response => response.json())
       .then(response => {
-        if(String(response.message).localeCompare("Incorrect Username or Password")){
+        if(String(response.message).localeCompare("Incorrect Username or Password")) {
           console.log(response.name);
           localStorage.setItem('logged_in', true);
           setLoggedIn(true);
@@ -78,7 +96,8 @@ export default function Navbar() {
           setUsername(response.name);
           setRegisterForm({ email: "", password: "" });
           return;
-        } else {
+        } 
+        else {
           window.alert(response.message);
         }
       })
@@ -138,6 +157,11 @@ export default function Navbar() {
         formRefRegister.current.reset();
         return;
       }
+      if(all_users.some(item => item.name === registerForm.name)){
+        window.alert("Username already exists");
+        formRefRegister.current.reset();
+        return;
+      }
       setStorage(registerForm.name);
 
       const newUser = { ...registerForm };
@@ -183,11 +207,6 @@ export default function Navbar() {
       return;
     });
   }
-
-
-
-
- 
 
 
 

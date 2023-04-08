@@ -19,7 +19,6 @@ ingredientRoutes.route("/ingredient").get(function (req, res) {
    .find({})
    .toArray()
    .then ((result) => res.json(result))
-   .then(console.log)
 });
 
 // This section will help you get a single ingredient by id
