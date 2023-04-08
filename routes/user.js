@@ -43,8 +43,18 @@ async function checkPassword(password, hash){
 
 
 userCredentialsRoutes.route("/user").get(function (req, res) {
+    let db_connect = dbo.getUsersStorageDb();
+    db_connect
+        .collection("credentials")
+        .find({}, {projection: { password: 0 }})
+        .toArray()
+        .then((result) => res.json(result))
+});
+
+userCredentialsRoutes.route("/user/getusername").get(function (req, res) {
     return(res.json({username:globalUsername}));
 });
+
 userCredentialsRoutes.route("/user/logout").delete(function (req, res) {
     globalUsername = "";
     return(res.json({type:req.body.type}));
@@ -87,15 +97,12 @@ userCredentialsRoutes.route("/user/register").post(function (req, res) {
                 console.log("Email already exists");
                 return(res.json({message:"Email already exists"}));
             } else {
-
-                
                 bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
                     const user = new User({email: req.body.email, name: req.body.name, password: hash,})                
                         db_connect.collection("credentials").insertOne(user, function (err, res) {
                             if(err){
                                 res.send(err);
                             } else {
-                                globalUsername = String(existingUser.name);
                                 res.send({message:"sucessfull"});
                             }
                         });

@@ -37,7 +37,7 @@ export default function StorageEdit() {
     const [username, setUsername] = useState([]);
     useEffect(() => {
       async function getUsername() {
-        const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user' : 'http://localhost:5005/user');
+        const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/getusername' : 'http://localhost:5005/user/getusername');
         if (!response.ok) {
           const message = `An error occurred: ${response.statusText}`;
           window.alert(message);

@@ -19,7 +19,6 @@ userStorageRoutes.route("/userstorage").get(function (req, res) {
    .find({})
    .toArray()
    .then ((result) => res.json(result))
-   .then(console.log)
 });
 
 // This section will help you get a single ingredient by id
@@ -37,7 +36,6 @@ userStorageRoutes.route("/userstorage/:id").get(function (req, res) {
  // This section will help you create a new record.
  userStorageRoutes.route("/userstorage/adduser").post(function (req, response) {
   let db_connect = dbo.getUsersStorageDb();
-  console.log(req.body.username);
   let myobj = {
    username: req.body.username,
    my_ingredients: []
