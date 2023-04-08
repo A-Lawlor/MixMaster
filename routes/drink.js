@@ -1,7 +1,4 @@
 const express = require("express");
-const multer = require('multer');
-const Image = require('./models/image');
-
 
 // recordRoutes is an instance of the express router.
 // We use it to define our routes.
