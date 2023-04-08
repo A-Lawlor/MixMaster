@@ -13,7 +13,7 @@ const ObjectId = require("mongodb").ObjectId;
 
 // This section will help you get a list of all the ingredients.
 userStorageRoutes.route("/userstorage").get(function (req, res) {
- let db_connect = dbo.getUsersStorageDb();
+ let db_connect = dbo.getUsersDb();
  db_connect
    .collection("storage")
    .find({})
@@ -23,7 +23,7 @@ userStorageRoutes.route("/userstorage").get(function (req, res) {
 
 // This section will help you get a single ingredient by id
 userStorageRoutes.route("/userstorage/:id").get(function (req, res) {
-  let db_connect = dbo.getUsersStorageDb();
+  let db_connect = dbo.getUsersDb();
   let myquery = { _id: ObjectId(req.params.id) };
   db_connect
     .collection("storage")
@@ -35,7 +35,7 @@ userStorageRoutes.route("/userstorage/:id").get(function (req, res) {
 
  // This section will help you create a new record.
  userStorageRoutes.route("/userstorage/adduser").post(function (req, response) {
-  let db_connect = dbo.getUsersStorageDb();
+  let db_connect = dbo.getUsersDb();
   let myobj = {
    username: req.body.username,
    my_ingredients: []
@@ -48,7 +48,7 @@ userStorageRoutes.route("/userstorage/:id").get(function (req, res) {
 });
 
  userStorageRoutes.route("/userstorage/add").post(function (req, res) {
-  let db_connect = dbo.getUsersStorageDb();
+  let db_connect = dbo.getUsersDb();
   let myquery = { username: req.body.username };
   let myupdate = { $push: { my_ingredients: req.body.name } };
   db_connect.collection("storage").updateOne(myquery, myupdate, function (err, result) {
@@ -60,7 +60,7 @@ userStorageRoutes.route("/userstorage/:id").get(function (req, res) {
 
  // This section will help you delete a user ingredient
  userStorageRoutes.route("/userstorage/delete").delete((req, res) => {
-  let db_connect = dbo.getUsersStorageDb();
+  let db_connect = dbo.getUsersDb();
   let myquery = { username: req.body.username };
   let myupdate = { $pull: { my_ingredients: req.body.name } };
   db_connect.collection("storage").updateOne(myquery, myupdate, function (err, result) {

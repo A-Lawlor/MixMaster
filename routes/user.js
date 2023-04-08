@@ -43,7 +43,7 @@ async function checkPassword(password, hash){
 
 
 userCredentialsRoutes.route("/user").get(function (req, res) {
-    let db_connect = dbo.getUsersStorageDb();
+    let db_connect = dbo.getUsersDb();
     db_connect
         .collection("credentials")
         .find({}, {projection: { password: 0 }})
@@ -62,7 +62,7 @@ userCredentialsRoutes.route("/user/logout").delete(function (req, res) {
 
 userCredentialsRoutes.route("/user/login").post(function async(req, res) {
     console.log("Getting into login");
-    let db_connect = dbo.getUsersStorageDb(); //Change name of this to be just user eventually
+    let db_connect = dbo.getUsersDb(); //Change name of this to be just user eventually
     db_connect
         .collection("credentials")
         .findOne({email: req.body.email})
@@ -89,7 +89,7 @@ userCredentialsRoutes.route("/user/login").post(function async(req, res) {
 });
 
 userCredentialsRoutes.route("/user/register").post(function (req, res) {
-    let db_connect = dbo.getUsersStorageDb(); //change name of this to be just user eventually
+    let db_connect = dbo.getUsersDb(); //change name of this to be just user eventually
     db_connect.collection("credentials")
         .findOne({email: req.body.email})
         .then((existingUser)=>{

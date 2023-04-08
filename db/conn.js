@@ -13,7 +13,7 @@ module.exports = {
     console.log("Connected successfully to server");
     _dbDrinks = client.db("drinks");
     _dbIngredient = client.db("ingredients");
-    _dbUserStorage = client.db("users");
+    _dbUser = client.db("users");
     console.log("Successfully connected to MongoDB");
   },
 
@@ -23,7 +23,7 @@ module.exports = {
   getIngredientsDb: function () {
     return _dbIngredient;
   },
-  getUsersStorageDb: function () {
-    return _dbUserStorage;
+  getUsersDb: function () {
+    return _dbUser;
   },
 };
