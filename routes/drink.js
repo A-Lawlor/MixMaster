@@ -1,9 +1,11 @@
 const express = require("express");
-
+const multer = require('multer');
+var fs = require('fs');
 // recordRoutes is an instance of the express router.
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const recordRoutes = express.Router();
+var imgSchema = require('./model.js')
 
 // This will help us connect to the database
 const dbo = require("../db/conn");
@@ -11,17 +13,51 @@ const dbo = require("../db/conn");
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
+
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+const upload = multer({ storage: storage });
 // This section will help you get a list of all the records.
 recordRoutes.route("/drink").get(function (req, res) {
  let db_connect = dbo.getDrinksDb("drinks");
  db_connect
-   .collection("drinkfourm")
+   .collection("drinkfourm")    
    .find({})
-   .toArray()
-   .then ((result) => res.json(result))
+   .toArray()   
+   .then ((result) => res.json(result))   
    .then(console.log)
 });
  
+/*recordRoutes.route("/drink/add").post(upload.single('image'), (req, res, next) => {
+  var obj = {
+      name: req.body.desc2,
+      desc: req.body.desc,
+      img: {
+          data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.img)),
+          contentType: 'image/png'
+      }
+  }
+  imgSchema.create(obj)
+  .then ((err, item) => {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          // item.save();
+          res.redirect('/drink/add');
+      }
+  });
+});
+*/
 // This section will help you get a single record by id
 recordRoutes.route("/drink/:id").get(function (req, res) {
  let db_connect = dbo.getDrinksDb();
@@ -35,10 +71,11 @@ recordRoutes.route("/drink/:id").get(function (req, res) {
 });
  
 // This section will help you create a new record.
-recordRoutes.route("/drink/add").post(function (req, response) {
+recordRoutes.route("/drink/add").post(upload.single('Image'), function (req, response) {
  let db_connect = dbo.getDrinksDb();
- let myobj = {
-  image: req.body.image,
+ let myobj = {  
+  img: {data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.img)),
+  contentType: 'image/png'},
   name: req.body.name,
   liqour: req.body.liqour,
   taste: req.body.taste,
@@ -46,10 +83,24 @@ recordRoutes.route("/drink/add").post(function (req, response) {
   likes: req.body.likes,
   dislikes: req.body.dislikes
  };
+
+ imgSchema.create(obj)
+  .then ((err, item) => {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          // item.save();
+          res.redirect('/drink/add');
+      }
+    });
+
  db_connect.collection("drinkfourm").insertOne(myobj, function (err, res) {
    if (err) throw err;
    response.json(res);
  });
+ 
+ 
 });
  
 // This section will help you update a record by id.
@@ -58,7 +109,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
  let myquery = { _id: ObjectId(req.params.id) };
  let newvalues = {
   $set: {
-    image: req.body.image,
+    img: req.body.img,
     name: req.body.name,
     liqour: req.body.liqour,
     taste: req.body.taste,
@@ -83,7 +134,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
   let myquery = { _id: ObjectId(req.params.id) };
   let newvalues = {
     $set: {
-     image: req.body.image,
+     img: req.body.img,
      name: req.body.name,
      liqour: req.body.liqour,
      taste: req.body.taste,
