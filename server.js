@@ -12,6 +12,7 @@ app.use(require("./routes/user"));
 const { default: mongoose } = require("mongoose");
 const dbo = require("./db/conn");
 
+
 //DB Config
 mongoose.connect(process.env.MONGO_URI).catch((err) => console.log(err));
 

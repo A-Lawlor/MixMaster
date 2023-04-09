@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
  
 export default function Create() {
  const [form, setForm] = useState({
-   image: "",
+   img: "",
    name: "",
    liqour: "",
    taste: "",
@@ -50,14 +50,14 @@ export default function Create() {
      <h3>Create New Drink</h3>
      <form onSubmit={onSubmit}>
        <div className="form-group">
-         <label htmlFor="image">image</label>
+         <label htmlFor="img">img</label>
          <input
            type="file"
-           accept="image/png, image/jpeg"
+           accept="img/png, img/jpeg"
            className="form-control"
            id="image"
-           value={form.image}
-           onChange={(e) => updateForm({ image: e.target.value })}
+           value={form.img}
+           onChange={(e) => updateForm({ img: e.target.value })}
          />
        </div>
 
