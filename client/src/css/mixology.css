@@ -2,12 +2,10 @@ body{
     background: linear-gradient(96.7deg, #CE54E2 15.84%, rgba(111, 58, 223, 0.78) 60.85%);
 }
 
-#title{
+#mixology_title{
     font-weight: bold;
     color: white;
-
     font-size: xx-large;
-
 }
 
 #intro-text{
@@ -23,6 +21,8 @@ body{
 #video{
     background-color: rgba(255, 255, 255, 0.6);
     padding: 2vh;
+    width: 97vh;
+    height: auto;
     border-radius: 10px;
 }
 

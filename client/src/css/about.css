@@ -1,4 +1,70 @@
-.profile_text{
-    color: white;
+body{
+    background: linear-gradient(96.7deg, #CE54E2 15.84%, rgba(111, 58, 223, 0.78) 60.85%);
+}
+
+#about_title{
     font-weight: bold;
+    color: white;
+    font-size: xx-large;
+}
+
+#anthony_profile{
+    background-color: rgb(108,117,125, 0.65);
+    padding: 2vh;
+    border-radius: 10px;
+    height: 84vh;
+    width: 40vh;
+    margin: 2vh;
+}
+
+#dalton_profile{
+    background-color: rgb(108,117,125, 0.65);
+    padding: 2vh;
+    border-radius: 10px;
+    height: 84vh;
+    width: 40vh;
+    margin: 2vh;
+}
+
+#daury_profile{
+    background-color: rgb(108,117,125, 0.65);
+    padding: 2vh;
+    border-radius: 10px;
+    height: 84vh;
+    width: 40vh;
+    margin: 2vh;
+}
+
+#matt_profile{
+    background-color: rgb(108,117,125, 0.65);
+    padding: 2vh;
+    border-radius: 10px;
+    height: 84vh;
+    width: 40vh;
+    margin: 2vh;
+}
+
+
+.about_text{
+    font-size: medium;
+    color: white;
+    
+}
+
+.about_image{
+    width: 32vh;
+    height: 40vh;
+    font-weight: bold;
+}
+
+.social_icons{
+    width: 5vh;
+    height: auto;
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+}
+
+.social_icons:hover{
+    transform: scale(1.1);
+    transition: all 0.2s ease-in-out;
 }
