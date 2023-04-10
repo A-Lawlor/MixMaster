@@ -37,7 +37,7 @@ const OwnedIngredient = (props) => (
 
 export default function StorageAdd() {
 
-    // This method fetches the user's ingredients from the database.
+    // This method fetches the user's username from the server.
     const [username, setUsername] = useState([]);
     useEffect(() => {
         async function getUsername() {
@@ -50,7 +50,7 @@ export default function StorageAdd() {
         }
         const username = await response.json();
         setUsername(username);
-        if(username.username == "") {
+        if(username.username === "") {
             handleNoLoginShow();
         }
         }
@@ -119,8 +119,6 @@ export default function StorageAdd() {
             $("#"+id+"-button").remove();
             $("#"+id).append("<span>&#x2714;</span>");
             $("span").addClass("ingredient-button");
-            //const currentUser = users_ingredients.filter((user) => user.username == "Dalton"); // REPLACE WITH LOGGED IN USERNAME VARIABLE
-            //setUsersIngredients((currentUser[0].my_ingredients), [...currentUser[0].my_ingredients, ingredient.name]);
             return;
         })
         .catch(error => {
@@ -142,7 +140,7 @@ export default function StorageAdd() {
 
     function ingredientsList() {
         return(users_ingredients.map( user => {
-            if(user.username == username.username) {
+            if(user.username === username.username) {
                 return ingredient_data.map((ingredient) => {
                     if(user.my_ingredients.includes(ingredient.name)) {
                         return (
