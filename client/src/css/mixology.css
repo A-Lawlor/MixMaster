@@ -1,3 +1,46 @@
 body{
     background: linear-gradient(96.7deg, #CE54E2 15.84%, rgba(111, 58, 223, 0.78) 60.85%);
 }
+
+#title{
+    font-weight: bold;
+    color: white;
+
+    font-size: xx-large;
+
+}
+
+#intro-text{
+    background-color: rgb(108,117,125, 0.75);
+    color: white;
+    width: 97vh;
+    padding: 2vh;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    font-size: large;
+}
+
+#video{
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 2vh;
+    border-radius: 10px;
+}
+
+#video:hover{
+    transition: all 0.4s ease-in-out;
+    background-color: rgb(108,117,125, 0.75);
+}
+
+
+#wikiHow{
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 2vh;
+    border-radius: 10px;
+    width: 97vh;
+    height: auto;
+}
+
+#wikiHow:hover{
+    transition: all 0.4s ease-in-out;
+    background-color: rgb(108,117,125, 0.75);
+}

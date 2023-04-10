@@ -3,30 +3,33 @@ import { NavLink } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import YoutubeEmbed from "../components/youtube.js";
 import "../css/mixology.css";
-
+import wikihow from "../images/mixology_pictures/WikiHow.png"
 
 function Mixology() {
   return (
-    <Container fluid>
-      <Row className="mt-5">
-      <Col md={1}></Col>
-        <Col md={5}>
-          <p className="bg-secondary">The art of mixing alcoholic drinks involves creating cocktails and other alcoholic beverages by combining different types of liquors, mixers, garnishes, and other ingredients. The aim is to create balanced and delicious drinks that enhance the flavors and qualities of the individual ingredients while also providing a unique and enjoyable drinking experience.</p>
+    <Container>
+      <Row className="justify-content-center align-items-center" style={{ marginTop: "5vh" }}>
+        <Col id="title" className= "text-center" md={10}>
+          <p>Mixology Tutorial</p>
         </Col>
-        <Col md={1}></Col>
-        <Col md={4} className="text-center">
-          <div className="App">
-            <p>Mixology Tutorial</p>
+      </Row>
+      <Row className="justify-content-center align-items-center" style={{ marginTop: "6vh" }}>
+        <Col id="intro-text" className= "text-center" md={12}>
+          <p>Mixing alcoholic drinks is an art that involves crafting cocktails and other beverages from various liquors, mixers, garnishes, and other ingredients. The goal is to balance and enhance the flavors and qualities of each component while also creating a distinctive and delightful drinking experience. Follow along in these tutorials below so you can learn how to properly craft the perfect cocktail everytime!</p>
+        </Col>
+      </Row>
+      <Row className="justify-content-center align-items-center" style={{ marginTop: "6vh"}}>
+      <Col className="text-center" md={12}>
+            <NavLink to="https://www.wikihow.com/Make-a-Cocktail" >
+              <img id="wikiHow" src={wikihow}/>
+            </NavLink>
+        </Col>
+      </Row>
+      <Row className="justify-content-center align-items-center" style={{ marginTop: "6vh", marginBottom: "6vh"}}>
+        <Col id="video" md={9}>
             <YoutubeEmbed embedId="tFpqCyJ-nnw" />
-          </div>
         </Col>
-      </Row>
-      <Row className="mt-5">
-      <Col md={1}></Col>
-        <Col md={5}>
-          <p className="bg-secondary ">Learning how to make alcoholic drinks at home can be a fun and rewarding experience that can save you money, provide a fun social activity, and allow you to experiment with new flavors and ingredients.</p>        
-        </Col>
-      </Row>
+      </Row> 
     </Container>
   );
 }

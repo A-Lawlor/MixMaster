@@ -1,12 +1,11 @@
 .nav-link:hover {
     transform: scale(1.1);
-    transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.4s ease-in-out;
   }
   
 
   .register-text {
-    font-size: 12px;
+    font-size: 1px;
   }
   
   .register-text span {
