@@ -1,5 +1,8 @@
 .wholebox{
     border: 3px solid blue;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 .titlerow{
     background-color: teal;
@@ -19,4 +22,9 @@
 .contactformbox{
     background-color: pink;
     border: 4px solid black;
+}
+
+.mycenter{
+    margin-top: auto;
+margin-bottom: auto;
 }

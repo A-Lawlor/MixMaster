@@ -12,10 +12,10 @@ function Contact() {
           <h1>Contact Page</h1>
         </Col>
       </Row>
-      <Row>
-        <Col className="composebox" md={{ span: 4, offset: 3 }}>
+      <Row className='mycenter'>
+        <Col className="composebox d-flex justify-content-center" >
           <div className="contactformbox">
-          <ContactForm />
+          <ContactForm  />
           </div>
         </Col>
       </Row>
