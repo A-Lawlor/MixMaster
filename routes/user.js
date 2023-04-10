@@ -2,6 +2,7 @@ const express = require("express");
 // const { default: mongoose } = require("mongoose");
 const userCredentialsRoutes = express.Router();
 const mongoose = require('mongoose');
+const cloudinary = require('../utils/cloudinary');
 
 // This will help us connect to the database
 const dbo = require("../db/conn");
@@ -12,14 +13,15 @@ const ObjectId = require("mongodb").ObjectId;
 //For password security
 var bcrypt = require('bcryptjs');
 
-
 const userSchema = {
     email: String,
     name: String,
-    password: String
+    password: String,
+    about: String,
+    picture_id: String,
+    picture_url: String
 }
-const User = new mongoose.model("User", userSchema)
- 
+const User = new mongoose.model("User", userSchema) 
 
 const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
@@ -98,7 +100,10 @@ userCredentialsRoutes.route("/user/register").post(function (req, res) {
                 return(res.json({message:"Email already exists"}));
             } else {
                 bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-                    const user = new User({email: req.body.email, name: req.body.name, password: hash,})                
+                    const user = new User({email: req.body.email, name: req.body.name, password: hash,
+                                           about: "", picture_id: "mixmaster/DefaultPicture",
+                                           picture_url: "https://res.cloudinary.com/dgco11qpv/image/upload/v1681153540/mixmaster/DefaultPicture.jpg"
+                                        })                
                         db_connect.collection("credentials").insertOne(user, function (err, res) {
                             if(err){
                                 res.send(err);
@@ -112,6 +117,54 @@ userCredentialsRoutes.route("/user/register").post(function (req, res) {
         .catch((err)=>{
             res.send({message:"Error"});
         });
+});
+
+// This section will help you edit a profile.
+userCredentialsRoutes.route("/user/edit").post(async function (req, res) {
+    let db_connect = dbo.getUsersDb();
+    let myquery = { name: globalUsername };
+    try {
+        if(req.body.picture != "") {
+            const upload_result = await cloudinary.uploader.upload(req.body.picture, {
+                folder: "mixmaster"
+            })
+            if(String(req.body.old_picture_id) != "mixmaster/DefaultPicture") {
+                cloudinary.uploader.destroy(req.body.old_picture_id);
+            }
+            let myupdate= { $set: {
+                            name: req.body.username,
+                            email: req.body.email,
+                            about: req.body.about,
+                            picture_id: upload_result.public_id,
+                            picture_url: upload_result.secure_url
+                            }
+                        };
+            db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
+            if (err) throw err;
+                res.json(result);
+            });
+            globalUsername = req.body.username;
+            return res.send(JSON.stringify(req.body.name));
+        }
+        else {
+            let myupdate= { $set: {
+                name: req.body.username,
+                email: req.body.email,
+                about: req.body.about
+                }
+            };
+            db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
+            if (err) throw err;
+                res.json(result);
+            });
+            globalUsername = req.body.username;
+            return res.send(JSON.stringify(req.body.name));
+        }
+    }
+    catch (error) {
+        console.log(error);
+        return res.send(JSON.stringify(req.body.name));
+    }
 });
 
    
