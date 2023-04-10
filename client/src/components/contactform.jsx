@@ -2,7 +2,7 @@ import React from 'react';
 
 export const ContactForm = () => {
   return (
-    <div>
+    <div className="contactform">
         <form action="mailto:mixmaster.gui2@gmail.com" method="get" enctype="text/plain">
             Subject:<br/>
             <input type="text" name="subject" placeholder="Your Name"/><br/>

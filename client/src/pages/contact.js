@@ -2,18 +2,21 @@ import React from 'react';
 import { ContactForm } from '../components/contactform'
 import { NavLink } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import './contact.css';
 
 function Contact() {
   return (
-    <Container fluid className="d-flex flex-column justify-content-center align-items-center">
-      <Row className="justify-content-center align-items-center" >
-        <Col xs={12} md={8} className="text-center">
+    <Container className="wholebox">
+      <Row className="titlerow">
+        <Col className="titlecolumn" xs={3}>
           <h1>Contact Page</h1>
         </Col>
       </Row>
       <Row>
-        <Col>
-        <ContactForm />
+        <Col className="composebox" md={{ span: 4, offset: 3 }}>
+          <div className="contactformbox">
+          <ContactForm />
+          </div>
         </Col>
       </Row>
     </Container>
