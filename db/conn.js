@@ -25,5 +25,5 @@ module.exports = {
   },
   getUsersDb: function () {
     return _dbUser;
-  },
+  }
 };
