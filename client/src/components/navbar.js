@@ -228,7 +228,7 @@ export default function Navbar() {
                     Storage
                   </Dropdown.Item>
                   <Dropdown.Item as={NavLink} to="/discover">
-                  Discover
+                    Discover
                   </Dropdown.Item>
 
                   <Dropdown.Item as={NavLink} to="/following">

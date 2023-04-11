@@ -13,6 +13,12 @@ const ObjectId = require("mongodb").ObjectId;
 //For password security
 var bcrypt = require('bcryptjs');
 
+mongoose.connect(process.env.MONGO_URI_USERS, {
+    keepAlive: true,
+    useNewUrlParser: true,
+    retryWrites: true,
+    useUnifiedTopology: true,
+  }).catch((err) => console.log(err));
 
 const userSchema = new mongoose.Schema({
     email: String,
@@ -109,7 +115,8 @@ userCredentialsRoutes.route("/user/register").post(function (req, res) {
                 bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
                     const user = new User({email: req.body.email, name: req.body.name, password: hash,
                                            about: "", picture_id: "mixmaster/DefaultPicture",
-                                           picture_url: "https://res.cloudinary.com/dgco11qpv/image/upload/v1681153540/mixmaster/DefaultPicture.jpg"
+                                           picture_url: "https://res.cloudinary.com/dgco11qpv/image/upload/v1681153540/mixmaster/DefaultPicture.jpg",
+                                           followers:[],following:[]
                                         })                
                         db_connect.collection("credentials").insertOne(user, function (err, res) {
                             if(err){
@@ -143,7 +150,8 @@ userCredentialsRoutes.route("/user/edit").post(async function (req, res) {
                             email: req.body.email,
                             about: req.body.about,
                             picture_id: upload_result.public_id,
-                            picture_url: upload_result.secure_url
+                            picture_url: upload_result.secure_url,
+
                             }
                         };
             db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
