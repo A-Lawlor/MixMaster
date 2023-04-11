@@ -59,12 +59,12 @@ function About() {
           <img class="about_image" src={daury}/>
           <Row className="justify-content-center align-items-center">
             <Col className= "text-center" xs={4}>
-              <NavLink target='_blank'>
+              <NavLink target='_blank' to="https://github.com/Dargueta98">
                 <img class="social_icons" src={github}/>
               </NavLink>
             </Col>
             <Col className= "text-center" xs={4}>
-              <NavLink target='_blank'>
+              <NavLink target='_blank' to="https://www.linkedin.com/in/daury-argueta/">
                 <img class="social_icons" src={linkedin}/>
               </NavLink>
             </Col>
@@ -75,12 +75,12 @@ function About() {
           <img class="about_image" src={matt}/>
           <Row className="justify-content-center align-items-center">
             <Col className= "text-center" xs={4}>
-              <NavLink target='_blank'>
+              <NavLink target='_blank' to="https://github.com/matthewtran01">
                 <img class="social_icons" src={github}/>
               </NavLink>
             </Col>
             <Col className= "text-center" xs={4}>
-              <NavLink target='_blank'>
+              <NavLink target='_blank' to="https://www.linkedin.com/in/matthew-tran-162b271b7/">
                 <img class="social_icons" src={linkedin}/>
               </NavLink>
             </Col>
