@@ -22,7 +22,7 @@ import Mixology from "./pages/mixology";
 import Discover from "./pages/discover";
 import Following from "./pages/following";
 import Register from "./components/register";
-import Drinkpage from "./pages/Drinkpage";  
+// import Drinkpage from "./pages/Drinkpage";  
 import TrendingTwo from "./pages/trending2"
 
 const App = () => {
@@ -31,7 +31,7 @@ const App = () => {
      <Navbar />
      <Routes>
        <Route exact path="/" element={<Homepage />} />
-       <Route path="/drink/:id" element={<Drinkpage/>} />
+       {/* <Route path="/drink/:id" element={<Drinkpage/>} /> */}
        <Route path="/edit/:id" element={<Edit />} />
        <Route path="/homepage" element={<Homepage />} />
        <Route path="/generatedrink" element={<GenerateDrink />} />
