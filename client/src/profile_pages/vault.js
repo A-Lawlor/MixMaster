@@ -5,13 +5,17 @@ import "../css/vault.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 const divStyle = {
-    width: '100%',
-    height: '100vh',
-    paddingTop: '10vh',
     backgroundImage: 'url(../../WineCellar.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    backgroundColor: '#7f00c9'
+    backgroundColor: '#7f00c9',
+    width: '100%',
+    height: '100vh',
+    paddingTop: '15vh',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    zIndex: -1
 };
 
 
