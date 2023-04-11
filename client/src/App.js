@@ -15,7 +15,6 @@ import EditProfile from "./profile_pages/editprofile";
 import Homepage from "./pages/homepage";
 import GenerateDrink from "./pages/generatedrink";
 import About from "./pages/about";
-import Contact from "./pages/contact";
 import FavoritesList from "./profile_pages/favoriteslist";
 import Trending from "./pages/trending";
 import Mixology from "./pages/mixology";
@@ -40,7 +39,6 @@ const App = () => {
        <Route path="/storageedit" element={<StorageEdit />} />
        <Route path="/vault" element={<Vault />} />
        <Route path="/about" element={<About />} />
-       <Route path="/contact" element={<Contact />} />
        <Route path="/create" element={<Create />} />
        <Route path="/editprofile" element={<EditProfile />} />
        <Route path="/favoriteslist" element={<FavoritesList />} />

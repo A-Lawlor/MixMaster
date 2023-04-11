@@ -14,6 +14,7 @@
     height: 51vh;
     overflow-y: scroll;
     border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     text-align: left;
 }
 
@@ -40,7 +41,7 @@
     background-color: #41C3FA;
     height: auto;
     margin-left: 1vw;
-    width: 160px;
+    width: 200px;
 }
 
 #edit_button {

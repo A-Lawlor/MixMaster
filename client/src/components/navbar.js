@@ -11,6 +11,30 @@ export default function Navbar() {
   const formRefLogin = useRef(null);
   const formRefRegister = useRef(null);
 
+  //Contact
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [contactForm, setContactForm] = useState({ name: '', subject: '', message: '' });
+
+  const handleContactModalOpen = () => {
+    setShowContactModal(true);
+  };
+
+  const handleContactModalClose = () => {
+    setShowContactModal(false);
+  };
+
+  const handleContactFormChange = (event) => {
+    const { name, value } = event.target;
+    setContactForm((prevContactForm) => ({ ...prevContactForm, [name]: value }));
+  };
+
+  const handleContactCompose = () => {
+    const { name, subject, message } = contactForm;
+    const mailtoUrl = `mailto:mixmaster.gui2@gmail.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(`From: ${name}\n\n${message}`)}`;
+    window.open(mailtoUrl);
+  };
 
    //Login form
    const [loginForm, setLoginForm] = useState({
@@ -208,7 +232,7 @@ export default function Navbar() {
           <NavLink className="nav-link mx-2" to="/about">
             About
           </NavLink>
-          <NavLink className="nav-link mx-3" to="/contact">
+          <NavLink className="nav-link mx-3" onClick={handleContactModalOpen}>
             Contact
           </NavLink>
         </div>
@@ -310,82 +334,127 @@ export default function Navbar() {
                 </Form>
               </Modal.Body>
             </Modal>
-            
+            <Modal show={registerShow} onHide={handleRegisterClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Register</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <p className="register-text">
+                      Already have an account?{' '}
+                      <span
+                        className="register-link"
+                        onClick={() => {
+                          setLoginShow(true); // hide the login modal
+                          setRegisterShow(false); // show the registration modal
+                          console.log('Register link clicked!');
+                        }}
+                      >
+                        Login
+                      </span>
+                    </p>
+                  <Form ref={formRefRegister} onSubmit={handleRegister}>
+                  <Form.Group controlId="formBasicEmailReg">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      type="email"
+                      name="emailRef"
+                      placeholder="Enter Email"
+                      onChange={(e) => updateRegisterForm({ email: e.target.value })}
+                      required
+                    />
+                  </Form.Group>
 
-        <Modal show={registerShow} onHide={handleRegisterClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Register</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p className="register-text">
-                  Already have an account?{' '}
-                  <span
-                    className="register-link"
-                    onClick={() => {
-                      setLoginShow(true); // hide the login modal
-                      setRegisterShow(false); // show the registration modal
-                      console.log('Register link clicked!');
-                    }}
-                  >
-                    Login
-                  </span>
-                </p>
-              <Form ref={formRefRegister} onSubmit={handleRegister}>
-              <Form.Group controlId="formBasicEmailReg">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="emailRef"
-                  placeholder="Enter Email"
-                  onChange={(e) => updateRegisterForm({ email: e.target.value })}
-                  required
-                />
-              </Form.Group>
+                  <Form.Group controlId="formBasicUsernameReg">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="usernameReg"
+                      placeholder="Enter Username"
+                      onChange={(e) => updateRegisterForm({ name: e.target.value })}
+                      required
+                    />
+                  </Form.Group>
 
-              <Form.Group controlId="formBasicUsernameReg">
-                <Form.Label>Username</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="usernameReg"
-                  placeholder="Enter Username"
-                  onChange={(e) => updateRegisterForm({ name: e.target.value })}
-                  required
-                />
-              </Form.Group>
+                  <Form.Group controlId="formBasicPasswordReg">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="passwordReg"
+                      placeholder="Enter Password"
+                      onChange={(e) => updateRegisterForm({ password: e.target.value })}
+                      required
+                    />
+                  </Form.Group>
 
-              <Form.Group controlId="formBasicPasswordReg">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="passwordReg"
-                  placeholder="Enter Password"
-                  onChange={(e) => updateRegisterForm({ password: e.target.value })}
-                  required
-                />
-              </Form.Group>
+                  <Form.Group controlId="formBasicConfirmPasswordReg">
+                    <Form.Label>Confirm Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="confirmPasswordReg"
+                      placeholder="Confirm Password"
+                      required
+                    />
+                  </Form.Group>
 
-              <Form.Group controlId="formBasicConfirmPasswordReg">
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="confirmPasswordReg"
-                  placeholder="Confirm Password"
-                  required
-                />
-              </Form.Group>
-
-              <Modal.Footer>
-                <Button style={{ backgroundColor: "#41C3FA", color: "#fff" }} type="submit">
-                  Register
-                </Button>
-                <Button variant="secondary" onClick={handleRegisterClose}>
-                  Close
-                </Button>
-              </Modal.Footer>
-            </Form>
-          </Modal.Body>
-        </Modal>
-
+                  <Modal.Footer>
+                    <Button style={{ backgroundColor: "#41C3FA", color: "#fff" }} type="submit">
+                      Register
+                    </Button>
+                    <Button variant="secondary" onClick={handleRegisterClose}>
+                      Close
+                    </Button>
+                  </Modal.Footer>
+                </Form>
+              </Modal.Body>
+            </Modal>
+            <Modal show={showContactModal} onHide={handleContactModalClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Contact Us</Modal.Title>
+      </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                placeholder="Enter Name"
+                value={contactForm.name}
+                onChange={handleContactFormChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formSubject">
+              <Form.Label>Subject</Form.Label>
+              <Form.Control
+                type="text"
+                name="subject"
+                placeholder="Enter Subject"
+                value={contactForm.subject}
+                onChange={handleContactFormChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formMessage">
+              <Form.Label>Message</Form.Label>
+              <Form.Control
+                as="textarea"
+                name="message"
+                placeholder="Enter Message"
+                rows={3}
+                value={contactForm.message}
+                onChange={handleContactFormChange}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+        <Button variant="primary" style={{ backgroundColor: "#41C3FA", color: "#fff" }} onClick={handleContactCompose}>
+            Compose
+          </Button>
+          <Button variant="secondary" onClick={handleContactModalClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
         </div>
       </div>
       </div>
