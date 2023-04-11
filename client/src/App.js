@@ -21,6 +21,7 @@ import Trending from "./pages/trending";
 import Mixology from "./pages/mixology";
 import Following from "./pages/following";
 import Register from "./components/register";
+import Drinkpage from "./pages/Drinkpage";  
 
 const App = () => {
  return (
@@ -28,6 +29,7 @@ const App = () => {
      <Navbar />
      <Routes>
        <Route exact path="/" element={<Homepage />} />
+       <Route path="/drink/:id" element={<Drinkpage/>} />
        <Route path="/edit/:id" element={<Edit />} />
        <Route path="/homepage" element={<Homepage />} />
        <Route path="/generatedrink" element={<GenerateDrink />} />
