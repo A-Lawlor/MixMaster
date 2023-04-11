@@ -26,28 +26,28 @@ function About() {
         <Col id="anthony_profile" className= "text-center" md={3}>
           <img class="about_image" src={anthony}/>
           <Row className="justify-content-center align-items-center">
-            <Col className= "text-center" md={4}>
+            <Col className= "text-center" md={3}>
               <NavLink target='_blank' to="https://github.com/A-Lawlor">
                 <img class="social_icons" src={github}/>
               </NavLink>
             </Col>
-            <Col className= "text-center" md={4}>
+            <Col className= "text-center" md={3}>
               <NavLink target='_blank' to="https://www.linkedin.com/in/anthony-lawlor/">
                 <img class="social_icons" src={linkedin}/>
               </NavLink>
             </Col>
           </Row>
-          <p class="about_text">Hello! My name is Anthony Lawlor and I am a  class of 2023 senior at Umass Lowell graduating with a degree in computer science.  I am one of your 4 Mix Masters developers. I am from Danvers Massachuetts and one of my favorite drinks to make at home is a spicy margarita with jalapenos. </p>
+          <p class="about_text">Hello! My name is Anthony Lawlor and I am a  class of 2023 senior at Umass Lowell graduating with a degree in computer science and will be working at Raytheon.  I am one of your 4 Mix Masters developers. I am from Danvers Massachuetts and one of my favorite drinks to make at home is a spicy margarita with jalapenos. </p>
         </Col>
         <Col id="dalton_profile" className= "text-center" md={3}>
           <img class="about_image" src={dalton}/>
           <Row className="justify-content-center align-items-center">
-            <Col className= "text-center" md={4}>
+            <Col className= "text-center" md={3}>
               <NavLink target='_blank' to="https://github.com/daltonlee1010">
                 <img class="social_icons" src={github}/>
               </NavLink>
             </Col>
-            <Col className= "text-center" md={4}>
+            <Col className= "text-center" md={3}>
               <NavLink target='_blank' to="https://www.linkedin.com/in/dalton-lee-b545681b4/">
                 <img class="social_icons" src={linkedin}/>
               </NavLink>
@@ -58,12 +58,12 @@ function About() {
         <Col id="daury_profile" className= "text-center" md={3}>
           <img class="about_image" src={daury}/>
           <Row className="justify-content-center align-items-center">
-            <Col className= "text-center" md={4}>
+            <Col className= "text-center" md={3}>
               <NavLink target='_blank'>
                 <img class="social_icons" src={github}/>
               </NavLink>
             </Col>
-            <Col className= "text-center" md={4}>
+            <Col className= "text-center" md={3}>
               <NavLink target='_blank'>
                 <img class="social_icons" src={linkedin}/>
               </NavLink>
@@ -74,12 +74,12 @@ function About() {
         <Col id="matt_profile" className= "text-center" md={3}>
           <img class="about_image" src={matt}/>
           <Row className="justify-content-center align-items-center">
-            <Col className= "text-center" md={4}>
+            <Col className= "text-center" md={3}>
               <NavLink target='_blank'>
                 <img class="social_icons" src={github}/>
               </NavLink>
             </Col>
-            <Col className= "text-center" md={4}>
+            <Col className= "text-center" md={3}>
               <NavLink target='_blank'>
                 <img class="social_icons" src={linkedin}/>
               </NavLink>
