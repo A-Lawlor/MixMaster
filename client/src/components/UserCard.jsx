@@ -1,30 +1,38 @@
 import React, { useState } from "react";
 import { Card, Badge, Button } from "react-bootstrap";
+import $ from "jquery";
 
 //"/me/:me/user/:user/follow"
+const variant_options = ["danger", "success"];
 
 export function UserCard({ data, yourId, followStatus, followStatusColor, followStatusText}) {
 
-  const [following, setFollowing] = useState(false);
+  const [color, setColor] = useState(followStatusColor);
+  const [following, setFollowing] = useState(followStatus);
 
   //this code will determine whether to follow or unfollow the set of users in the discover page
   const handleClick = () => {
-    //setFollowing(!following);
-    //setFollow();
-    if(followStatus){
-      //setFollow();
-      console.log('you are following this user');
-      console.log('you are NOW UNfollowing this user');
-      var followCommand = "me/"+yourId + "/user/"+ data._id + "/unfollow";
-      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/'+followCommand : 'http://localhost:5005/'+ followCommand);
+    if(following) {
+      var followCommand = "me/" + yourId + "/user/" + data._id + "/unfollow";
+      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/' + followCommand : 'http://localhost:5005/' + followCommand);
       fetch(fetch_string, {method:"PATCH"});
+      // Swap follow button variables and update w/ jquery
+      setColor("success");
+      $("#follow-command-button-"+data._id).text("Follow!");
+      console.log('you are now UNfollowing this user');
+      setFollowing(false);
+      return;
     }
     else{
-      console.log('you are NOT following this user');
-      console.log('you are NOW FOLLOWING this user');
-      var followCommand = "me/"+yourId + "/user/"+ data._id + "/follow";
-      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/'+followCommand : 'http://localhost:5005/'+ followCommand);
+      var followCommand = "me/" + yourId + "/user/" + data._id + "/follow";
+      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/' + followCommand : 'http://localhost:5005/' + followCommand);
       fetch(fetch_string, {method:"PATCH"});
+      // Swap follow button variables and update w/ jquery
+      setColor("danger");
+      $("#follow-command-button-"+data._id).text("Unfollow");
+      console.log('you are now FOLLOWING this user');
+      setFollowing(true);
+      return;
     }
   };
 
@@ -38,15 +46,16 @@ export function UserCard({ data, yourId, followStatus, followStatusColor, follow
             {data.followers}
           </Badge>
         </div>
-        <Card.Text className="text-secondary">{data.desc}</Card.Text>
+        <Card.Text id={"follow-command-button-appender" + data._id} className="text-secondary">{data.desc}</Card.Text>
 
         <Button
           onClick={handleClick}
+          id={"follow-command-button-" + data._id}
           className="mt-auto font-weight-bold"
-          variant={followStatusColor}
-          block
+          variant={color}
+          block="true"
         >
-          {followStatusText}
+            {followStatusText}
         </Button>
       </Card.Body>
     </Card>
