@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import styles from "../css/about.css"
+import "../css/about.css"
 
 //Profile Photos
 import anthony from "../images/profile_pictures/Anthony.png";
@@ -23,7 +23,7 @@ function About() {
         </Col>
       </Row>
       <Row className="justify-content-center align-items-center" style={{ marginTop: "2vh", marginBottom: "5vh"}}>
-        <Col id="anthony_profile" className= "text-center" md={3}>
+        <Col id="anthony_profile" className= "text-center" xs={1} md={2}>
           <img class="about_image" src={anthony}/>
           <Row className="justify-content-center align-items-center">
             <Col className= "text-center" md={3}>
@@ -37,9 +37,9 @@ function About() {
               </NavLink>
             </Col>
           </Row>
-          <p class="about_text">Hello! My name is Anthony Lawlor and I am a  class of 2023 senior at Umass Lowell graduating with a degree in computer science and will be working at Raytheon.  I am one of your 4 Mix Masters developers. I am from Danvers Massachuetts and one of my favorite drinks to make at home is a spicy margarita with jalapenos. </p>
+          <p class="about_text">Hello! My name is Anthony Lawlor and I am a  class of 2023 senior at Umass Lowell graduating with a degree in computer science and will be working at Raytheon this summer.  I am one of your 4 Mix Masters developers. I am from Danvers Massachuetts and one of my favorite drinks to make at home is a spicy margarita with jalapenos. </p>
         </Col>
-        <Col id="dalton_profile" className= "text-center" md={3}>
+        <Col id="dalton_profile" className= "text-center" xs={1} md={2}>
           <img class="about_image" src={dalton}/>
           <Row className="justify-content-center align-items-center">
             <Col className= "text-center" md={3}>
@@ -55,7 +55,7 @@ function About() {
           </Row>
           <p class="about_text">Aloha! I’m Dalton and I’m an undergraduate student at UML. I’ll be working for MITRE when I graduate this summer. Stitch and I chose our favorite drink to share with you all to be the Hawaiian Mimosa. It’s a fun easy to make drink for all you orange juice lovers. Sit back, relax, and find your dream drink here! </p>
         </Col>
-        <Col id="daury_profile" className= "text-center" md={3}>
+        <Col id="daury_profile" className= "text-center" xs={1} md={2}>
           <img class="about_image" src={daury}/>
           <Row className="justify-content-center align-items-center">
             <Col className= "text-center" md={3}>
@@ -71,7 +71,7 @@ function About() {
           </Row>
           <p class="about_text">Hello! My name is Daury Argueta and I am one of your 4 Mix Masters. My family is from Guatemala and we enjoy drinking lots of rum in Guatemala such as Zacapa. I hope you enjoy our Mix Masters page and learn lots about different drinks and get to become a Mix Master your self! </p>
         </Col>
-        <Col id="matt_profile" className= "text-center" md={3}>
+        <Col id="matt_profile" className= "text-center" xs={1} md={2}>
           <img class="about_image" src={matt}/>
           <Row className="justify-content-center align-items-center">
             <Col className= "text-center" md={3}>
