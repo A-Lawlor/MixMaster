@@ -1,0 +1,30 @@
+.wholebox{
+    border: 3px solid blue;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.titlerow{
+    background-color: teal;
+    border: 2px solid red;
+}
+
+.titlecolumn{
+    background-color: brown;
+    border: 4px solid black;
+}
+
+.composebox{
+    background-color: green;
+    border: 4px solid black;
+}
+
+.contactformbox{
+    background-color: pink;
+    border: 4px solid black;
+}
+
+.mycenter{
+    margin-top: auto;
+margin-bottom: auto;
+}

@@ -1,12 +1,31 @@
 import React, { useState } from "react";
 import { Card, Badge, Button } from "react-bootstrap";
 
-export function UserCard({ data, setFollow }) {
+//"/me/:me/user/:user/follow"
+
+export function UserCard({ data, yourId, followStatus, followStatusColor, followStatusText}) {
+
   const [following, setFollowing] = useState(false);
 
+  //this code will determine whether to follow or unfollow the set of users in the discover page
   const handleClick = () => {
-    setFollowing(!following);
-    setFollow();
+    //setFollowing(!following);
+    //setFollow();
+    if(followStatus){
+      //setFollow();
+      console.log('you are following this user');
+      console.log('you are NOW UNfollowing this user');
+      var followCommand = "me/"+yourId + "/user/"+ data._id + "/unfollow";
+      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/'+followCommand : 'http://localhost:5005/'+ followCommand);
+      fetch(fetch_string, {method:"PATCH"});
+    }
+    else{
+      console.log('you are NOT following this user');
+      console.log('you are NOW FOLLOWING this user');
+      var followCommand = "me/"+yourId + "/user/"+ data._id + "/follow";
+      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/'+followCommand : 'http://localhost:5005/'+ followCommand);
+      fetch(fetch_string, {method:"PATCH"});
+    }
   };
 
   return (
@@ -24,10 +43,10 @@ export function UserCard({ data, setFollow }) {
         <Button
           onClick={handleClick}
           className="mt-auto font-weight-bold"
-          variant={following ? "danger" : "success"}
+          variant={followStatusColor}
           block
         >
-          {following ? "unfollow" : "follow!"}
+          {followStatusText}
         </Button>
       </Card.Body>
     </Card>

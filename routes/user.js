@@ -13,15 +13,28 @@ const ObjectId = require("mongodb").ObjectId;
 //For password security
 var bcrypt = require('bcryptjs');
 
-const userSchema = {
+mongoose.connect(process.env.MONGO_URI_USERS, {
+    keepAlive: true,
+    useNewUrlParser: true,
+    retryWrites: true,
+    useUnifiedTopology: true,
+  }).catch((err) => console.log(err));
+
+const userSchema = new mongoose.Schema({
     email: String,
     name: String,
     password: String,
     about: String,
     picture_id: String,
-    picture_url: String
-}
-const User = new mongoose.model("User", userSchema) 
+    picture_url: String,
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+      }],
+}, {collection: 'credentials'});
+
+const User = new mongoose.model("users", userSchema)
+
 
 const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
@@ -102,7 +115,8 @@ userCredentialsRoutes.route("/user/register").post(function (req, res) {
                 bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
                     const user = new User({email: req.body.email, name: req.body.name, password: hash,
                                            about: "", picture_id: "mixmaster/DefaultPicture",
-                                           picture_url: "https://res.cloudinary.com/dgco11qpv/image/upload/v1681153540/mixmaster/DefaultPicture.jpg"
+                                           picture_url: "https://res.cloudinary.com/dgco11qpv/image/upload/v1681153540/mixmaster/DefaultPicture.jpg",
+                                           followers:[],following:[]
                                         })                
                         db_connect.collection("credentials").insertOne(user, function (err, res) {
                             if(err){
@@ -136,7 +150,8 @@ userCredentialsRoutes.route("/user/edit").post(async function (req, res) {
                             email: req.body.email,
                             about: req.body.about,
                             picture_id: upload_result.public_id,
-                            picture_url: upload_result.secure_url
+                            picture_url: upload_result.secure_url,
+
                             }
                         };
             db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
@@ -164,6 +179,58 @@ userCredentialsRoutes.route("/user/edit").post(async function (req, res) {
     catch (error) {
         console.log(error);
         return res.send(JSON.stringify(req.body.name));
+    }
+});
+//  Follow / unfollow routes
+
+// Route for me to follow user
+// ex: PATCH localhost:5005/me/643379ae6157bbb888f4fa11/user/64305aca886115f36a865f30/follow
+userCredentialsRoutes.route("/me/:me/user/:user/follow").patch(async function (req, res) {
+    try {
+        const query = {_id: req.params.me};
+        const update = {$addToSet: {following: req.params.user}};
+
+        await User.updateOne(query, update);
+        const updatedMe = await User.findOne(query, {projection: { password: 0 }}).populate('following').lean();
+
+        updatedMe.followers = await User.find({following: req.params.me});
+
+        res.json(updatedMe);
+    } catch (error) {
+        res.status(500).json({message: 'Something wrong append', error});
+    }
+});
+
+// Route for me to unfollow user
+// ex: PATCH localhost:5005/me/643379ae6157bbb888f4fa11/user/64305aca886115f36a865f30/unfollow
+userCredentialsRoutes.route("/me/:me/user/:user/unfollow").patch(async function (req, res) {
+    try {
+        const query = {_id: req.params.me};
+        update =  {$pullAll: {following: [req.params.user]}};
+
+        await User.updateOne(query, update);
+        const updatedMe = await User.findOne(query).populate('following').lean();
+
+        updatedMe.followers = await User.find({following: req.params.me});
+
+        res.json(updatedMe);
+    } catch (error) {
+        res.status(500).json({message: 'Something wrong append', error});
+    }
+});
+// Retrieve all my information - /me/my_mongo_id
+// ex: GET localhost:5005/me/643379ae6157bbb888f4fa11
+userCredentialsRoutes.route("/me/:me").get(async function (req, res) {
+    try {
+        const query = {_id: req.params.me};
+
+        const me = await User.findOne(query).populate('following').lean();
+
+        me.followers = await User.find({following: req.params.me});
+
+        res.json(me);
+    } catch (error) {
+        res.status(500).json({message: 'Something wrong append', error});
     }
 });
 

@@ -1,13 +1,22 @@
 import React from 'react';
+import { ContactForm } from '../components/contactform'
 import { NavLink } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import './contact.css';
 
 function Contact() {
   return (
-    <Container fluid className="d-flex flex-column justify-content-center align-items-center">
-      <Row className="justify-content-center align-items-center" style={{ height: "100vh" }}>
-        <Col className="text-center">
-            <h1>Contact Page</h1>
+    <Container className="wholebox">
+      <Row className="titlerow">
+        <Col className="titlecolumn" xs={3}>
+          <h1>Contact Page</h1>
+        </Col>
+      </Row>
+      <Row className='mycenter'>
+        <Col className="composebox d-flex justify-content-center" >
+          <div className="contactformbox">
+          <ContactForm  />
+          </div>
         </Col>
       </Row>
     </Container>

@@ -1,33 +1,25 @@
-import React, {useState} from "react";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 
 import{Container, Row, Col} from 'react-bootstrap';
-import {UserCard} from '../components/UserCard';
-import {Confirmation} from '../components/Confirmation';
+import {FollowingUserCard} from '../components/FollowingUserCard';
 
 import users from '../data.json';
 
+//testing github integration
+
 function SuggestionFollowers() {
-
-  const[follow,setFollow]=useState(false);
-  
-  function displayConfirmation()
-  {
-    setFollow(true);
-
-    setTimeout(()=> {
-      setFollow(false);
-    }, 3000);
-  }
 
 
   return (
       <Container>
-        {follow && <Confirmation toggle={setFollow} />}
+          <h1>
+            Who you can follow!
+          </h1>
         <Row>
           {users.map(data => (
-            <Col xs={3} className="mt-5 ml-3 mr-3 mb-3" key={'${data.id}'}>
-              <UserCard data={data} setFollow={displayConfirmation}/>
+            <Col xs={3} className="mt-5 ml-3 mr-3 mb-3">
+              <FollowingUserCard />
             </Col>
           ))}
         </Row>
