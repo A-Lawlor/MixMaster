@@ -9,10 +9,11 @@
     background: rgb(108,117,125, 0.95);
     font-size: 1.75em;
     padding: 0.5em;
-    width: 50vh;
+    width: 60vh;
     height: 51vh;
     overflow-y: scroll;
     border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     text-align: left;
 }
 
@@ -22,7 +23,7 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding-top: 12px;
-    width: 50vh;
+    width: 60vh;
     height: fit-content;
 }
 
@@ -36,7 +37,7 @@
     background-color: #41C3FA;
     height: auto;
     margin-left: 2vh;
-    width: 135px;
+    width: 200px;
 
 }
 #edit_button {

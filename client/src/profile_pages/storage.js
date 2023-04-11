@@ -124,7 +124,7 @@ export default function Storage() {
       <Col id="storage_buttons" xs={12} className="pb-3">
         <Button id="add_button" onClick={addClicked} className = "btn mt-2">Add</Button>
         <Button id="edit_button" onClick={editClicked} className = "btn mt-2">Edit</Button>
-        <Button id="generate_button" to={addClicked} className = "btn mt-2">Find Drink w/ My Ingredients</Button>
+        <Button id="generate_button" to={addClicked} className = "btn mt-2">Generate Drink w/ My Ingredients</Button>
       </Col>
     </Row>
     <>
