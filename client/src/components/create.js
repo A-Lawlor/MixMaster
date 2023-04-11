@@ -5,8 +5,8 @@ import "bootstrap/dist/css/bootstrap.css";
 
 export default function Create() {
  const [image, setImage] = useState({myFile:""});
- const [bgcolor1, setBgColor1] = useState(null);
- const [bgcolor2, setBgColor2] = useState(null);
+ const [bgcolor1, setBgColor1] = useState("#000000");
+ const [bgcolor2, setBgColor2] = useState("#000000");
  const [form, setForm] = useState({
    picture: "",
    name: "",
@@ -30,6 +30,7 @@ export default function Create() {
  
    // When a post request is sent to the create url, we'll add a new record to the database.
    const newDrink = { ...form };
+   navigate("/");
 
    let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/drink/add' : 'http://localhost:5005/drink/add');
    await fetch(fetch_string, {
@@ -39,13 +40,21 @@ export default function Create() {
      },
      body: JSON.stringify(newDrink),
    })
+   .then((response) => {
+      if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+      }
+   })
+   .then(() => {
+      setForm({ picture: "", name: "", liqour: "", taste: "", ingredients: "", about: ""});
+      navigate("/");
+      return;
+   })
    .catch(error => {
-     window.alert(error);
-     return;
+      window.alert(error);
+      return;
    });
  
-   setForm({ picture: "", name: "", liqour: "", taste: "", rating: "", likes: "", dislikes: ""});
-   navigate("/");
  }
 
  async function fileSelectedHandler(e) {
@@ -193,7 +202,7 @@ function convertToBase64(file) {
        </div>
        <br></br>
        <div className="form-group">
-          <label for="bg-color1">Background Color 1</label>
+          <label htmlFor="bg-color1">Background Color 1</label>
           <input type="color" id="bg-color1" className="form-control" name="bg-color1" 
             value={bgcolor1} onChange={e => setBgColor1(e.target.value)} style={{width:'10em'}}/>
        </div>
