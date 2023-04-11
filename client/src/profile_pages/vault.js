@@ -50,7 +50,7 @@ import cellar from "../images/vault_pictures/WineCellar.jpg";
     </Row>
     <Row className="justify-content-center align-items-center" style={{ marginTop: "2vh" }}>
       <Col className="text-center"> 
-        <Button id="vault-btn" as={NavLink} to="/editprofile" className="btn btn-secondary">Settings</Button>
+        <Button id="vault-btn" as={NavLink} to="/editprofile" className="btn btn-secondary">Edit Profile</Button>
       </Col>
     </Row>
 

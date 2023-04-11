@@ -26,13 +26,13 @@ const UnownedIngredient = (props) => (
         <button className="ingredient-button" id={props.ingredient._id+"-button"} onClick={() => {
             props.addUserIngredient(props.ingredient.name, props.ingredient._id);
         }}
-        >&#9744;</button>
+        >&#x2795;</button>
     </ul>
 );
 
 const OwnedIngredient = (props) => (
     <ul className="ingredient" key={props.ingredient._id}>{props.ingredient.name}
-        <span className="ingredient-button">&#9745;</span>
+        <span className="ingredient-button">&#x2714;</span>
     </ul>
 );
 
@@ -118,7 +118,7 @@ export default function StorageAdd() {
         })
         .then(() => {
             $("#"+id+"-button").remove();
-            $("#"+id).append("<span>&#9745</span>");
+            $("#"+id).append("<span>&#x2714;</span>");
             $("span").addClass("ingredient-button");
             return;
         })
@@ -192,7 +192,7 @@ export default function StorageAdd() {
           </Col>
         </Row>
         <Row className="justify-content-center align-items-center">
-          <Col id="storage_buttons" xs={12}>
+          <Col id="storage_buttons" xs={12} className="pb-3">
             <Button id="done_button" onClick={doneClicked}className = "btn">Done</Button>
           </Col>
         </Row>

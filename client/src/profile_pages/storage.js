@@ -105,6 +105,7 @@ export default function Storage() {
       top: 0,
       left: 0,
       zIndex: -1,
+      overflow: "auto"
     }}
     />
      <Row className="justify-content-center align-items-center" style={{ marginTop: "4vh" }}>
@@ -120,10 +121,10 @@ export default function Storage() {
       </Col>
     </Row>
     <Row className="justify-content-center align-items-center">
-      <Col id="storage_buttons" xs={12}>
-        <Button id="add_button" onClick={addClicked}className = "btn">Add</Button>
-        <Button id="edit_button" onClick={editClicked} className = "btn">Edit</Button>
-        <Button id="generate_button" to={addClicked} className = "btn">GeneratDrink</Button>
+      <Col id="storage_buttons" xs={12} className="pb-3">
+        <Button id="add_button" onClick={addClicked} className = "btn mt-2">Add</Button>
+        <Button id="edit_button" onClick={editClicked} className = "btn mt-2">Edit</Button>
+        <Button id="generate_button" to={addClicked} className = "btn mt-2">Find Drink w/ My Ingredients</Button>
       </Col>
     </Row>
     <>

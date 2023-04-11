@@ -14,7 +14,8 @@ const divStyle = {
     position: 'fixed',
     top: 0,
     left: 0,
-    zIndex: -1
+    zIndex: -1,
+    overflow: "auto"
 };
 
 
@@ -56,7 +57,6 @@ export default function EditProfile() {
         return;
       }
       const user_profiles = await response.json();
-      //console.log(user_profiles.filter((e) => e.name === username.username).find((e) => e.name === username.username).name);
       setUserProfiles(user_profiles);
       let my_profile = user_profiles.filter((e) => e.name === username.username).find((e) => e.name === username.username);
       updateForm({
@@ -87,7 +87,6 @@ export default function EditProfile() {
     document.getElementById('file').click();
   }
   async function fileSelectedHandler(e) {
-    console.log(e);
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
     setImage({...image, myFile:base64});
@@ -138,7 +137,7 @@ export default function EditProfile() {
 
   return (
     <div className="container-fluid" style={divStyle}>
-      <div className = "editprofile_container">
+      <div className = "editprofile_container" style={{height:"85vh", overflow: "auto"}}>
         <div className="row">
           <div className="col-12 mt-4">
             <h1 id="editprofile_header">Edit Profile:</h1>
@@ -177,7 +176,7 @@ export default function EditProfile() {
             <button onClick={browseClicked} className = "button-84s button-special editprofile_buttons">Browse</button>
             <input type="file" onChange={fileSelectedHandler} accept="image/*" style={{display:"none"}} id="file" name="file"/>
             <button onClick={resetClicked} className = "button-84s button-darker editprofile_buttons">Reset</button>
-            {image.myFile==="" || image.myFile===null?"": <img src={image.myFile} className="profile_picture"  alt="Profile Pic Preview"/>} 
+            {image.myFile==="" || image.myFile===null?"": <img src={image.myFile} className="profile_picture"  alt="Profile Pic Preview"/>}
           </div>
         </div>
         <div className="row">

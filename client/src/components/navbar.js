@@ -235,12 +235,15 @@ export default function Navbar() {
                   <Dropdown.Item as={NavLink} to="/create">
                     Create Drink
                   </Dropdown.Item>
-                  
+
                   <Dropdown.Item as={NavLink} to="/trending">
                     Trending Drinks
                   </Dropdown.Item>
 
-                  
+                  <Dropdown.Item as={NavLink} to="/editprofile">
+                    Edit Profile
+                  </Dropdown.Item>
+
                   <Dropdown.Item onClick={handleLogout} style={{ color: "red" }} as={NavLink} to="/">
                     Logout
                   </Dropdown.Item>

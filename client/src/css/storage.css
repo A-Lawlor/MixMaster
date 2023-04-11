@@ -23,7 +23,7 @@
     border-bottom-right-radius: 10px;
     padding-top: 12px;
     width: 50vh;
-    height: 8vh;
+    height: fit-content;
 }
 
 #add_button {
