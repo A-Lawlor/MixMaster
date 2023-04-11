@@ -58,7 +58,8 @@ export default function RecordList() {
     
   const navigate = useNavigate();
   function NavigateToDrink(id) {
-    navigate(`/drink/${id}`);
+    navigate("/favoriteslist");
+    //navigate(`/drink/${id}`);
   }
     
     // This method will map out the records on the table
