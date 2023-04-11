@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { Button, Dropdown, Modal, Form } from "react-bootstrap";
 import "../css/navbar.css"
@@ -11,8 +11,9 @@ export default function Navbar() {
   const formRefLogin = useRef(null);
   const formRefRegister = useRef(null);
 
-  //Login form
-  const [loginForm, setLoginForm] = useState({
+
+   //Login form
+   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
   });
@@ -28,7 +29,6 @@ export default function Navbar() {
     email: "",
     name: "",
     password: "",
-    about: ""
   });
 
   function updateRegisterForm(value) {
@@ -49,45 +49,29 @@ export default function Navbar() {
     formRefRegister.current.reset();
   };
 
-  // This method fetches the ingredients from the database.
-  const [all_users, setAllUsers] = useState([]);
-  useEffect(() => {
-    async function getAllUsers() {
-      const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user' : 'http://localhost:5005/user');
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-      const all_users = await response.json();
-      setAllUsers(all_users);
-    }
-    getAllUsers()       
-    return;
-  } , [all_users.length]);
-
 
   const handleShow = () => setLoginShow(true);
+
+  //Handle a user pressing login and checking credentials
   async function handleLogin (event) {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
-    } 
-    else {
+    } else {
       const newUser = { ...loginForm };
 
       let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/login' : 'http://localhost:5005/user/login');
       await fetch(fetch_string, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
         },
         body: JSON.stringify(newUser),
       })
       .then(response => response.json())
       .then(response => {
-        if(String(response.message).localeCompare("Incorrect Username or Password")) {
+        if(String(response.message).localeCompare("Incorrect Username or Password")){
           console.log(response.name);
           localStorage.setItem('logged_in', true);
           setLoggedIn(true);
@@ -96,8 +80,7 @@ export default function Navbar() {
           setUsername(response.name);
           setRegisterForm({ email: "", password: "" });
           return;
-        } 
-        else {
+        } else {
           window.alert(response.message);
         }
       })
@@ -112,79 +95,75 @@ export default function Navbar() {
 
 
 
-  async function handleLogout () {
-    let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/logout' : 'http://localhost:5005/user/logout');
-    await fetch(fetch_string, {
-      method: "DELETE",
+    async function handleLogout () {
+      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/logout' : 'http://localhost:5005/user/logout');
+      await fetch(fetch_string, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+          type: "logout"
+        }),
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+      })
+      .then(() => {
+        localStorage.removeItem('logged_in');
+        setLoggedIn(false);
+        localStorage.removeItem('username');
+        setUsername("");
+        return;
+      })
+      .catch(error => {
+        window.alert(error);
+        return;
+      });
+    };
+
+    //Handle a new user being registered
+    async function handleRegister (event) {
+      const form = event.currentTarget;
+      console.log(form.elements.passwordReg.value);
+      console.log(form.elements.confirmPasswordReg.value);
+      event.preventDefault();
+      handleRegisterClose();
+      // if (form.checkValidity() === false) {
+      //   console.log("Getting to check validity");
+      //   event.stopPropagation();
+      // else 
+      console.log("Getting into else statement");
+      if(form.elements.passwordReg.value !== form.elements.confirmPasswordReg.value){
+        console.log("Passwords do not match");
+        formRefRegister.current.reset();
+        return;
+      }
+      setStorage(registerForm.name);
+
+      const newUser = { ...registerForm };
+      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/register' : 'http://localhost:5005/user/register');
+      await fetch(fetch_string, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ 
-        type: "logout"
-      }),
-    })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-      }
-    })
-    .then(() => {
-      localStorage.removeItem('logged_in');
-      setLoggedIn(false);
-      localStorage.removeItem('username');
-      setUsername("");
-      return;
-    })
-    .catch(error => {
-      window.alert(error);
-      return;
-    });
-  };
+        },
+        body: JSON.stringify(newUser),
+      })
+      .then(response => response.json())
+      .then(response => {
+        window.alert(response.message);
+      })
+      .catch(error => {
+        window.alert(error);
+        return;
+      });
 
-  async function handleRegister (event) {
-    const form = event.currentTarget;
-    console.log(form.elements.passwordReg.value);
-    console.log(form.elements.confirmPasswordReg.value);
-    event.preventDefault();
-    handleRegisterClose();
-    // if (form.checkValidity() === false) {
-    //   console.log("Getting to check validity");
-    //   event.stopPropagation();
-    // else 
-    console.log("Getting into else statement");
-    if(form.elements.passwordReg.value !== form.elements.confirmPasswordReg.value){
-      console.log("Passwords do not match");
-      formRefRegister.current.reset();
-      return;
-    }
-    if(all_users.some(item => item.name === registerForm.name)){
-      window.alert("Username already exists");
-      formRefRegister.current.reset();
-      return;
-    }
-    setStorage(registerForm.name);
-
-    const newUser = { ...registerForm };
-    let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/register' : 'http://localhost:5005/user/register');
-    await fetch(fetch_string, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    })
-    .then(response => response.json())
-    .then(response => {
-      window.alert(response.message);
-    })
-    .catch(error => {
-      window.alert(error);
-      return;
-    });
-
-    setLoginShow(true);
-    handleRegisterClose();
-    setRegisterForm({ email: "", name: "", password: "" });
+      setLoginShow(true);
+      handleRegisterClose();
+      setRegisterForm({ email: "", name: "", password: "" });
   };
 
   async function setStorage (_username) {
@@ -207,6 +186,11 @@ export default function Navbar() {
       return;
     });
   }
+
+
+
+
+ 
 
 
 
@@ -240,12 +224,25 @@ export default function Navbar() {
                     Vault
                   </Dropdown.Item>
 
+                  <Dropdown.Item as={NavLink} to="/storage">
+                    Storage
+                  </Dropdown.Item>
+
                   <Dropdown.Item as={NavLink} to="/following">
-                  Following
+                    Following
+                  </Dropdown.Item>
+
+                  <Dropdown.Item as={NavLink} to="/create">
+                    Create Drink
                   </Dropdown.Item>
                   
+                  <Dropdown.Item as={NavLink} to="/trending">
+                    Trending Drinks
+                  </Dropdown.Item>
+
+                  
                   <Dropdown.Item onClick={handleLogout} style={{ color: "red" }} as={NavLink} to="/">
-                  Logout
+                    Logout
                   </Dropdown.Item>
 
                 </Dropdown.Menu>

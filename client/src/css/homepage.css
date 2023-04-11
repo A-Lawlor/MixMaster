@@ -1,4 +1,9 @@
 /*Style of Generate Drink Button*/
+body{
+    background: linear-gradient(90.0deg, #CE54E2 15.84%, rgba(111, 58, 223, 0.78) 60.85%);
+}
+
+
 #generate-drink-btn {
     background-color: #41C3FA;
     color: #fff;

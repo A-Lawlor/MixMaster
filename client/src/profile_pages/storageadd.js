@@ -4,7 +4,8 @@ import { Modal } from "react-bootstrap";
 import $ from "jquery";
 import "../css/profile.css"; 
 // We import bootstrap to make our application look better.
-import "bootstrap/dist/css/bootstrap.css";
+import{Container, Row, Col, Button} from 'react-bootstrap';
+import storage from "../images/storage_pictures/Storage.jpg";
 
 const divStyle = {
     backgroundImage: 'url(../../Storage.jpg)',
@@ -25,13 +26,13 @@ const UnownedIngredient = (props) => (
         <button className="ingredient-button" id={props.ingredient._id+"-button"} onClick={() => {
             props.addUserIngredient(props.ingredient.name, props.ingredient._id);
         }}
-        >&#x2795;</button>
+        >&#9744;</button>
     </ul>
 );
 
 const OwnedIngredient = (props) => (
     <ul className="ingredient" key={props.ingredient._id}>{props.ingredient.name}
-        <span className="ingredient-button">&#x2714;</span>
+        <span className="ingredient-button">&#9745;</span>
     </ul>
 );
 
@@ -117,7 +118,7 @@ export default function StorageAdd() {
         })
         .then(() => {
             $("#"+id+"-button").remove();
-            $("#"+id).append("<span>&#x2714;</span>");
+            $("#"+id).append("<span>&#9745</span>");
             $("span").addClass("ingredient-button");
             return;
         })
@@ -163,31 +164,38 @@ export default function StorageAdd() {
     }
 
     return (  
-    <div className="container-fluid" style={divStyle}>
-        <div className="row">
-        <div className="col-sm mt-3" align="center">
-            <div id = "top_button_placeholder"></div>
-        </div>
-    </div>
-    <div className="row mt-5">
-        <div className="col-sm" align="center">
-            <h1 id = "storagelist_header">Storage List</h1>
-        </div>
-    </div>
-    <div className="row mt-5">
-        <div className="col-sm" align="center">
-            <ul className="ingredients_wrapper">
+        <Container>
+        <img
+          src={storage}
+          style={{
+          objectFit: 'cover',
+          opacity: '70%',
+          width: '100%',
+          height: "100%",
+          position: 'fixed',
+          scale: "1",
+          top: 0,
+          left: 0,
+          zIndex: -1,
+        }}
+        />
+         <Row className="justify-content-center align-items-center" style={{ marginTop: "4vh" }}>
+          <Col id="storage_title" className= "text-center" xs={10}>
+            <p>Add Ingredients</p>
+          </Col>
+        </Row>
+        <Row className="justify-content-center align-items-center">
+          <Col id="ingredients_wrapper" xs={12}>
+              <ul id="storage_ingredients" className="ingredients_wrapper">
                 {ingredientsList()}
-            </ul>
-        </div>
-    </div>
-    <div className="row">
-        <div className="col-sm" align="center">
-            <div id = "button-div">
-            <button onClick={doneClicked} className = "button-84s button-special" id = "button-done">Done</button>
-            </div>
-        </div>
-    </div>
+              </ul>
+          </Col>
+        </Row>
+        <Row className="justify-content-center align-items-center">
+          <Col id="storage_buttons" xs={12}>
+            <Button id="done_button" onClick={doneClicked}className = "btn">Done</Button>
+          </Col>
+        </Row>
     <>
       <Modal show={show} onHide={handleNoLoginClose}>
         <Modal.Header closeButton>
@@ -196,6 +204,6 @@ export default function StorageAdd() {
         <Modal.Body>You must be logged in to access the storage page.<br></br>Closing this window will return you to the homepage!</Modal.Body>
       </Modal>
     </>
-  </div>
+  </Container>
  );
 }

@@ -4,7 +4,8 @@ import { Modal } from "react-bootstrap";
 import $ from "jquery";
 import "../css/profile.css"; 
 // We import bootstrap to make our application look better.
-import "bootstrap/dist/css/bootstrap.css";
+import{Container, Row, Col, Button} from 'react-bootstrap';
+import storage from "../images/storage_pictures/Storage.jpg";
 
 const divStyle = {
     backgroundImage: 'url(../../Storage.jpg)',
@@ -26,7 +27,7 @@ const UsersIngredient = (props) => (
     <button className="ingredient-button" onClick={() => {
       props.deleteUserIngredient(props.ingredient);
     }}
-    >&#x274C;</button>
+    >&#x2612;</button>
   </ul>
 );
 
@@ -135,31 +136,39 @@ export default function StorageEdit() {
   }
 
  return (  
-  <div className="container-fluid" style={divStyle}>
-    <div className="row">
-        <div className="col-sm mt-3" align="center">
-            <div id = "top_button_placeholder"></div>
-        </div>
-    </div>
-    <div className="row mt-5">
-      <div className="col-sm" align="center">
-          <h1 id = "storagelist_header">Storage List</h1>
-      </div>
-    </div>
-    <div className="row mt-5">
-      <div className="col-sm" align="center">
-          <ul className="ingredients_wrapper">
-            {ingredientsList()}
-          </ul>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col-sm" align="center">
-        <div id = "button-div">
-          <button onClick={doneClicked} className = "button-84s button-special">Done</button>
-        </div>
-      </div>
-    </div>
+
+  <Container>
+  <img
+    src={storage}
+    style={{
+    objectFit: 'cover',
+    opacity: '70%',
+    width: '100%',
+    height: "100%",
+    position: 'fixed',
+    scale: "1",
+    top: 0,
+    left: 0,
+    zIndex: -1,
+  }}
+  />
+   <Row className="justify-content-center align-items-center" style={{ marginTop: "4vh" }}>
+    <Col id="storage_title" className= "text-center" xs={10}>
+      <p>Remove Ingredients</p>
+    </Col>
+  </Row>
+  <Row className="justify-content-center align-items-center">
+    <Col id="ingredients_wrapper" xs={12}>
+        <ul id="storage_ingredients" className="ingredients_wrapper">
+          {ingredientsList()}
+        </ul>
+    </Col>
+  </Row>
+  <Row className="justify-content-center align-items-center">
+    <Col id="storage_buttons" xs={12}>
+      <Button id="done_button" onClick={doneClicked}className = "btn">Done</Button>
+    </Col>
+  </Row>
     <>
       <Modal show={show} onHide={handleNoLoginClose}>
         <Modal.Header closeButton>
@@ -168,6 +177,6 @@ export default function StorageEdit() {
         <Modal.Body>You must be logged in to access the storage page.<br></br>Closing this window will return you to the homepage!</Modal.Body>
       </Modal>
     </>
-  </div>
+  </Container>
  );
 }
