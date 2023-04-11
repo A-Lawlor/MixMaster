@@ -1,24 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router";
 import { Modal } from "react-bootstrap";
-import "../css/profile.css"; 
+import "../css/storage.css"; 
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
+import{Container, Row, Col, Button} from 'react-bootstrap';
+import storage from "../images/storage_pictures/Storage.jpg";
 
-const divStyle = {
-    backgroundImage: 'url(../../Storage.jpg)',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundColor: '#7f00c9',
-    width: '100%',
-    height: '100%',
-    paddingTop: '15vh',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    zIndex: -1
-};
 
 const UsersIngredient = (props) => (
   <ul className="ingredient" key={props.index}>{props.ingredient}</ul>
@@ -104,35 +92,40 @@ export default function Storage() {
   }
 
  return (  
-  <div className="container-fluid" style={divStyle}>
-    <div className="row">
-      <div className="col-12 col-sm-6 mt-3" align="center">
-        <button onClick={backClicked} className = "button-84s">Back</button>
-      </div>
-      <div className="col-12 col-sm-6 mt-3" align="center">
-        <button onClick={findWithInvClicked} className = "button-84s button-two-line">Find a Drink to make<br></br> with my Inventory</button>
-      </div>
-    </div>
-    <div className="row mt-5">
-      <div className="col-sm" align="center">
-          <h1 id = "storagelist_header">Storage List</h1>
-      </div>
-    </div>
-    <div className="row mt-5">
-      <div className="col-sm" align="center">
-          <ul className="ingredients_wrapper">
+  <Container>
+    <img
+      src={storage}
+      style={{
+      objectFit: 'cover',
+      opacity: '70%',
+      width: '100%',
+      height: "100%",
+      position: 'fixed',
+      scale: "1",
+      top: 0,
+      left: 0,
+      zIndex: -1,
+    }}
+    />
+     <Row className="justify-content-center align-items-center" style={{ marginTop: "4vh" }}>
+      <Col id="storage_title" className= "text-center" xs={10}>
+        <p>Storage List</p>
+      </Col>
+    </Row>
+    <Row className="justify-content-center align-items-center">
+      <Col id="ingredients_wrapper" xs={12}>
+          <ul id="storage_ingredients" className="ingredients_wrapper">
             {ingredientsList()}
           </ul>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col-sm" align="center">
-        <div id = "button-div">
-          <button onClick={addClicked} className = "button-84s button-special">Add</button>
-          <button onClick={editClicked} className = "button-84s" id = "button-edit">Edit</button>
-        </div>
-      </div>
-    </div>
+      </Col>
+    </Row>
+    <Row className="justify-content-center align-items-center">
+      <Col id="storage_buttons" xs={12}>
+        <Button id="add_button" onClick={addClicked}className = "btn">Add</Button>
+        <Button id="edit_button" onClick={editClicked} className = "btn">Edit</Button>
+        <Button id="generate_button" to={addClicked} className = "btn">GeneratDrink</Button>
+      </Col>
+    </Row>
     <>
       <Modal show={show} onHide={handleNoLoginClose}>
         <Modal.Header closeButton>
@@ -141,6 +134,6 @@ export default function Storage() {
         <Modal.Body>You must be logged in to access the storage page.<br></br>Closing this window will return you to the homepage!</Modal.Body>
       </Modal>
     </>
-  </div>
+  </Container>
  );
 }

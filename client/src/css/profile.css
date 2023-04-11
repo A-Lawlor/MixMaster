@@ -1,37 +1,10 @@
-#storagelist_header {
-    font-size: 3.5em;
-    color:#3EB3E7;
-    background-color: #3d3d3d;
-    display:inline;
-    text-align: center;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-    padding-right: 0.8em;
-    padding-left: 0.8em;
-    border: 3px solid #000000;
-    border-radius: 20px;
-    white-space: nowrap;
-}
-
-.ingredients_wrapper {
-    color:#ffffff;
-    background: #3d3d3d;
-    font-size: 1.5em;
-    padding: 0.5em;
-    margin: 0;
-    width: 16em;
-    height: 35vh;
-    overflow-y: scroll;
-    border: 3px solid #000000;
-    border-bottom: none;
-    border-radius: 0.75em 0em 0em 0em;
-    text-align: left;
-}
 
 .ingredient {
+    margin-left: 0px;
     padding-bottom: 0.25em;
+    margin-right: 20px;
     margin-bottom: 0.25em;
-    border-bottom: 3px solid #000000;
+    border-bottom: 3px solid rgb(168, 173, 178);
 }
 
 .ingredient:last-child {
@@ -206,9 +179,16 @@
 
 .ingredient-button {
     float: right;
+    color: white;
     background-color: transparent;
     padding: 0;
     padding-right: 10px;
     border: none;
     display: inline;
+}
+
+#done_button{
+    background-color: #41C3FA;
+    height: auto;
+    width: 90px;
 }

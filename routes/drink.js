@@ -24,14 +24,20 @@ recordRoutes.route("/drink").get(function (req, res) {
  
 // This section will help you get a single record by id
 recordRoutes.route("/drink/:id").get(function (req, res) {
- let db_connect = dbo.getDrinksDb();
- let myquery = { _id: ObjectId(req.params.id) };
- db_connect
-   .collection("drinkfourm")
-   .findOne(myquery, function (err, result) {
-     if (err) throw err;
-     res.json(result);
-   });
+  let db_connect = dbo.getDrinksDb();
+  let myquery = { _id: new ObjectId(req.params.id) };
+  console.log("myquery:", myquery);
+  console.log("req.params.id:", req.params.id);
+  db_connect
+    .collection("drinkfourm")
+    .findOne(myquery, function (err, result) {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: "An error occurred while retrieving the drink" });
+      } else {
+        res.json(result);
+      }
+    });
 });
  
 // This section will help you create a new record.
