@@ -13,13 +13,6 @@ const ObjectId = require("mongodb").ObjectId;
 //For password security
 var bcrypt = require('bcryptjs');
 
-mongoose.connect(process.env.MONGO_URI_USERS, {
-    keepAlive: true,
-    useNewUrlParser: true,
-    retryWrites: true,
-    useUnifiedTopology: true,
-  }).catch((err) => console.log(err));
-
 const userSchema = new mongoose.Schema({
     email: String,
     name: String,
