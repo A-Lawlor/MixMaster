@@ -27,7 +27,7 @@ const UsersIngredient = (props) => (
     <button className="ingredient-button" onClick={() => {
       props.deleteUserIngredient(props.ingredient);
     }}
-    >&#x2612;</button>
+    >&#x274C;</button>
   </ul>
 );
 
@@ -165,7 +165,7 @@ export default function StorageEdit() {
     </Col>
   </Row>
   <Row className="justify-content-center align-items-center">
-    <Col id="storage_buttons" xs={12}>
+    <Col id="storage_buttons" xs={12} className="pb-3">
       <Button id="done_button" onClick={doneClicked}className = "btn">Done</Button>
     </Col>
   </Row>

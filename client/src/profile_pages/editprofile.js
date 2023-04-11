@@ -14,7 +14,8 @@ const divStyle = {
     position: 'fixed',
     top: 0,
     left: 0,
-    zIndex: -1
+    zIndex: -1,
+    overflow: "auto"
 };
 
 
@@ -136,7 +137,7 @@ export default function EditProfile() {
 
   return (
     <div className="container-fluid" style={divStyle}>
-      <div className = "editprofile_container">
+      <div className = "editprofile_container" style={{height:"85vh", overflow: "auto"}}>
         <div className="row">
           <div className="col-12 mt-4">
             <h1 id="editprofile_header">Edit Profile:</h1>
