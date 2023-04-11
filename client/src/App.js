@@ -22,6 +22,7 @@ import Mixology from "./pages/mixology";
 import Following from "./pages/following";
 import Register from "./components/register";
 import Drinkpage from "./pages/Drinkpage";  
+import TrendingTwo from "./pages/trending2"
 
 const App = () => {
  return (
@@ -43,6 +44,7 @@ const App = () => {
        <Route path="/editprofile" element={<EditProfile />} />
        <Route path="/favoriteslist" element={<FavoritesList />} />
        <Route path="/trending" element={<Trending />} />
+       <Route path="/trending2" element={<TrendingTwo />} />
        <Route path="/mixology" element={<Mixology />} />
        <Route path="/following" element={<Following />} />
        <Route path="/register" element={<Register />} />

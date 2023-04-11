@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { NavLink,Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
+
+
+
 const Record = (props) => (
   <tr>
     <td>{props.record.image}</td>
@@ -11,23 +14,19 @@ const Record = (props) => (
     <td>{props.record.rating}</td>
     <td>{props.record.likes}</td>
     <td>{props.record.dislikes}</td>
-    
-    
     <td>
-      
-      <button className="btn btn-link"
-        onClick={() => {
-          props.deleteRecord(props.record._id);
-        }}
-      >
-        Delete
-      </button>
+      <Button onClick={() => props.NavigateToDrink(props.record._id)}>
+        View Drink
+      </Button>
     </td>
+    
   </tr>
   //    <Link className="btn btn-link" to={`//components/edit/${props.record._id}`}>Edit</Link> |
 );
+
+
     
-/*export default function RecordList() {
+export default function RecordList() {
 
   const [records, setRecords] = useState([]);
 
@@ -57,30 +56,9 @@ const Record = (props) => (
     return;
   }, [records.length]);
     
-  // This method will delete a record
- async function deleteRecord(id) {
-    await fetch("http://localhost:5005/drink/delete", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({_id: id}),
-    })
-    .then((response) => {
-    // Our handler throws an error if the request did not succeed.
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-      }
-    })
-    .then(() => {
-      const newRecords = records.filter((el) => el._id !== id);
-      setRecords(newRecords);
-      return;
-    })
-    .catch(error => {
-      window.alert(error);
-      return;
-    });
+  const navigate = useNavigate();
+  function NavigateToDrink(id) {
+    navigate(`/drink/${id}`);
   }
     
     // This method will map out the records on the table
@@ -89,7 +67,7 @@ const Record = (props) => (
         return (
           <Record
             record={record}
-            deleteRecord={() => deleteRecord(record._id)}
+            NavigateToDrink={NavigateToDrink}
             key={record._id}
           />
         );
@@ -110,6 +88,7 @@ const Record = (props) => (
               <th>Rating</th>
               <th>likes</th>
               <th>dislikes</th>
+              <th>View Drink</th> 
               
               
             </tr>
@@ -119,111 +98,4 @@ const Record = (props) => (
       </div>
     );
    }
-   */
-
-
-   export default function RecordList() {
-    const [records, setRecords] = useState([]);
-    const navigate = useNavigate();
-  
-    // This method fetches the records from the database.
-    useEffect(() => {
-      async function getRecords() {
-        if (process.env.NODE_ENV === 'production') {
-          console.log('In production');
-        } else {
-          console.log('Local Testing');
-        }
-  
-        const response = await fetch(
-          process.env.NODE_ENV === 'production'
-            ? 'https://mix-master.herokuapp.com/drink'
-            : 'http://localhost:5005/drink'
-        );
-        if (!response.ok) {
-          const message = `An error occurred: ${response.statusText}`;
-          window.alert(message);
-          return;
-        }
-  
-        const records = await response.json();
-        console.log(records);
-        setRecords(records);
-      }
-  
-      getRecords();
-  
-      return;
-    }, [records.length]);
-  
-    // This method will delete a record
-    async function deleteRecord(id) {
-      await fetch('http://localhost:5005/drink/delete', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ _id: id }),
-      })
-        .then(response => {
-          // Our handler throws an error if the request did not succeed.
-          if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
-          }
-        })
-        .then(() => {
-          const newRecords = records.filter(el => el._id !== id);
-          setRecords(newRecords);
-          return;
-        })
-        .catch(error => {
-          window.alert(error);
-          return;
-        });
-    }
-  
-    // This method will map out the records on the table
-    function recordList() {
-      return records.map(record => {
-        return (
-          <tr key={record._id}>
-            {/* Render drink data here */}
-            <td>
-              <button onClick={() => navigate(`/drink/${record._id}`)}>
-                View Drink
-              </button>
-            </td>
-            <td>
-              <button onClick={() => deleteRecord(record._id)}>Delete</button>
-            </td>
-          </tr>
-        );
-      });
-    }
-  
-    return (
-      <div>
-        <h3>Drink List</h3>
-        <table className="table table-striped" style={{ marginTop: 20 }}>
-          <thead>
-            <tr>
-              {/* Render table headers here */}
-              <th>View</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>{recordList()}</tbody>
-        </table>
-      </div>
-    );
-  }
-
-
-  /*<Link 
-              to= {{pathname: `/drink/${record._id}`,
-              state: {drink: records}
-            }}>
-              <button>
-                View Drink
-              </button>
-              </Link>*/
+   
