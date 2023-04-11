@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { NavLink } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/generatedrink.css';
 
@@ -163,7 +164,8 @@ function Homepage() {
             <Button 
               style={{marginTop: '1vh', backgroundColor: '#3EB3E7'}} 
               size="lg"
-              className="generate-button">
+              className="generate-button"
+              as={NavLink} to="/favoriteslist">
               Generate Drink
             </Button>
           </Col>
