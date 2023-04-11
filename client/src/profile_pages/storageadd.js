@@ -193,7 +193,7 @@ export default function StorageAdd() {
         </Row>
         <Row className="justify-content-center align-items-center">
           <Col id="storage_buttons" xs={12} className="pb-3">
-            <Button id="done_button" onClick={doneClicked}className = "btn">Done</Button>
+            <Button id="done_button" onClick={doneClicked} className = "btn mt-2">Done</Button>
           </Col>
         </Row>
     <>

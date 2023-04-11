@@ -23,7 +23,7 @@ import Discover from "./pages/discover";
 import Following from "./pages/following";
 import Register from "./components/register";
 import Drinkpage from "./pages/Drinkpage";  
-import TrendingTwo from "./pages/trending2"
+import TrendingTwo from "./pages/trending2";
 
 const App = () => {
  return (

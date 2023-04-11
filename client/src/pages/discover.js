@@ -5,8 +5,6 @@ import{Container, Row, Col} from 'react-bootstrap';
 import {UserCard} from '../components/UserCard';
 import {Confirmation} from '../components/Confirmation';
 
-import users from '../data.json';
-
 //testing github integration
 
 const NotFollowingUserCard = (props) => (
@@ -21,7 +19,7 @@ const FollowingUserCard = (props) => (
   </Col>
 );
 
-export default  function SuggestionFollowers() {
+export default function Discover() {
 
   const[follow,setFollow]=useState(false);
   
