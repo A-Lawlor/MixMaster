@@ -70,15 +70,18 @@ export default function StorageAdd() {
     const [users_ingredients, setUsersIngredients] = useState([]);
     useEffect(() => {
         async function getUsersIngredients() {
-            
-        const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage' : 'http://localhost:5005/userstorage');
-        if (!response.ok) {
-            const message = `An error occurred: ${response.statusText}`;
-            window.alert(message);
-            return;
-        }
-        const users_ingredients = await response.json();
-        setUsersIngredients(users_ingredients);
+            const fetch_string = process.env.NODE_ENV === 'production' ?
+                           'https://mix-master.herokuapp.com/user/retrieve_storage/'+username : 
+                           'http://localhost:5005/user/retrieve_storage/'+username;
+            const response = await fetch(fetch_string);
+            if (!response.ok) {
+                const message = `An error occurred: ${response.statusText}`;
+                window.alert(message);
+                return;
+            }
+            const users_info = await response.json();
+            console.log(users_info.ingredient_storage);
+            setUsersIngredients(users_info.ingredient_storage);
         }
         getUsersIngredients();
         return;
@@ -86,13 +89,12 @@ export default function StorageAdd() {
 
 
     async function addUserIngredient(ingredient, id) {
-        let _username = username;
-
         const addIngredient = { 
-            name: ingredient.name,
-            username: _username
+            name: ingredient.name
         };
-        let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage/add' : 'http://localhost:5005/userstorage/add');
+        let fetch_string = (process.env.NODE_ENV === 'production' ?
+                            'https://mix-master.herokuapp.com/user/add_ingredient_to_storage/'+username : 
+                            'http://localhost:5005/user/add_ingredient_to_storage/'+username);
         await fetch(fetch_string, {
             method: "POST",
             headers: {
@@ -130,27 +132,23 @@ export default function StorageAdd() {
     }
 
     function ingredientsList() {
-        return(users_ingredients.map( user => {
-            if(user.username === username) {
-                return ingredient_data.map((ingredient) => {
-                    if(user.my_ingredients.includes(ingredient.name)) {
-                        return (
-                        <OwnedIngredient
-                            ingredient={ingredient}
-                            key={ingredient._id}
-                        />);
-                    }
-                    else {
-                        return (
-                        <UnownedIngredient
-                            ingredient={ingredient}
-                            addUserIngredient={() => addUserIngredient(ingredient, ingredient._id)}
-                            key={ingredient._id}
-                        />);
-                    }
-                });
+        return ingredient_data.map((ingredient) => {
+            if(users_ingredients.includes(ingredient.name)) {
+                return (
+                <OwnedIngredient
+                    ingredient={ingredient}
+                    key={ingredient._id}
+                />);
             }
-        }));
+            else {
+                return (
+                <UnownedIngredient
+                    ingredient={ingredient}
+                    addUserIngredient={() => addUserIngredient(ingredient, ingredient._id)}
+                    key={ingredient._id}
+                />);
+            }
+        });
     }
 
     return (  
