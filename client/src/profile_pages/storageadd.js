@@ -38,26 +38,15 @@ const OwnedIngredient = (props) => (
 
 export default function StorageAdd() {
 
-    // This method fetches the user's username from the server.
-    const [username, setUsername] = useState([]);
-    useEffect(() => {
-        async function getUsername() {
-            
-        const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/getusername' : 'http://localhost:5005/user/getusername');
-        if (!response.ok) {
-            const message = `An error occurred: ${response.statusText}`;
-            window.alert(message);
-            return;
-        }
-        const username = await response.json();
-        setUsername(username);
-        if(username.username === "") {
-            handleNoLoginShow();
-        }
-        }
-        getUsername();
-        return;
-    }, [username.length]);
+    // This method fetches the user's info used to query db from the client storage.
+    const loggedIn = localStorage.getItem('logged_in');
+    const username = localStorage.getItem('username');
+    if(loggedIn === true) {
+        handleNoLoginShow();
+    }
+    if(username === "") {
+        handleNoLoginShow();
+    }
 
     // This method fetches the ingredients from the database.
     const [ingredient_data, setIngredientData] = useState([]);
@@ -97,7 +86,7 @@ export default function StorageAdd() {
 
 
     async function addUserIngredient(ingredient, id) {
-        let _username = username.username;
+        let _username = username;
 
         const addIngredient = { 
             name: ingredient.name,
@@ -135,13 +124,14 @@ export default function StorageAdd() {
         navigate("/");
     };
     const handleNoLoginShow = () => setShow(true);
+
     function doneClicked() {
         navigate("/storage");
     }
 
     function ingredientsList() {
         return(users_ingredients.map( user => {
-            if(user.username === username.username) {
+            if(user.username === username) {
                 return ingredient_data.map((ingredient) => {
                     if(user.my_ingredients.includes(ingredient.name)) {
                         return (

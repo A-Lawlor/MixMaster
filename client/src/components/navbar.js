@@ -151,43 +151,47 @@ export default function Navbar() {
     //Handle a new user being registered
     async function handleRegister (event) {
       const form = event.currentTarget;
-      console.log(form.elements.passwordReg.value);
-      console.log(form.elements.confirmPasswordReg.value);
+      //console.log(form.elements.passwordReg.value);
+      //console.log(form.elements.confirmPasswordReg.value);
       event.preventDefault();
-      handleRegisterClose();
+      //handleRegisterClose();
       // if (form.checkValidity() === false) {
       //   console.log("Getting to check validity");
       //   event.stopPropagation();
       // else 
-      console.log("Getting into else statement");
+      //console.log("Getting into else statement");
       if(form.elements.passwordReg.value !== form.elements.confirmPasswordReg.value){
         console.log("Passwords do not match");
         formRefRegister.current.reset();
         return;
       }
-      setStorage(registerForm.name);
 
       const newUser = { ...registerForm };
       let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/register' : 'http://localhost:5005/user/register');
       await fetch(fetch_string, {
-      method: "POST",
-      headers: {
+        method: "POST",
+        headers: {
         "Content-Type": "application/json",
         },
         body: JSON.stringify(newUser),
       })
       .then(response => response.json())
-      .then(response => {
-        window.alert(response.message);
+      .then((response) => {
+        if(response.message === "Email/Username already exists") {
+          window.alert(response.message);
+          return;
+        }
+        else {
+          setRegisterForm({ email: "", name: "", password: "" });
+          setLoginShow(true);
+          handleRegisterClose();
+          return;
+        }
       })
       .catch(error => {
         window.alert(error);
         return;
       });
-
-      setLoginShow(true);
-      handleRegisterClose();
-      setRegisterForm({ email: "", name: "", password: "" });
   };
 
   async function setStorage (_username) {

@@ -23,7 +23,12 @@ const userSchema = new mongoose.Schema({
     following: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
-      }],
+    }],
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+    }],
+    ingredient_storage: [],
 }, {collection: 'credentials'});
 
 const User = new mongoose.model("users", userSchema)
@@ -32,7 +37,6 @@ const User = new mongoose.model("users", userSchema)
 const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
 const someOtherPlaintextPassword = 'not_bacon';
-let globalUsername = "";
 
 
 
@@ -59,12 +63,8 @@ userCredentialsRoutes.route("/user").get(function (req, res) {
         .then((result) => res.json(result))
 });
 
-userCredentialsRoutes.route("/user/getusername").get(function (req, res) {
-    return(res.json({username:globalUsername}));
-});
 
 userCredentialsRoutes.route("/user/logout").delete(function (req, res) {
-    globalUsername = "";
     return(res.json({type:req.body.type}));
 });
 
@@ -80,7 +80,6 @@ userCredentialsRoutes.route("/user/login").post(function async(req, res) {
             const match = await bcrypt.compare(req.body.password, existingUser.password);
             if(match){
                 console.log("login successfull");
-                globalUsername = String(existingUser.name);
                 res.send({message:"Login Success",name: String(existingUser.name)})
             }else{
                 console.log("wrong credentials");
@@ -96,40 +95,81 @@ userCredentialsRoutes.route("/user/login").post(function async(req, res) {
         }); 
 });
 
-userCredentialsRoutes.route("/user/register").post(function (req, res) {
+userCredentialsRoutes.route("/user/register").post(function (req, response) {
     let db_connect = dbo.getUsersDb(); //change name of this to be just user eventually
     db_connect.collection("credentials")
-        .findOne({email: req.body.email})
+        .findOne({
+            $or: [
+                    {email: req.body.email},
+                    {name: req.body.name}
+                 ]
+        })
         .then((existingUser)=>{
             if (existingUser) {
-                console.log("Email already exists");
-                return(res.json({message:"Email already exists"}));
+                console.log("Email/Username already exists");
+                return(response.json({message:"Email/Username already exists"}));
             } else {
                 bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
                     const user = new User({email: req.body.email, name: req.body.name, password: hash,
                                            about: "", picture_id: "mixmaster/DefaultPicture",
                                            picture_url: "https://res.cloudinary.com/dgco11qpv/image/upload/v1681153540/mixmaster/DefaultPicture.jpg",
-                                           followers:[],following:[]
-                                        })                
-                        db_connect.collection("credentials").insertOne(user, function (err, res) {
-                            if(err){
-                                res.send(err);
-                            } else {
-                                res.send({message:"sucessfull"});
-                            }
-                        });
+                                           following:[], followers:[], ingredient_storage:[]
+                                        });
+                    console.log("Inserting");
+                    db_connect.collection("credentials").insertOne(user, function (err, res) {
+                        if(err){
+                            console.log("error inserting to credentials collection");
+                            return(res.send(err));
+                        }
+                    });
+                    return(response.json({message:"Successfully registered account under email: "+req.body.email}));
                 });
             };
         })
         .catch((err)=>{
-            res.send({message:"Error"});
+            console.log("register findOne() error");
+            return(res.send(err));
         });
+});
+
+// This section will help you get a list of all the ingredients.
+userCredentialsRoutes.route("/user/retrieve_storage").get(function (req, res) {
+    let db_connect = dbo.getUsersDb();
+    db_connect
+      .collection("credentials")
+      .findOne({name: req.body.username})
+      .toArray()
+      .then ((result) => res.json(result))
+});
+
+// Add ingredients to a user's storage
+userCredentialsRoutes.route("/user/add_ingredient_to_storage").post(function (req, res) {
+    let db_connect = dbo.getUsersDb();
+    let myquery = { name: req.body.username };
+    let myupdate = { $push: { ingredient_storage: req.body.name } };
+    db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
+      if (err) throw err;
+        res.json(result);
+    });
+    return res.send(JSON.stringify(req.body.name));
+  });
+  
+// This section will help you delete an ingredient from a user's storage
+userCredentialsRoutes.route("/user/delete_ingredient_to_storage").delete((req, res) => {
+    let db_connect = dbo.getUsersDb();
+    let myquery = { name: req.body.username };
+    let myupdate = { $pull: { ingredient_storage: req.body.name } };
+    db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+    return res.send(JSON.stringify(req.body.name));
 });
 
 // This section will help you edit a profile.
 userCredentialsRoutes.route("/user/edit").post(async function (req, res) {
     let db_connect = dbo.getUsersDb();
-    let myquery = { name: globalUsername };
+    let myquery = { name: req.body.old_username };
     try {
         if(req.body.picture != "") {
             const upload_result = await cloudinary.uploader.upload(req.body.picture, {
@@ -144,34 +184,31 @@ userCredentialsRoutes.route("/user/edit").post(async function (req, res) {
                             about: req.body.about,
                             picture_id: upload_result.public_id,
                             picture_url: upload_result.secure_url,
-
                             }
                         };
             db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
             if (err) throw err;
                 res.json(result);
             });
-            globalUsername = req.body.username;
-            return res.send(JSON.stringify(req.body.name));
+            return(res.json({message:req.body.username}));
         }
         else {
             let myupdate= { $set: {
                 name: req.body.username,
                 email: req.body.email,
-                about: req.body.about
+                about: req.body.about,
                 }
             };
             db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
             if (err) throw err;
                 res.json(result);
             });
-            globalUsername = req.body.username;
-            return res.send(JSON.stringify(req.body.name));
+            return(res.json({message:req.body.username}));
         }
     }
     catch (error) {
         console.log(error);
-        return res.send(JSON.stringify(req.body.name));
+        return(res.send(error));
     }
 });
 //  Follow / unfollow routes
