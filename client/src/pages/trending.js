@@ -1,34 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink,Link } from "react-router-dom";
+import { NavLink,Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
+
+
+
 
 const Record = (props) => (
   <tr>
+    <td>{props.record.image}</td>
     <td>{props.record.name}</td>
     <td>{props.record.liqour}</td>
     <td>{props.record.taste}</td>
     <td>{props.record.rating}</td>
+    <td>{props.record.likes}</td>
+    <td>{props.record.dislikes}</td>
     <td>
-      <Link className="btn btn-link" to={`//components/edit/${props.record._id}`}>Edit</Link> |
-      <button className="btn btn-link"
-        onClick={() => {
-          props.deleteRecord(props.record._id);
-        }}
-      >
-        Delete
-      </button>
+      <Button onClick={() => props.NavigateToDrink(props.record._id)}>
+        View Drink
+      </Button>
     </td>
+    
   </tr>
+  //    <Link className="btn btn-link" to={`//components/edit/${props.record._id}`}>Edit</Link> |
 );
+
+
     
 export default function RecordList() {
+
   const [records, setRecords] = useState([]);
 
   // This method fetches the records from the database.
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`http://localhost:5005/drink/`);
-  
+      if((process.env.NODE_ENV === 'production')){
+        console.log("In production");
+    } else {
+        console.log("Local Testing");
+    }
+    
+    const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/drink' : 'http://localhost:5005/drink');
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         window.alert(message);
@@ -45,30 +56,10 @@ export default function RecordList() {
     return;
   }, [records.length]);
     
-  // This method will delete a record
- async function deleteRecord(id) {
-    await fetch("http://localhost:5005/drink/delete", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({_id: id}),
-    })
-    .then((response) => {
-    // Our handler throws an error if the request did not succeed.
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-      }
-    })
-    .then(() => {
-      const newRecords = records.filter((el) => el._id !== id);
-      setRecords(newRecords);
-      return;
-    })
-    .catch(error => {
-      window.alert(error);
-      return;
-    });
+  const navigate = useNavigate();
+  function NavigateToDrink(id) {
+    navigate("/favoriteslist");
+    //navigate(`/drink/${id}`);
   }
     
     // This method will map out the records on the table
@@ -77,7 +68,7 @@ export default function RecordList() {
         return (
           <Record
             record={record}
-            deleteRecord={() => deleteRecord(record._id)}
+            NavigateToDrink={NavigateToDrink}
             key={record._id}
           />
         );
@@ -91,10 +82,16 @@ export default function RecordList() {
         <table className="table table-striped" style={{ marginTop: 20 }}>
           <thead>
             <tr>
+              <th>image</th>
               <th>Drink Name</th>
               <th>Liquor</th>
               <th>Taste</th>
               <th>Rating</th>
+              <th>likes</th>
+              <th>dislikes</th>
+              <th>View Drink</th> 
+              
+              
             </tr>
           </thead>
           <tbody>{recordList()}</tbody>
@@ -102,3 +99,4 @@ export default function RecordList() {
       </div>
     );
    }
+   

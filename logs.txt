@@ -1,0 +1,500 @@
+2023-04-08T04:26:35.291271+00:00 app[web.1]: _server: Server {
+2023-04-08T04:26:35.291271+00:00 app[web.1]: maxHeaderSize: undefined,
+2023-04-08T04:26:35.291271+00:00 app[web.1]: insecureHTTPParser: undefined,
+2023-04-08T04:26:35.291272+00:00 app[web.1]: requestTimeout: 300000,
+2023-04-08T04:26:35.291272+00:00 app[web.1]: headersTimeout: 60000,
+2023-04-08T04:26:35.291272+00:00 app[web.1]: keepAliveTimeout: 5000,
+2023-04-08T04:26:35.291272+00:00 app[web.1]: connectionsCheckingInterval: 30000,
+2023-04-08T04:26:35.291272+00:00 app[web.1]: joinDuplicateHeaders: undefined,
+2023-04-08T04:26:35.291272+00:00 app[web.1]: _events: [Object: null prototype],
+2023-04-08T04:26:35.291272+00:00 app[web.1]: _eventsCount: 2,
+2023-04-08T04:26:35.291273+00:00 app[web.1]: _maxListeners: undefined,
+2023-04-08T04:26:35.291273+00:00 app[web.1]: _connections: 1,
+2023-04-08T04:26:35.291273+00:00 app[web.1]: _handle: [TCP],
+2023-04-08T04:26:35.291273+00:00 app[web.1]: _usingWorkers: false,
+2023-04-08T04:26:35.291273+00:00 app[web.1]: _workers: [],
+2023-04-08T04:26:35.291274+00:00 app[web.1]: _unref: false,
+2023-04-08T04:26:35.291274+00:00 app[web.1]: allowHalfOpen: true,
+2023-04-08T04:26:35.291274+00:00 app[web.1]: pauseOnConnect: false,
+2023-04-08T04:26:35.291274+00:00 app[web.1]: noDelay: true,
+2023-04-08T04:26:35.291274+00:00 app[web.1]: keepAlive: false,
+2023-04-08T04:26:35.291274+00:00 app[web.1]: keepAliveInitialDelay: 0,
+2023-04-08T04:26:35.291275+00:00 app[web.1]: httpAllowHalfOpen: false,
+2023-04-08T04:26:35.291275+00:00 app[web.1]: timeout: 0,
+2023-04-08T04:26:35.291275+00:00 app[web.1]: maxHeadersCount: null,
+2023-04-08T04:26:35.291275+00:00 app[web.1]: maxRequestsPerSocket: 0,
+2023-04-08T04:26:35.291275+00:00 app[web.1]: _connectionKey: '6::::58130',
+2023-04-08T04:26:35.291275+00:00 app[web.1]: [Symbol(IncomingMessage)]: [Function: IncomingMessage],
+2023-04-08T04:26:35.291275+00:00 app[web.1]: [Symbol(ServerResponse)]: [Function: ServerResponse],
+2023-04-08T04:26:35.291276+00:00 app[web.1]: [Symbol(kCapture)]: false,
+2023-04-08T04:26:35.291276+00:00 app[web.1]: [Symbol(async_id_symbol)]: 7,
+2023-04-08T04:26:35.291276+00:00 app[web.1]: [Symbol(http.server.connections)]: ConnectionsList {},
+2023-04-08T04:26:35.291276+00:00 app[web.1]: [Symbol(http.server.connectionsCheckingInterval)]: Timeout {
+2023-04-08T04:26:35.291276+00:00 app[web.1]: _idleTimeout: 30000,
+2023-04-08T04:26:35.291276+00:00 app[web.1]: _idlePrev: [TimersList],
+2023-04-08T04:26:35.291276+00:00 app[web.1]: _idleNext: [TimersList],
+2023-04-08T04:26:35.291276+00:00 app[web.1]: _idleStart: 14522229,
+2023-04-08T04:26:35.291277+00:00 app[web.1]: _onTimeout: [Function: bound checkConnections],
+2023-04-08T04:26:35.291277+00:00 app[web.1]: _timerArgs: undefined,
+2023-04-08T04:26:35.291277+00:00 app[web.1]: _repeat: 30000,
+2023-04-08T04:26:35.291277+00:00 app[web.1]: _destroyed: false,
+2023-04-08T04:26:35.291277+00:00 app[web.1]: [Symbol(refed)]: false,
+2023-04-08T04:26:35.291277+00:00 app[web.1]: [Symbol(kHasPrimitive)]: false,
+2023-04-08T04:26:35.291277+00:00 app[web.1]: [Symbol(asyncId)]: 6,
+2023-04-08T04:26:35.291277+00:00 app[web.1]: [Symbol(triggerId)]: 1
+2023-04-08T04:26:35.291278+00:00 app[web.1]: },
+2023-04-08T04:26:35.291278+00:00 app[web.1]: [Symbol(kUniqueHeaders)]: null
+2023-04-08T04:26:35.291278+00:00 app[web.1]: },
+2023-04-08T04:26:35.291278+00:00 app[web.1]: parser: HTTPParser {
+2023-04-08T04:26:35.291278+00:00 app[web.1]: '0': null,
+2023-04-08T04:26:35.291278+00:00 app[web.1]: '1': [Function: parserOnHeaders],
+2023-04-08T04:26:35.291278+00:00 app[web.1]: '2': [Function: parserOnHeadersComplete],
+2023-04-08T04:26:35.291278+00:00 app[web.1]: '3': [Function: parserOnBody],
+2023-04-08T04:26:35.291279+00:00 app[web.1]: '4': [Function: parserOnMessageComplete],
+2023-04-08T04:26:35.291279+00:00 app[web.1]: '5': [Function: bound onParserExecute],
+2023-04-08T04:26:35.291279+00:00 app[web.1]: '6': [Function: bound onParserTimeout],
+2023-04-08T04:26:35.291279+00:00 app[web.1]: _headers: [],
+2023-04-08T04:26:35.291279+00:00 app[web.1]: _url: '',
+2023-04-08T04:26:35.291279+00:00 app[web.1]: socket: [Circular *1],
+2023-04-08T04:26:35.291279+00:00 app[web.1]: incoming: [IncomingMessage],
+2023-04-08T04:26:35.291279+00:00 app[web.1]: outgoing: null,
+2023-04-08T04:26:35.291279+00:00 app[web.1]: maxHeaderPairs: 2000,
+2023-04-08T04:26:35.291280+00:00 app[web.1]: _consumed: true,
+2023-04-08T04:26:35.291280+00:00 app[web.1]: onIncoming: [Function: bound parserOnIncoming],
+2023-04-08T04:26:35.291280+00:00 app[web.1]: [Symbol(resource_symbol)]: [HTTPServerAsyncResource]
+2023-04-08T04:26:35.291280+00:00 app[web.1]: },
+2023-04-08T04:26:35.291280+00:00 app[web.1]: on: [Function: socketListenerWrap],
+2023-04-08T04:26:35.291280+00:00 app[web.1]: addListener: [Function: socketListenerWrap],
+2023-04-08T04:26:35.291280+00:00 app[web.1]: prependListener: [Function: socketListenerWrap],
+2023-04-08T04:26:35.291280+00:00 app[web.1]: setEncoding: [Function: socketSetEncoding],
+2023-04-08T04:26:35.291281+00:00 app[web.1]: _paused: false,
+2023-04-08T04:26:35.291281+00:00 app[web.1]: _httpMessage: [Circular *2],
+2023-04-08T04:26:35.291281+00:00 app[web.1]: [Symbol(async_id_symbol)]: 63521,
+2023-04-08T04:26:35.291281+00:00 app[web.1]: [Symbol(kHandle)]: TCP {
+2023-04-08T04:26:35.291281+00:00 app[web.1]: reading: true,
+2023-04-08T04:26:35.291281+00:00 app[web.1]: onconnection: null,
+2023-04-08T04:26:35.291281+00:00 app[web.1]: _consumed: true,
+2023-04-08T04:26:35.291281+00:00 app[web.1]: [Symbol(owner_symbol)]: [Circular *1]
+2023-04-08T04:26:35.291281+00:00 app[web.1]: },
+2023-04-08T04:26:35.291282+00:00 app[web.1]: [Symbol(lastWriteQueueSize)]: 0,
+2023-04-08T04:26:35.291282+00:00 app[web.1]: [Symbol(timeout)]: null,
+2023-04-08T04:26:35.291282+00:00 app[web.1]: [Symbol(kBuffer)]: null,
+2023-04-08T04:26:35.291282+00:00 app[web.1]: [Symbol(kBufferCb)]: null,
+2023-04-08T04:26:35.291282+00:00 app[web.1]: [Symbol(kBufferGen)]: null,
+2023-04-08T04:26:35.291282+00:00 app[web.1]: [Symbol(kCapture)]: false,
+2023-04-08T04:26:35.291282+00:00 app[web.1]: [Symbol(kSetNoDelay)]: true,
+2023-04-08T04:26:35.291282+00:00 app[web.1]: [Symbol(kSetKeepAlive)]: false,
+2023-04-08T04:26:35.291282+00:00 app[web.1]: [Symbol(kSetKeepAliveInitialDelay)]: 0,
+2023-04-08T04:26:35.291283+00:00 app[web.1]: [Symbol(kBytesRead)]: 0,
+2023-04-08T04:26:35.291283+00:00 app[web.1]: [Symbol(kBytesWritten)]: 0
+2023-04-08T04:26:35.291283+00:00 app[web.1]: },
+2023-04-08T04:26:35.291283+00:00 app[web.1]: _header: 'HTTP/1.1 304 Not Modified\r\n' +
+2023-04-08T04:26:35.291283+00:00 app[web.1]: 'X-Powered-By: Express\r\n' +
+2023-04-08T04:26:35.291283+00:00 app[web.1]: 'Access-Control-Allow-Origin: *\r\n' +
+2023-04-08T04:26:35.291283+00:00 app[web.1]: 'ETag: W/"1a7-nkLFBMm6YEWJyARuVHAXPEapsq8"\r\n' +
+2023-04-08T04:26:35.291284+00:00 app[web.1]: 'Date: Sat, 08 Apr 2023 04:26:35 GMT\r\n' +
+2023-04-08T04:26:35.291284+00:00 app[web.1]: 'Connection: close\r\n' +
+2023-04-08T04:26:35.291284+00:00 app[web.1]: '\r\n',
+2023-04-08T04:26:35.291284+00:00 app[web.1]: _keepAliveTimeout: 5000,
+2023-04-08T04:26:35.291284+00:00 app[web.1]: _onPendingData: [Function: bound updateOutgoingData],
+2023-04-08T04:26:35.291284+00:00 app[web.1]: req: IncomingMessage {
+2023-04-08T04:26:35.291285+00:00 app[web.1]: _readableState: ReadableState {
+2023-04-08T04:26:35.291285+00:00 app[web.1]: objectMode: false,
+2023-04-08T04:26:35.291294+00:00 app[web.1]: highWaterMark: 16384,
+2023-04-08T04:26:35.291294+00:00 app[web.1]: buffer: BufferList { head: null, tail: null, length: 0 },
+2023-04-08T04:26:35.291294+00:00 app[web.1]: length: 0,
+2023-04-08T04:26:35.291295+00:00 app[web.1]: pipes: [],
+2023-04-08T04:26:35.291295+00:00 app[web.1]: flowing: null,
+2023-04-08T04:26:35.291295+00:00 app[web.1]: ended: true,
+2023-04-08T04:26:35.291295+00:00 app[web.1]: endEmitted: false,
+2023-04-08T04:26:35.291295+00:00 app[web.1]: reading: false,
+2023-04-08T04:26:35.291295+00:00 app[web.1]: constructed: true,
+2023-04-08T04:26:35.291296+00:00 app[web.1]: sync: true,
+2023-04-08T04:26:35.291296+00:00 app[web.1]: needReadable: false,
+2023-04-08T04:26:35.291296+00:00 app[web.1]: emittedReadable: false,
+2023-04-08T04:26:35.291296+00:00 app[web.1]: readableListening: false,
+2023-04-08T04:26:35.291298+00:00 app[web.1]: resumeScheduled: false,
+2023-04-08T04:26:35.291298+00:00 app[web.1]: errorEmitted: false,
+2023-04-08T04:26:35.291298+00:00 app[web.1]: emitClose: true,
+2023-04-08T04:26:35.291298+00:00 app[web.1]: autoDestroy: true,
+2023-04-08T04:26:35.291298+00:00 app[web.1]: destroyed: false,
+2023-04-08T04:26:35.291299+00:00 app[web.1]: errored: null,
+2023-04-08T04:26:35.291299+00:00 app[web.1]: closed: false,
+2023-04-08T04:26:35.291299+00:00 app[web.1]: closeEmitted: false,
+2023-04-08T04:26:35.291299+00:00 app[web.1]: defaultEncoding: 'utf8',
+2023-04-08T04:26:35.291299+00:00 app[web.1]: awaitDrainWriters: null,
+2023-04-08T04:26:35.291299+00:00 app[web.1]: multiAwaitDrain: false,
+2023-04-08T04:26:35.291299+00:00 app[web.1]: readingMore: true,
+2023-04-08T04:26:35.291300+00:00 app[web.1]: dataEmitted: false,
+2023-04-08T04:26:35.291300+00:00 app[web.1]: decoder: null,
+2023-04-08T04:26:35.291300+00:00 app[web.1]: encoding: null,
+2023-04-08T04:26:35.291300+00:00 app[web.1]: [Symbol(kPaused)]: null
+2023-04-08T04:26:35.291300+00:00 app[web.1]: },
+2023-04-08T04:26:35.291300+00:00 app[web.1]: _events: [Object: null prototype] {},
+2023-04-08T04:26:35.291300+00:00 app[web.1]: _eventsCount: 0,
+2023-04-08T04:26:35.291301+00:00 app[web.1]: _maxListeners: undefined,
+2023-04-08T04:26:35.291301+00:00 app[web.1]: socket: <ref *1> Socket {
+2023-04-08T04:26:35.291301+00:00 app[web.1]: connecting: false,
+2023-04-08T04:26:35.291301+00:00 app[web.1]: _hadError: false,
+2023-04-08T04:26:35.291301+00:00 app[web.1]: _parent: null,
+2023-04-08T04:26:35.291301+00:00 app[web.1]: _host: null,
+2023-04-08T04:26:35.291302+00:00 app[web.1]: _closeAfterHandlingError: false,
+2023-04-08T04:26:35.291302+00:00 app[web.1]: _readableState: [ReadableState],
+2023-04-08T04:26:35.291302+00:00 app[web.1]: _events: [Object: null prototype],
+2023-04-08T04:26:35.291302+00:00 app[web.1]: _eventsCount: 8,
+2023-04-08T04:26:35.291302+00:00 app[web.1]: _maxListeners: undefined,
+2023-04-08T04:26:35.291302+00:00 app[web.1]: _writableState: [WritableState],
+2023-04-08T04:26:35.291302+00:00 app[web.1]: allowHalfOpen: true,
+2023-04-08T04:26:35.291303+00:00 app[web.1]: _sockname: null,
+2023-04-08T04:26:35.291303+00:00 app[web.1]: _pendingData: null,
+2023-04-08T04:26:35.291303+00:00 app[web.1]: _pendingEncoding: '',
+2023-04-08T04:26:35.291303+00:00 app[web.1]: server: [Server],
+2023-04-08T04:26:35.291303+00:00 app[web.1]: _server: [Server],
+2023-04-08T04:26:35.291303+00:00 app[web.1]: parser: [HTTPParser],
+2023-04-08T04:26:35.291303+00:00 app[web.1]: on: [Function: socketListenerWrap],
+2023-04-08T04:26:35.291304+00:00 app[web.1]: addListener: [Function: socketListenerWrap],
+2023-04-08T04:26:35.291304+00:00 app[web.1]: prependListener: [Function: socketListenerWrap],
+2023-04-08T04:26:35.291304+00:00 app[web.1]: setEncoding: [Function: socketSetEncoding],
+2023-04-08T04:26:35.291304+00:00 app[web.1]: _paused: false,
+2023-04-08T04:26:35.291304+00:00 app[web.1]: _httpMessage: [Circular *2],
+2023-04-08T04:26:35.291304+00:00 app[web.1]: [Symbol(async_id_symbol)]: 63521,
+2023-04-08T04:26:35.291304+00:00 app[web.1]: [Symbol(kHandle)]: [TCP],
+2023-04-08T04:26:35.291305+00:00 app[web.1]: [Symbol(lastWriteQueueSize)]: 0,
+2023-04-08T04:26:35.291305+00:00 app[web.1]: [Symbol(timeout)]: null,
+2023-04-08T04:26:35.291305+00:00 app[web.1]: [Symbol(kBuffer)]: null,
+2023-04-08T04:26:35.291305+00:00 app[web.1]: [Symbol(kBufferCb)]: null,
+2023-04-08T04:26:35.291305+00:00 app[web.1]: [Symbol(kBufferGen)]: null,
+2023-04-08T04:26:35.291305+00:00 app[web.1]: [Symbol(kCapture)]: false,
+2023-04-08T04:26:35.291305+00:00 app[web.1]: [Symbol(kSetNoDelay)]: true,
+2023-04-08T04:26:35.291306+00:00 app[web.1]: [Symbol(kSetKeepAlive)]: false,
+2023-04-08T04:26:35.291306+00:00 app[web.1]: [Symbol(kSetKeepAliveInitialDelay)]: 0,
+2023-04-08T04:26:35.291306+00:00 app[web.1]: [Symbol(kBytesRead)]: 0,
+2023-04-08T04:26:35.291306+00:00 app[web.1]: [Symbol(kBytesWritten)]: 0
+2023-04-08T04:26:35.291306+00:00 app[web.1]: },
+2023-04-08T04:26:35.291306+00:00 app[web.1]: httpVersionMajor: 1,
+2023-04-08T04:26:35.291307+00:00 app[web.1]: httpVersionMinor: 1,
+2023-04-08T04:26:35.291307+00:00 app[web.1]: httpVersion: '1.1',
+2023-04-08T04:26:35.291307+00:00 app[web.1]: complete: true,
+2023-04-08T04:26:35.291307+00:00 app[web.1]: rawHeaders: [
+2023-04-08T04:26:35.291307+00:00 app[web.1]: 'Host',
+2023-04-08T04:26:35.291307+00:00 app[web.1]: 'mix-master.herokuapp.com',
+2023-04-08T04:26:35.291307+00:00 app[web.1]: 'Connection',
+2023-04-08T04:26:35.291308+00:00 app[web.1]: 'close',
+2023-04-08T04:26:35.291308+00:00 app[web.1]: 'Sec-Ch-Ua',
+2023-04-08T04:26:35.291308+00:00 app[web.1]: '"Chromium";v="112", "Brave";v="112", "Not:A-Brand";v="99"',
+2023-04-08T04:26:35.291309+00:00 app[web.1]: 'Sec-Ch-Ua-Mobile',
+2023-04-08T04:26:35.291309+00:00 app[web.1]: '?0',
+2023-04-08T04:26:35.291309+00:00 app[web.1]: 'User-Agent',
+2023-04-08T04:26:35.291310+00:00 app[web.1]: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
+2023-04-08T04:26:35.291310+00:00 app[web.1]: 'Sec-Ch-Ua-Platform',
+2023-04-08T04:26:35.291310+00:00 app[web.1]: '"Windows"',
+2023-04-08T04:26:35.291310+00:00 app[web.1]: 'Accept',
+2023-04-08T04:26:35.291310+00:00 app[web.1]: '*/*',
+2023-04-08T04:26:35.291311+00:00 app[web.1]: 'Sec-Gpc',
+2023-04-08T04:26:35.291311+00:00 app[web.1]: '1',
+2023-04-08T04:26:35.291311+00:00 app[web.1]: 'Accept-Language',
+2023-04-08T04:26:35.291311+00:00 app[web.1]: 'en-US,en;q=0.6',
+2023-04-08T04:26:35.291311+00:00 app[web.1]: 'Sec-Fetch-Site',
+2023-04-08T04:26:35.291312+00:00 app[web.1]: 'same-origin',
+2023-04-08T04:26:35.291312+00:00 app[web.1]: 'Sec-Fetch-Mode',
+2023-04-08T04:26:35.291312+00:00 app[web.1]: 'cors',
+2023-04-08T04:26:35.291312+00:00 app[web.1]: 'Sec-Fetch-Dest',
+2023-04-08T04:26:35.291312+00:00 app[web.1]: 'empty',
+2023-04-08T04:26:35.291312+00:00 app[web.1]: 'Referer',
+2023-04-08T04:26:35.291312+00:00 app[web.1]: 'https://mix-master.herokuapp.com/trending',
+2023-04-08T04:26:35.291313+00:00 app[web.1]: 'Accept-Encoding',
+2023-04-08T04:26:35.291313+00:00 app[web.1]: 'gzip, deflate, br',
+2023-04-08T04:26:35.291313+00:00 app[web.1]: 'If-None-Match',
+2023-04-08T04:26:35.291313+00:00 app[web.1]: 'W/"1a7-nkLFBMm6YEWJyARuVHAXPEapsq8"',
+2023-04-08T04:26:35.291313+00:00 app[web.1]: 'X-Request-Id',
+2023-04-08T04:26:35.291313+00:00 app[web.1]: 'df5942ec-01a4-435c-b032-ce4026aefd2a',
+2023-04-08T04:26:35.291313+00:00 app[web.1]: 'X-Forwarded-For',
+2023-04-08T04:26:35.291314+00:00 app[web.1]: '108.49.20.188',
+2023-04-08T04:26:35.291314+00:00 app[web.1]: 'X-Forwarded-Proto',
+2023-04-08T04:26:35.291314+00:00 app[web.1]: 'https',
+2023-04-08T04:26:35.291314+00:00 app[web.1]: 'X-Forwarded-Port',
+2023-04-08T04:26:35.291314+00:00 app[web.1]: '443',
+2023-04-08T04:26:35.291314+00:00 app[web.1]: 'Via',
+2023-04-08T04:26:35.291315+00:00 app[web.1]: '1.1 vegur',
+2023-04-08T04:26:35.291315+00:00 app[web.1]: 'Connect-Time',
+2023-04-08T04:26:35.291315+00:00 app[web.1]: '0',
+2023-04-08T04:26:35.291315+00:00 app[web.1]: 'X-Request-Start',
+2023-04-08T04:26:35.291315+00:00 app[web.1]: '1680927995285',
+2023-04-08T04:26:35.291315+00:00 app[web.1]: 'Total-Route-Time',
+2023-04-08T04:26:35.291315+00:00 app[web.1]: '0'
+2023-04-08T04:26:35.291316+00:00 app[web.1]: ],
+2023-04-08T04:26:35.291316+00:00 app[web.1]: rawTrailers: [],
+2023-04-08T04:26:35.291316+00:00 app[web.1]: joinDuplicateHeaders: undefined,
+2023-04-08T04:26:35.291316+00:00 app[web.1]: aborted: false,
+2023-04-08T04:26:35.291316+00:00 app[web.1]: upgrade: false,
+2023-04-08T04:26:35.291316+00:00 app[web.1]: url: '/drink',
+2023-04-08T04:26:35.291317+00:00 app[web.1]: method: 'GET',
+2023-04-08T04:26:35.291317+00:00 app[web.1]: statusCode: null,
+2023-04-08T04:26:35.291317+00:00 app[web.1]: statusMessage: null,
+2023-04-08T04:26:35.291317+00:00 app[web.1]: client: <ref *1> Socket {
+2023-04-08T04:26:35.291317+00:00 app[web.1]: connecting: false,
+2023-04-08T04:26:35.291317+00:00 app[web.1]: _hadError: false,
+2023-04-08T04:26:35.291318+00:00 app[web.1]: _parent: null,
+2023-04-08T04:26:35.291318+00:00 app[web.1]: _host: null,
+2023-04-08T04:26:35.291318+00:00 app[web.1]: _closeAfterHandlingError: false,
+2023-04-08T04:26:35.291318+00:00 app[web.1]: _readableState: [ReadableState],
+2023-04-08T04:26:35.291318+00:00 app[web.1]: _events: [Object: null prototype],
+2023-04-08T04:26:35.291318+00:00 app[web.1]: _eventsCount: 8,
+2023-04-08T04:26:35.291319+00:00 app[web.1]: _maxListeners: undefined,
+2023-04-08T04:26:35.291319+00:00 app[web.1]: _writableState: [WritableState],
+2023-04-08T04:26:35.291319+00:00 app[web.1]: allowHalfOpen: true,
+2023-04-08T04:26:35.291319+00:00 app[web.1]: _sockname: null,
+2023-04-08T04:26:35.291319+00:00 app[web.1]: _pendingData: null,
+2023-04-08T04:26:35.291319+00:00 app[web.1]: _pendingEncoding: '',
+2023-04-08T04:26:35.291319+00:00 app[web.1]: server: [Server],
+2023-04-08T04:26:35.291320+00:00 app[web.1]: _server: [Server],
+2023-04-08T04:26:35.291320+00:00 app[web.1]: parser: [HTTPParser],
+2023-04-08T04:26:35.291320+00:00 app[web.1]: on: [Function: socketListenerWrap],
+2023-04-08T04:26:35.291320+00:00 app[web.1]: addListener: [Function: socketListenerWrap],
+2023-04-08T04:26:35.291320+00:00 app[web.1]: prependListener: [Function: socketListenerWrap],
+2023-04-08T04:26:35.291321+00:00 app[web.1]: setEncoding: [Function: socketSetEncoding],
+2023-04-08T04:26:35.291321+00:00 app[web.1]: _paused: false,
+2023-04-08T04:26:35.291321+00:00 app[web.1]: _httpMessage: [Circular *2],
+2023-04-08T04:26:35.291321+00:00 app[web.1]: [Symbol(async_id_symbol)]: 63521,
+2023-04-08T04:26:35.291321+00:00 app[web.1]: [Symbol(kHandle)]: [TCP],
+2023-04-08T04:26:35.291321+00:00 app[web.1]: [Symbol(lastWriteQueueSize)]: 0,
+2023-04-08T04:26:35.291324+00:00 app[web.1]: [Symbol(timeout)]: null,
+2023-04-08T04:26:35.291324+00:00 app[web.1]: [Symbol(kBuffer)]: null,
+2023-04-08T04:26:35.291324+00:00 app[web.1]: [Symbol(kBufferCb)]: null,
+2023-04-08T04:26:35.291324+00:00 app[web.1]: [Symbol(kBufferGen)]: null,
+2023-04-08T04:26:35.291324+00:00 app[web.1]: [Symbol(kCapture)]: false,
+2023-04-08T04:26:35.291324+00:00 app[web.1]: [Symbol(kSetNoDelay)]: true,
+2023-04-08T04:26:35.291324+00:00 app[web.1]: [Symbol(kSetKeepAlive)]: false,
+2023-04-08T04:26:35.291324+00:00 app[web.1]: [Symbol(kSetKeepAliveInitialDelay)]: 0,
+2023-04-08T04:26:35.291325+00:00 app[web.1]: [Symbol(kBytesRead)]: 0,
+2023-04-08T04:26:35.291325+00:00 app[web.1]: [Symbol(kBytesWritten)]: 0
+2023-04-08T04:26:35.291325+00:00 app[web.1]: },
+2023-04-08T04:26:35.291325+00:00 app[web.1]: _consuming: false,
+2023-04-08T04:26:35.291325+00:00 app[web.1]: _dumped: false,
+2023-04-08T04:26:35.291326+00:00 app[web.1]: next: [Function: next],
+2023-04-08T04:26:35.291326+00:00 app[web.1]: baseUrl: '',
+2023-04-08T04:26:35.291326+00:00 app[web.1]: originalUrl: '/drink',
+2023-04-08T04:26:35.291326+00:00 app[web.1]: _parsedUrl: Url {
+2023-04-08T04:26:35.291326+00:00 app[web.1]: protocol: null,
+2023-04-08T04:26:35.291326+00:00 app[web.1]: slashes: null,
+2023-04-08T04:26:35.291326+00:00 app[web.1]: auth: null,
+2023-04-08T04:26:35.291327+00:00 app[web.1]: host: null,
+2023-04-08T04:26:35.291327+00:00 app[web.1]: port: null,
+2023-04-08T04:26:35.291327+00:00 app[web.1]: hostname: null,
+2023-04-08T04:26:35.291327+00:00 app[web.1]: hash: null,
+2023-04-08T04:26:35.291327+00:00 app[web.1]: search: null,
+2023-04-08T04:26:35.291327+00:00 app[web.1]: query: null,
+2023-04-08T04:26:35.291327+00:00 app[web.1]: pathname: '/drink',
+2023-04-08T04:26:35.291327+00:00 app[web.1]: path: '/drink',
+2023-04-08T04:26:35.291328+00:00 app[web.1]: href: '/drink',
+2023-04-08T04:26:35.291328+00:00 app[web.1]: _raw: '/drink'
+2023-04-08T04:26:35.291328+00:00 app[web.1]: },
+2023-04-08T04:26:35.291328+00:00 app[web.1]: params: {},
+2023-04-08T04:26:35.291328+00:00 app[web.1]: query: {},
+2023-04-08T04:26:35.291328+00:00 app[web.1]: res: [Circular *2],
+2023-04-08T04:26:35.291328+00:00 app[web.1]: body: {},
+2023-04-08T04:26:35.291328+00:00 app[web.1]: route: Route { path: '/drink', stack: [Array], methods: [Object] },
+2023-04-08T04:26:35.291328+00:00 app[web.1]: [Symbol(kCapture)]: false,
+2023-04-08T04:26:35.291329+00:00 app[web.1]: [Symbol(kHeaders)]: {
+2023-04-08T04:26:35.291329+00:00 app[web.1]: host: 'mix-master.herokuapp.com',
+2023-04-08T04:26:35.291329+00:00 app[web.1]: connection: 'close',
+2023-04-08T04:26:35.291329+00:00 app[web.1]: 'sec-ch-ua': '"Chromium";v="112", "Brave";v="112", "Not:A-Brand";v="99"',
+2023-04-08T04:26:35.291329+00:00 app[web.1]: 'sec-ch-ua-mobile': '?0',
+2023-04-08T04:26:35.291330+00:00 app[web.1]: 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
+2023-04-08T04:26:35.291330+00:00 app[web.1]: 'sec-ch-ua-platform': '"Windows"',
+2023-04-08T04:26:35.291330+00:00 app[web.1]: accept: '*/*',
+2023-04-08T04:26:35.291330+00:00 app[web.1]: 'sec-gpc': '1',
+2023-04-08T04:26:35.291331+00:00 app[web.1]: 'accept-language': 'en-US,en;q=0.6',
+2023-04-08T04:26:35.291331+00:00 app[web.1]: 'sec-fetch-site': 'same-origin',
+2023-04-08T04:26:35.291331+00:00 app[web.1]: 'sec-fetch-mode': 'cors',
+2023-04-08T04:26:35.291331+00:00 app[web.1]: 'sec-fetch-dest': 'empty',
+2023-04-08T04:26:35.291331+00:00 app[web.1]: referer: 'https://mix-master.herokuapp.com/trending',
+2023-04-08T04:26:35.291331+00:00 app[web.1]: 'accept-encoding': 'gzip, deflate, br',
+2023-04-08T04:26:35.291331+00:00 app[web.1]: 'if-none-match': 'W/"1a7-nkLFBMm6YEWJyARuVHAXPEapsq8"',
+2023-04-08T04:26:35.291331+00:00 app[web.1]: 'x-request-id': 'df5942ec-01a4-435c-b032-ce4026aefd2a',
+2023-04-08T04:26:35.291331+00:00 app[web.1]: 'x-forwarded-for': '108.49.20.188',
+2023-04-08T04:26:35.291331+00:00 app[web.1]: 'x-forwarded-proto': 'https',
+2023-04-08T04:26:35.291331+00:00 app[web.1]: 'x-forwarded-port': '443',
+2023-04-08T04:26:35.291332+00:00 app[web.1]: via: '1.1 vegur',
+2023-04-08T04:26:35.291332+00:00 app[web.1]: 'connect-time': '0',
+2023-04-08T04:26:35.291335+00:00 app[web.1]: 'x-request-start': '1680927995285',
+2023-04-08T04:26:35.291335+00:00 app[web.1]: 'total-route-time': '0'
+2023-04-08T04:26:35.291336+00:00 app[web.1]: },
+2023-04-08T04:26:35.291336+00:00 app[web.1]: [Symbol(kHeadersCount)]: 46,
+2023-04-08T04:26:35.291336+00:00 app[web.1]: [Symbol(kTrailers)]: null,
+2023-04-08T04:26:35.291336+00:00 app[web.1]: [Symbol(kTrailersCount)]: 0
+2023-04-08T04:26:35.291336+00:00 app[web.1]: },
+2023-04-08T04:26:35.291336+00:00 app[web.1]: _sent100: false,
+2023-04-08T04:26:35.291336+00:00 app[web.1]: _expect_continue: false,
+2023-04-08T04:26:35.291336+00:00 app[web.1]: _maxRequestsPerSocket: 0,
+2023-04-08T04:26:35.291336+00:00 app[web.1]: locals: [Object: null prototype] {},
+2023-04-08T04:26:35.291336+00:00 app[web.1]: statusCode: 304,
+2023-04-08T04:26:35.291337+00:00 app[web.1]: statusMessage: 'Not Modified',
+2023-04-08T04:26:35.291337+00:00 app[web.1]: [Symbol(kCapture)]: false,
+2023-04-08T04:26:35.291337+00:00 app[web.1]: [Symbol(kBytesWritten)]: 0,
+2023-04-08T04:26:35.291337+00:00 app[web.1]: [Symbol(kEndCalled)]: true,
+2023-04-08T04:26:35.291337+00:00 app[web.1]: [Symbol(kNeedDrain)]: false,
+2023-04-08T04:26:35.291337+00:00 app[web.1]: [Symbol(corked)]: 0,
+2023-04-08T04:26:35.291337+00:00 app[web.1]: [Symbol(kOutHeaders)]: [Object: null prototype] {
+2023-04-08T04:26:35.291337+00:00 app[web.1]: 'x-powered-by': [ 'X-Powered-By', 'Express' ],
+2023-04-08T04:26:35.291373+00:00 app[web.1]: 'access-control-allow-origin': [ 'Access-Control-Allow-Origin', '*' ],
+2023-04-08T04:26:35.291373+00:00 app[web.1]: etag: [ 'ETag', 'W/"1a7-nkLFBMm6YEWJyARuVHAXPEapsq8"' ]
+2023-04-08T04:26:35.291373+00:00 app[web.1]: },
+2023-04-08T04:26:35.291373+00:00 app[web.1]: [Symbol(errored)]: null,
+2023-04-08T04:26:35.291373+00:00 app[web.1]: [Symbol(kUniqueHeaders)]: null
+2023-04-08T04:26:35.291374+00:00 app[web.1]: }
+2023-04-08T04:26:35.317366+00:00 heroku[router]: at=info method=GET path="/favicon.ico" host=mix-master.herokuapp.com request_id=0e58d330-79d1-4938-9470-5754cfd19339 fwd="108.49.20.188" dyno=web.1 connect=0ms service=1ms status=304 bytes=269 protocol=https
+2023-04-08T04:26:35.375187+00:00 heroku[router]: at=info method=GET path="/manifest.json" host=mix-master.herokuapp.com request_id=2e2e1381-499a-4ba2-a0a0-c4b26a1a3f68 fwd="108.49.20.188" dyno=web.1 connect=0ms service=1ms status=200 bytes=819 protocol=https
+2023-04-08T04:26:35.401975+00:00 heroku[router]: at=info method=GET path="/logo192.png" host=mix-master.herokuapp.com request_id=e6dfe4ab-664a-49e5-bb0a-3f5f1a94ccc3 fwd="108.49.20.188" dyno=web.1 connect=0ms service=3ms status=200 bytes=5654 protocol=https
+2023-04-08T04:26:37.341696+00:00 heroku[router]: at=info method=GET path="/favicon.ico" host=mix-master.herokuapp.com request_id=e2e39a54-5bb1-437a-8c3c-d12322a347e0 fwd="108.49.20.188" dyno=web.1 connect=0ms service=1ms status=304 bytes=269 protocol=https
+2023-04-08T04:26:37.360243+00:00 heroku[router]: at=info method=GET path="/static/media/neon.846ef0bd44efcceb64db.mp4" host=mix-master.herokuapp.com request_id=749c99af-bbbb-40c8-b1a9-d953723e2da8 fwd="108.49.20.188" dyno=web.1 connect=0ms service=15ms status=206 bytes=4728686 protocol=https
+2023-04-08T04:58:58.618801+00:00 heroku[router]: at=info method=GET path="/static/media/neon.846ef0bd44efcceb64db.mp4" host=mix-master.herokuapp.com request_id=38861c8d-72dc-4cc4-b6fb-2c7864ccdf0f fwd="108.49.20.188" dyno=web.1 connect=0ms service=32ms status=206 bytes=4728686 protocol=https
+2023-04-08T08:08:24.978818+00:00 heroku[router]: at=info method=GET path="/robots.txt" host=mix-master.herokuapp.com request_id=27e97779-002f-4d52-99b6-3e91bdcf4b92 fwd="66.249.66.9" dyno=web.1 connect=0ms service=5ms status=200 bytes=386 protocol=https
+2023-04-08T08:08:27.705590+00:00 heroku[router]: at=info method=GET path="/ads.txt" host=mix-master.herokuapp.com request_id=9e8078a2-3d8e-4f10-af42-638e2e6b882f fwd="66.249.66.9" dyno=web.1 connect=0ms service=2ms status=200 bytes=964 protocol=https
+2023-04-08T14:39:24.595809+00:00 app[api]: Remove ATLAS_URI config vars by user tonylaw728@gmail.com
+2023-04-08T14:39:24.595809+00:00 app[api]: Release v50 created by user tonylaw728@gmail.com
+2023-04-08T14:39:24.883690+00:00 heroku[web.1]: Restarting
+2023-04-08T14:39:24.898643+00:00 heroku[web.1]: State changed from up to starting
+2023-04-08T14:39:25.845553+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2023-04-08T14:39:26.037702+00:00 heroku[web.1]: Process exited with status 143
+2023-04-08T14:39:33.826013+00:00 heroku[web.1]: Starting process with command `npm start`
+2023-04-08T14:39:36.436686+00:00 app[api]: Set MONGO_URI config vars by user tonylaw728@gmail.com
+2023-04-08T14:39:36.436686+00:00 app[api]: Release v51 created by user tonylaw728@gmail.com
+2023-04-08T14:39:36.719111+00:00 heroku[web.1]: Restarting
+2023-04-08T14:39:36.976797+00:00 app[web.1]: 
+2023-04-08T14:39:36.976829+00:00 app[web.1]: > server@1.0.0 start
+2023-04-08T14:39:36.976829+00:00 app[web.1]: > node server.js
+2023-04-08T14:39:36.976829+00:00 app[web.1]: 
+2023-04-08T14:39:37.312497+00:00 app[web.1]: Express server is running
+2023-04-08T14:39:37.524423+00:00 app[web.1]: Connected successfully to server
+2023-04-08T14:39:37.524672+00:00 app[web.1]: Successfully connected to MongoDB
+2023-04-08T14:39:39.401346+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2023-04-08T14:39:39.661954+00:00 heroku[web.1]: Process exited with status 143
+2023-04-08T14:39:46.057610+00:00 heroku[web.1]: Starting process with command `npm start`
+2023-04-08T14:39:48.023074+00:00 app[web.1]: 
+2023-04-08T14:39:48.023104+00:00 app[web.1]: > server@1.0.0 start
+2023-04-08T14:39:48.023104+00:00 app[web.1]: > node server.js
+2023-04-08T14:39:48.023104+00:00 app[web.1]: 
+2023-04-08T14:39:48.261842+00:00 app[web.1]: /app/node_modules/mongodb-connection-string-url/lib/index.js:86
+2023-04-08T14:39:48.261843+00:00 app[web.1]: throw new MongoParseError('Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"');
+2023-04-08T14:39:48.261844+00:00 app[web.1]: ^
+2023-04-08T14:39:48.261845+00:00 app[web.1]: 
+2023-04-08T14:39:48.261864+00:00 app[web.1]: MongoParseError: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+2023-04-08T14:39:48.261864+00:00 app[web.1]: at new ConnectionString (/app/node_modules/mongodb-connection-string-url/lib/index.js:86:19)
+2023-04-08T14:39:48.261864+00:00 app[web.1]: at parseOptions (/app/node_modules/mongodb/lib/connection_string.js:204:17)
+2023-04-08T14:39:48.261865+00:00 app[web.1]: at new MongoClient (/app/node_modules/mongodb/lib/mongo_client.js:46:63)
+2023-04-08T14:39:48.261865+00:00 app[web.1]: at Object.<anonymous> (/app/db/conn.js:5:16)
+2023-04-08T14:39:48.261865+00:00 app[web.1]: at Module._compile (node:internal/modules/cjs/loader:1254:14)
+2023-04-08T14:39:48.261865+00:00 app[web.1]: at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+2023-04-08T14:39:48.261866+00:00 app[web.1]: at Module.load (node:internal/modules/cjs/loader:1117:32)
+2023-04-08T14:39:48.261866+00:00 app[web.1]: at Module._load (node:internal/modules/cjs/loader:958:12)
+2023-04-08T14:39:48.261866+00:00 app[web.1]: at Module.require (node:internal/modules/cjs/loader:1141:19)
+2023-04-08T14:39:48.261866+00:00 app[web.1]: at require (node:internal/modules/cjs/helpers:110:18)
+2023-04-08T14:39:48.261870+00:00 app[web.1]: 
+2023-04-08T14:39:48.261870+00:00 app[web.1]: Node.js v18.15.0
+2023-04-08T14:39:48.266861+00:00 app[web.1]: npm notice
+2023-04-08T14:39:48.266937+00:00 app[web.1]: npm notice New minor version of npm available! 9.5.0 -> 9.6.4
+2023-04-08T14:39:48.267215+00:00 app[web.1]: npm notice Changelog: <https://github.com/npm/cli/releases/tag/v9.6.4>
+2023-04-08T14:39:48.267264+00:00 app[web.1]: npm notice Run `npm install -g npm@9.6.4` to update!
+2023-04-08T14:39:48.267402+00:00 app[web.1]: npm notice
+2023-04-08T14:39:48.394486+00:00 heroku[web.1]: Process exited with status 1
+2023-04-08T14:39:48.452289+00:00 heroku[web.1]: State changed from starting to crashed
+2023-04-08T14:39:48.455175+00:00 heroku[web.1]: State changed from crashed to starting
+2023-04-08T14:40:01.578478+00:00 heroku[web.1]: Starting process with command `npm start`
+2023-04-08T14:40:03.107908+00:00 app[web.1]: 
+2023-04-08T14:40:03.107936+00:00 app[web.1]: > server@1.0.0 start
+2023-04-08T14:40:03.107936+00:00 app[web.1]: > node server.js
+2023-04-08T14:40:03.107936+00:00 app[web.1]: 
+2023-04-08T14:40:03.300607+00:00 app[web.1]: /app/node_modules/mongodb-connection-string-url/lib/index.js:86
+2023-04-08T14:40:03.300608+00:00 app[web.1]: throw new MongoParseError('Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"');
+2023-04-08T14:40:03.300609+00:00 app[web.1]: ^
+2023-04-08T14:40:03.300609+00:00 app[web.1]: 
+2023-04-08T14:40:03.300609+00:00 app[web.1]: MongoParseError: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+2023-04-08T14:40:03.300610+00:00 app[web.1]: at new ConnectionString (/app/node_modules/mongodb-connection-string-url/lib/index.js:86:19)
+2023-04-08T14:40:03.300610+00:00 app[web.1]: at parseOptions (/app/node_modules/mongodb/lib/connection_string.js:204:17)
+2023-04-08T14:40:03.300610+00:00 app[web.1]: at new MongoClient (/app/node_modules/mongodb/lib/mongo_client.js:46:63)
+2023-04-08T14:40:03.300610+00:00 app[web.1]: at Object.<anonymous> (/app/db/conn.js:5:16)
+2023-04-08T14:40:03.300611+00:00 app[web.1]: at Module._compile (node:internal/modules/cjs/loader:1254:14)
+2023-04-08T14:40:03.300611+00:00 app[web.1]: at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+2023-04-08T14:40:03.300611+00:00 app[web.1]: at Module.load (node:internal/modules/cjs/loader:1117:32)
+2023-04-08T14:40:03.300613+00:00 app[web.1]: at Module._load (node:internal/modules/cjs/loader:958:12)
+2023-04-08T14:40:03.300613+00:00 app[web.1]: at Module.require (node:internal/modules/cjs/loader:1141:19)
+2023-04-08T14:40:03.300613+00:00 app[web.1]: at require (node:internal/modules/cjs/helpers:110:18)
+2023-04-08T14:40:03.300613+00:00 app[web.1]: 
+2023-04-08T14:40:03.300614+00:00 app[web.1]: Node.js v18.15.0
+2023-04-08T14:40:03.305492+00:00 app[web.1]: npm notice
+2023-04-08T14:40:03.305544+00:00 app[web.1]: npm notice New minor version of npm available! 9.5.0 -> 9.6.4
+2023-04-08T14:40:03.305861+00:00 app[web.1]: npm notice Changelog: <https://github.com/npm/cli/releases/tag/v9.6.4>
+2023-04-08T14:40:03.305861+00:00 app[web.1]: npm notice Run `npm install -g npm@9.6.4` to update!
+2023-04-08T14:40:03.305904+00:00 app[web.1]: npm notice
+2023-04-08T14:40:03.453464+00:00 heroku[web.1]: Process exited with status 1
+2023-04-08T14:40:03.492524+00:00 heroku[web.1]: State changed from starting to crashed
+2023-04-08T14:55:48.463184+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=mix-master.herokuapp.com request_id=87bde9cf-5372-454d-be90-0f6556c13b4c fwd="71.233.189.46" dyno= connect= service= status=503 bytes= protocol=https
+2023-04-08T14:55:48.580492+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=mix-master.herokuapp.com request_id=8670abd9-7d69-4c75-9119-39bba7aceaf8 fwd="71.233.189.46" dyno= connect= service= status=503 bytes= protocol=https
+2023-04-08T14:57:15.000000+00:00 app[api]: Build started by user tonylaw728@gmail.com
+2023-04-08T14:58:28.677314+00:00 app[api]: Release v52 created by user tonylaw728@gmail.com
+2023-04-08T14:58:28.677314+00:00 app[api]: Deploy 5388faaa by user tonylaw728@gmail.com
+2023-04-08T14:58:29.265033+00:00 heroku[web.1]: State changed from crashed to starting
+2023-04-08T14:58:31.000000+00:00 app[api]: Build succeeded
+2023-04-08T14:58:36.737114+00:00 heroku[web.1]: Starting process with command `npm start`
+2023-04-08T14:58:38.158594+00:00 app[web.1]: 
+2023-04-08T14:58:38.158599+00:00 app[web.1]: > server@1.0.0 start
+2023-04-08T14:58:38.158599+00:00 app[web.1]: > node server.js
+2023-04-08T14:58:38.158599+00:00 app[web.1]: 
+2023-04-08T14:58:38.342529+00:00 app[web.1]: /app/node_modules/mongodb-connection-string-url/lib/index.js:86
+2023-04-08T14:58:38.342533+00:00 app[web.1]: throw new MongoParseError('Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"');
+2023-04-08T14:58:38.342533+00:00 app[web.1]: ^
+2023-04-08T14:58:38.342533+00:00 app[web.1]: 
+2023-04-08T14:58:38.342534+00:00 app[web.1]: MongoParseError: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+2023-04-08T14:58:38.342535+00:00 app[web.1]: at new ConnectionString (/app/node_modules/mongodb-connection-string-url/lib/index.js:86:19)
+2023-04-08T14:58:38.342542+00:00 app[web.1]: at parseOptions (/app/node_modules/mongodb/lib/connection_string.js:204:17)
+2023-04-08T14:58:38.342542+00:00 app[web.1]: at new MongoClient (/app/node_modules/mongodb/lib/mongo_client.js:46:63)
+2023-04-08T14:58:38.342542+00:00 app[web.1]: at Object.<anonymous> (/app/db/conn.js:5:16)
+2023-04-08T14:58:38.342542+00:00 app[web.1]: at Module._compile (node:internal/modules/cjs/loader:1254:14)
+2023-04-08T14:58:38.342543+00:00 app[web.1]: at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+2023-04-08T14:58:38.342543+00:00 app[web.1]: at Module.load (node:internal/modules/cjs/loader:1117:32)
+2023-04-08T14:58:38.342543+00:00 app[web.1]: at Module._load (node:internal/modules/cjs/loader:958:12)
+2023-04-08T14:58:38.342544+00:00 app[web.1]: at Module.require (node:internal/modules/cjs/loader:1141:19)
+2023-04-08T14:58:38.342544+00:00 app[web.1]: at require (node:internal/modules/cjs/helpers:110:18)
+2023-04-08T14:58:38.342544+00:00 app[web.1]: 
+2023-04-08T14:58:38.342545+00:00 app[web.1]: Node.js v18.15.0
+2023-04-08T14:58:38.347681+00:00 app[web.1]: npm notice
+2023-04-08T14:58:38.347764+00:00 app[web.1]: npm notice New minor version of npm available! 9.5.0 -> 9.6.4
+2023-04-08T14:58:38.347976+00:00 app[web.1]: npm notice Changelog: <https://github.com/npm/cli/releases/tag/v9.6.4>
+2023-04-08T14:58:38.348022+00:00 app[web.1]: npm notice Run `npm install -g npm@9.6.4` to update!
+2023-04-08T14:58:38.348166+00:00 app[web.1]: npm notice
+2023-04-08T14:58:38.499713+00:00 heroku[web.1]: Process exited with status 1
+2023-04-08T14:58:38.543293+00:00 heroku[web.1]: State changed from starting to crashed
+2023-04-08T14:58:38.549225+00:00 heroku[web.1]: State changed from crashed to starting
+2023-04-08T14:58:56.030220+00:00 heroku[web.1]: Starting process with command `npm start`
+2023-04-08T14:58:58.023274+00:00 app[web.1]: 
+2023-04-08T14:58:58.023307+00:00 app[web.1]: > server@1.0.0 start
+2023-04-08T14:58:58.023307+00:00 app[web.1]: > node server.js
+2023-04-08T14:58:58.023307+00:00 app[web.1]: 
+2023-04-08T14:58:58.243251+00:00 app[web.1]: /app/node_modules/mongodb-connection-string-url/lib/index.js:86
+2023-04-08T14:58:58.243255+00:00 app[web.1]: throw new MongoParseError('Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"');
+2023-04-08T14:58:58.243256+00:00 app[web.1]: ^
+2023-04-08T14:58:58.243256+00:00 app[web.1]: 
+2023-04-08T14:58:58.243284+00:00 app[web.1]: MongoParseError: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+2023-04-08T14:58:58.243285+00:00 app[web.1]: at new ConnectionString (/app/node_modules/mongodb-connection-string-url/lib/index.js:86:19)
+2023-04-08T14:58:58.243285+00:00 app[web.1]: at parseOptions (/app/node_modules/mongodb/lib/connection_string.js:204:17)
+2023-04-08T14:58:58.243286+00:00 app[web.1]: at new MongoClient (/app/node_modules/mongodb/lib/mongo_client.js:46:63)
+2023-04-08T14:58:58.243286+00:00 app[web.1]: at Object.<anonymous> (/app/db/conn.js:5:16)
+2023-04-08T14:58:58.243286+00:00 app[web.1]: at Module._compile (node:internal/modules/cjs/loader:1254:14)
+2023-04-08T14:58:58.243286+00:00 app[web.1]: at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+2023-04-08T14:58:58.243287+00:00 app[web.1]: at Module.load (node:internal/modules/cjs/loader:1117:32)
+2023-04-08T14:58:58.243287+00:00 app[web.1]: at Module._load (node:internal/modules/cjs/loader:958:12)
+2023-04-08T14:58:58.243287+00:00 app[web.1]: at Module.require (node:internal/modules/cjs/loader:1141:19)
+2023-04-08T14:58:58.243288+00:00 app[web.1]: at require (node:internal/modules/cjs/helpers:110:18)
+2023-04-08T14:58:58.243293+00:00 app[web.1]: 
+2023-04-08T14:58:58.243294+00:00 app[web.1]: Node.js v18.15.0
+2023-04-08T14:58:58.252819+00:00 app[web.1]: npm notice
+2023-04-08T14:58:58.252919+00:00 app[web.1]: npm notice New minor version of npm available! 9.5.0 -> 9.6.4
+2023-04-08T14:58:58.253197+00:00 app[web.1]: npm notice Changelog: <https://github.com/npm/cli/releases/tag/v9.6.4>
+2023-04-08T14:58:58.253257+00:00 app[web.1]: npm notice Run `npm install -g npm@9.6.4` to update!
+2023-04-08T14:58:58.253454+00:00 app[web.1]: npm notice
+2023-04-08T14:58:58.433288+00:00 heroku[web.1]: Process exited with status 1
+2023-04-08T14:58:58.475137+00:00 heroku[web.1]: State changed from starting to crashed
+2023-04-08T15:00:15.028126+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=mix-master.herokuapp.com request_id=58653f14-ba7e-4631-ba6e-a9e64c0015c9 fwd="71.233.189.46" dyno= connect= service= status=503 bytes= protocol=https
+2023-04-08T15:00:15.410771+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/apple-touch-icon-precomposed.png" host=mix-master.herokuapp.com request_id=3e84e529-02ac-4d67-b5f6-5e09ceb96874 fwd="71.233.189.46" dyno= connect= service= status=503 bytes= protocol=https
+2023-04-08T15:00:15.560136+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/apple-touch-icon.png" host=mix-master.herokuapp.com request_id=b05df121-9e81-4044-ac21-9fa9a7928d2b fwd="71.233.189.46" dyno= connect= service= status=503 bytes= protocol=https

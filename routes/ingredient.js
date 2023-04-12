@@ -19,12 +19,11 @@ ingredientRoutes.route("/ingredient").get(function (req, res) {
    .find({})
    .toArray()
    .then ((result) => res.json(result))
-   .then(console.log)
 });
 
 // This section will help you get a single ingredient by id
 ingredientRoutes.route("/ingredient/:id").get(function (req, res) {
-  let db_connect = dbo.getIngredientsDb();
+  let db_connect = dbo.getIngredientsDb("ingredients");
   let myquery = { _id: ObjectId(req.params.id) };
   db_connect
     .collection("ingridientslist")

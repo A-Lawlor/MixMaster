@@ -3,16 +3,22 @@ import { useNavigate } from "react-router";
 import "../css/profile.css"; 
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
+import{Container, Row, Col, Button} from 'react-bootstrap';
 
 const divStyle = {
-    width: '100%',
-    height: '100vh',
-    paddingTop: '10vh',
     backgroundImage: 'url(../../Favorites.jpg)',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    backgroundColor: '#7f00c9'
+    backgroundColor: '#7f00c9',
+    width: '100%',
+    height: '100%',
+    paddingTop: '15vh',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    zIndex: -1,
+    overflow: 'auto'
 };
 
 
@@ -23,11 +29,6 @@ export default function FavoritesList() {
   }
  return (  
   <div className="container-fluid" style={divStyle}>
-    <div className="row">
-      <div className="col-12 mt-3" align="center">
-        <button onClick={backClicked} className = "button-84s">Back</button>
-      </div>
-    </div>
     <div className="row mt-5">
       <div className="col-sm" align="center">
         <div className="drink_wrapper">

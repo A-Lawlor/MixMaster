@@ -1,6 +1,25 @@
 .nav-link:hover {
     transform: scale(1.1);
-    transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.4s ease-in-out;
   }
   
+
+  .register-text {
+    font-size: 15px;
+  }
+  
+  .register-text span {
+    text-decoration: underline;
+    color: #000;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .register-text span:hover {
+    color: #ffd700;
+  }
+
+  .compose-btn{
+    background-color: "#41C3FA";
+    color: "#fff";
+  }
