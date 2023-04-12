@@ -34,25 +34,15 @@ const UsersIngredient = (props) => (
 
 export default function StorageEdit() {
 
-    // This method fetches the user's ingredients from the database.
-    const [username, setUsername] = useState([]);
-    useEffect(() => {
-      async function getUsername() {
-        const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/getusername' : 'http://localhost:5005/user/getusername');
-        if (!response.ok) {
-          const message = `An error occurred: ${response.statusText}`;
-          window.alert(message);
-          return;
-        }
-        const username = await response.json();
-        setUsername(username);
-        if(username.username == "") {
-          handleNoLoginShow();
-        }
-      }
-      getUsername();
-      return;
-  }, [username.length]);
+  // This method fetches the user's info used to query db from the client storage.
+  const loggedIn = localStorage.getItem('logged_in');
+  const username = localStorage.getItem('username');
+  if(loggedIn === true) {
+    handleNoLoginShow();
+  }
+  if(username === "") {
+    handleNoLoginShow();
+  }
 
 
   // This method fetches the user's ingredients from the database.
@@ -76,7 +66,7 @@ export default function StorageEdit() {
   async function deleteUserIngredient(_name) {
     const deleteIngredient = { 
         name: _name, 
-        username: username.username
+        username: username
     };
     let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage/delete' : 'http://localhost:5005/userstorage/delete');
     await fetch(fetch_string, {
@@ -93,10 +83,6 @@ export default function StorageEdit() {
     })
     .then(() => {
         $("#"+_name.replace(/ /g, "_")+"-listitem").remove();
-        //const currentUser = users_ingredients.filter((user) => user.username == "Dalton"); // REPLACE WITH LOGGED IN USERNAME VARIABLE
-        //currentUser[0].my_ingredients.slice(index);
-        //const newUsersIngredients = currentUser[0].my_ingredients;
-        //setUsersIngredients(newUsersIngredients);
         return;
     })
     .catch(error => {
@@ -107,7 +93,7 @@ export default function StorageEdit() {
 
   function ingredientsList() {
     return(users_ingredients.map( user => {
-      if(user.username === username.username) {
+      if(user.username === username) {
         return(
           user.my_ingredients.map( (ingredient) => {
             return(

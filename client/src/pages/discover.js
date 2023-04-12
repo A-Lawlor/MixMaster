@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
+import { useNavigate } from "react-router";
 import 'bootstrap/dist/css/bootstrap.css';
+import { Modal } from "react-bootstrap";
 
 import{Container, Row, Col} from 'react-bootstrap';
 import {UserCard} from '../components/UserCard';
@@ -21,34 +23,17 @@ const FollowingUserCard = (props) => (
 
 export default function Discover() {
 
-  const[follow,setFollow]=useState(false);
-  
-  function displayConfirmation()
-  {
-    setFollow(true);
+  const[follow, setFollow]=useState(false);
 
-    setTimeout(()=> {
-      setFollow(false);
-    }, 3000);
+  // This method fetches the user's ingredients from the client storage.
+  const loggedIn = localStorage.getItem('logged_in');
+  const username = localStorage.getItem('username');
+  if(loggedIn === true) {
+    handleNoLoginShow();
   }
-
-  // This method fetches the user's username from the server.
-  const [username, setUsername] = useState([]);
-  useEffect(() => {
-      async function getUsername() {
-
-      const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/getusername' : 'http://localhost:5005/user/getusername');
-      if (!response.ok) {
-          const message = `An error occurred: ${response.statusText}`;
-          window.alert(message);
-          return;
-      }
-      const username = await response.json();
-      setUsername(username);
-      }
-      getUsername();
-      return;
-  }, [username.length]);
+  if(username === "") {
+    handleNoLoginShow();
+  }
 
   //starting process of getting users from database.
   const [all_users, setAllUsers] = useState([]);
@@ -69,7 +54,7 @@ export default function Discover() {
 
   function followlist(){
     return(all_users.map( user => {
-      if(user.name === username.username) {
+      if(user.name === username) {
         var yourId = user._id;
           return all_users.map((checkUser) => {
               if(user.following.includes(checkUser._id)) {
@@ -95,6 +80,14 @@ export default function Discover() {
   }));
   }
 
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const handleNoLoginClose = () => {
+      setShow(false);
+      navigate("/");
+  };
+  const handleNoLoginShow = () => setShow(true);
+
   return (
       <Container>
           <h1>
@@ -104,6 +97,14 @@ export default function Discover() {
         <Row>
           {followlist()}
         </Row>
+        <>
+          <Modal show={show} onHide={handleNoLoginClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>ERROR</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>You must be logged in to access the storage page.<br></br>Closing this window will return you to the homepage!</Modal.Body>
+          </Modal>
+        </>
      </Container>
   );
 }

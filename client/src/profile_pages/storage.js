@@ -15,37 +15,29 @@ const UsersIngredient = (props) => (
 
 export default function Storage() {
 
-  // This method fetches the user's ingredients from the database.
-  const [username, setUsername] = useState([]);
-  useEffect(() => {
-      async function getUsername() {
-          
-      const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/getusername' : 'http://localhost:5005/user/getusername');
-      if (!response.ok) {
-          const message = `An error occurred: ${response.statusText}`;
-          window.alert(message);
-          return;
-      }
-      const username = await response.json();
-      setUsername(username);
-      if(username.username == "") {
-          handleNoLoginShow();
-      }
-      }
-      getUsername();
-      return;
-  }, [username.length]);
+  // This method fetches the user's info used to query db from the client storage.
+  const loggedIn = localStorage.getItem('logged_in');
+  const username = localStorage.getItem('username');
+  if(loggedIn === true) {
+    handleNoLoginShow();
+  }
+  if(username === "") {
+    handleNoLoginShow();
+  }
 
   // This method fetches the user's ingredients from the database.
   const [users_ingredients, setUsersIngredients] = useState([]);
   useEffect(() => {
     async function getUsersIngredients() {
-      const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage' : 'http://localhost:5005/userstorage');
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
+      const fetch_string = process.env.NODE_ENV === 'production' ?
+                           'https://mix-master.herokuapp.com/user/retrieve_storage' : 'http://localhost:5005/user/retrieve_storage'
+      const response = await fetch(fetch_string, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({username: username}),
+      });
       const users_ingredients = await response.json();
       setUsersIngredients(users_ingredients);
     }
@@ -55,7 +47,7 @@ export default function Storage() {
 
   function ingredientsList() {
     return(users_ingredients.map( user => {
-      if(user.username == username.username) {
+      if(user.username == username) {
         return(
           user.my_ingredients.map( (ingredient, index) => {
             return(
