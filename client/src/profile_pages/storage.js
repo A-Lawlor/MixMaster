@@ -30,35 +30,30 @@ export default function Storage() {
   useEffect(() => {
     async function getUsersIngredients() {
       const fetch_string = process.env.NODE_ENV === 'production' ?
-                           'https://mix-master.herokuapp.com/user/retrieve_storage' : 'http://localhost:5005/user/retrieve_storage'
-      const response = await fetch(fetch_string, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({username: username}),
-      });
-      const users_ingredients = await response.json();
-      setUsersIngredients(users_ingredients);
+                           'https://mix-master.herokuapp.com/user/retrieve_storage/'+username : 
+                           'http://localhost:5005/user/retrieve_storage/'+username;
+      const response = await fetch(fetch_string);
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+      const users_info = await response.json();
+      console.log(users_info.ingredient_storage);
+      setUsersIngredients(users_info.ingredient_storage);
     }
     getUsersIngredients();
     return;
   }, [users_ingredients.length]);
 
   function ingredientsList() {
-    return(users_ingredients.map( user => {
-      if(user.username == username) {
-        return(
-          user.my_ingredients.map( (ingredient, index) => {
-            return(
-              <UsersIngredient
-                ingredient={ingredient}
-                key={index}
-              />
-            )
-          })
-        )
-      }
+    return(users_ingredients.map( (ingredient, index) => {
+      return(
+        <UsersIngredient
+          ingredient={ingredient}
+          key={index}
+        />
+      )
     }));
   }
 
