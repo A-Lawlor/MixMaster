@@ -7,7 +7,6 @@ app.use(cors());
 app.use(express.json({limit: '50mb'}));
 app.use(require("./routes/drink"));
 app.use(require("./routes/ingredient"));
-app.use(require("./routes/userstorage"));
 app.use(require("./routes/user"));
 const { default: mongoose } = require("mongoose");
 const dbo = require("./db/conn");

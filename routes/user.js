@@ -133,19 +133,18 @@ userCredentialsRoutes.route("/user/register").post(function (req, response) {
 });
 
 // This section will help you get a list of all the ingredients.
-userCredentialsRoutes.route("/user/retrieve_storage").get(function (req, res) {
+userCredentialsRoutes.route("/user/retrieve_storage/:username").get(function (req, res) {
     let db_connect = dbo.getUsersDb();
     db_connect
       .collection("credentials")
-      .findOne({name: req.body.username})
-      .toArray()
+      .findOne({name: req.params.username}, {projection: { password: 0 }})
       .then ((result) => res.json(result))
 });
 
 // Add ingredients to a user's storage
-userCredentialsRoutes.route("/user/add_ingredient_to_storage").post(function (req, res) {
+userCredentialsRoutes.route("/user/add_ingredient_to_storage/:username").post(function (req, res) {
     let db_connect = dbo.getUsersDb();
-    let myquery = { name: req.body.username };
+    let myquery = { name: req.params.username };
     let myupdate = { $push: { ingredient_storage: req.body.name } };
     db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
       if (err) throw err;
@@ -155,9 +154,9 @@ userCredentialsRoutes.route("/user/add_ingredient_to_storage").post(function (re
   });
   
 // This section will help you delete an ingredient from a user's storage
-userCredentialsRoutes.route("/user/delete_ingredient_to_storage").delete((req, res) => {
+userCredentialsRoutes.route("/user/delete_ingredient_from_storage/:username").delete((req, res) => {
     let db_connect = dbo.getUsersDb();
-    let myquery = { name: req.body.username };
+    let myquery = { name: req.params.username };
     let myupdate = { $pull: { ingredient_storage: req.body.name } };
     db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
         if (err) throw err;

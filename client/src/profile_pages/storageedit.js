@@ -48,27 +48,32 @@ export default function StorageEdit() {
   // This method fetches the user's ingredients from the database.
   const [users_ingredients, setUsersIngredients] = useState([]);
   useEffect(() => {
-    async function getUsersIngredients() {
-      const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage' : 'http://localhost:5005/userstorage');
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
+      async function getUsersIngredients() {
+          const fetch_string = process.env.NODE_ENV === 'production' ?
+                         'https://mix-master.herokuapp.com/user/retrieve_storage/'+username : 
+                         'http://localhost:5005/user/retrieve_storage/'+username;
+          const response = await fetch(fetch_string);
+          if (!response.ok) {
+              const message = `An error occurred: ${response.statusText}`;
+              window.alert(message);
+              return;
+          }
+          const users_info = await response.json();
+          console.log(users_info.ingredient_storage);
+          setUsersIngredients(users_info.ingredient_storage);
       }
-      const users_ingredients = await response.json();
-      setUsersIngredients(users_ingredients);
-    }
-    getUsersIngredients();
-    return;
+      getUsersIngredients();
+      return;
   }, [users_ingredients.length]);
 
   
   async function deleteUserIngredient(_name) {
     const deleteIngredient = { 
-        name: _name, 
-        username: username
+        name: _name
     };
-    let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage/delete' : 'http://localhost:5005/userstorage/delete');
+    let fetch_string = (process.env.NODE_ENV === 'production' ?
+                            'https://mix-master.herokuapp.com/user/delete_ingredient_from_storage/'+username : 
+                            'http://localhost:5005/user/delete_ingredient_from_storage/'+username);
     await fetch(fetch_string, {
         method: "DELETE",
         headers: {
@@ -92,20 +97,14 @@ export default function StorageEdit() {
   }
 
   function ingredientsList() {
-    return(users_ingredients.map( user => {
-      if(user.username === username) {
-        return(
-          user.my_ingredients.map( (ingredient) => {
-            return(
-              <UsersIngredient
-                ingredient={ingredient}
-                deleteUserIngredient={() => deleteUserIngredient(ingredient)}
-                key={ingredient}
-              />
-            )
-          })
-        )
-      }
+    return(users_ingredients.map( (ingredient) => {
+      return(
+        <UsersIngredient
+          ingredient={ingredient}
+          deleteUserIngredient={() => deleteUserIngredient(ingredient)}
+          key={ingredient}
+        />
+      )
     }));
   }
 
