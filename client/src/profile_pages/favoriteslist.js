@@ -23,10 +23,6 @@ const divStyle = {
 
 
 export default function FavoritesList() {
-  const navigate = useNavigate();
-  function backClicked() {
-    navigate("/vault");
-  }
  return (  
   <div className="container-fluid" style={divStyle}>
     <div className="row mt-5">
