@@ -58,8 +58,8 @@ export default function RecordList() {
 
   const navigate = useNavigate();
   function NavigateToDrink(id) {
-    navigate("/favoriteslist");
-    //navigate(`/drink/${id}`);
+    //navigate("/favoriteslist");
+    navigate(`/drink/${id}`);
   }
 
   // This method will map out the records on the table
@@ -82,7 +82,7 @@ export default function RecordList() {
       <table className="table table-striped" style={{ marginTop: 20 }}>
         <thead>
           <tr>
-            <th>Image</th>
+            <th>Image</th>  
             <th>Drink Name</th>
             <th>Liquor</th>
             <th>Taste</th>
