@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import TextField from '@mui/material/TextField';
 import { Modal } from "react-bootstrap";
-import "../css/profile.css"; 
+import "../css/profile.css";
+import $ from "jquery";
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -14,13 +15,24 @@ const divStyle = {
     position: 'fixed',
     top: 0,
     left: 0,
-    zIndex: -1
+    zIndex: -1,
+    overflow: "auto"
 };
 
 
 export default function EditProfile() {
+  // This method fetches the user's info used to query db from the client storage.
+  const loggedIn = localStorage.getItem('logged_in');
+  const username = localStorage.getItem('username');
+  if(loggedIn === true) {
+    handleNoLoginShow();
+  }
+  if(username === "") {
+    handleNoLoginShow();
+  }
   // Edit Profile form
   const [form, setForm] = useState({
+    old_username: username,
     username: "",
     email: "",
     about: "",
@@ -38,16 +50,6 @@ export default function EditProfile() {
   const [user_profiles, setUserProfiles] = useState([]);
   useEffect(() => {
     async function getUserProfiles() {
-      const res = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/getusername' : 'http://localhost:5005/user/getusername');
-      if (!res.ok) {
-        const message = `An error occurred: ${res.statusText}`;
-        window.alert(message);
-        return;
-      }
-      const username = await res.json();
-      if(username.username === "") {
-        handleNoLoginShow();
-      }
       let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user' : 'http://localhost:5005/user');
       const response = await fetch(fetch_string);
       if (!response.ok) {
@@ -56,9 +58,8 @@ export default function EditProfile() {
         return;
       }
       const user_profiles = await response.json();
-      //console.log(user_profiles.filter((e) => e.name === username.username).find((e) => e.name === username.username).name);
       setUserProfiles(user_profiles);
-      let my_profile = user_profiles.filter((e) => e.name === username.username).find((e) => e.name === username.username);
+      let my_profile = user_profiles.filter((e) => e.name === username).find((e) => e.name === username);
       updateForm({
         username: my_profile.name,
         email: my_profile.email,
@@ -87,7 +88,6 @@ export default function EditProfile() {
     document.getElementById('file').click();
   }
   async function fileSelectedHandler(e) {
-    console.log(e);
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
     setImage({...image, myFile:base64});
@@ -122,23 +122,30 @@ export default function EditProfile() {
       },
       body: JSON.stringify(updatedProf),
     })
+    .then(response => response.json())
+    .then((response) => {
+      console.log("Changing name to: "+response.message);
+      //localStorage.removeItem('username');
+      localStorage.setItem('username', response.message);
+      $("#dropdown-basic").text(response.message);
+    })
     .catch(error => {
       window.alert(error);
       return;
     });
 
-    setForm({ username: "", email: "", about: "", picture: ""});
+    setForm({ old_username: "", username: "", email: "", about: "", picture: ""});
     navigate("/vault");
   }
   function cancelClicked(e) {
     e.preventDefault();
-    setForm({ username: "", email: "", about: "", picture: ""});
+    setForm({ old_username: "", username: "", email: "", about: "", picture: ""});
     navigate("/vault");
   }//"../../DefaultPicture.jpg"
 
   return (
     <div className="container-fluid" style={divStyle}>
-      <div className = "editprofile_container">
+      <div className = "editprofile_container" style={{height:"85vh", overflow: "auto"}}>
         <div className="row">
           <div className="col-12 mt-4">
             <h1 id="editprofile_header">Edit Profile:</h1>
@@ -177,7 +184,7 @@ export default function EditProfile() {
             <button onClick={browseClicked} className = "button-84s button-special editprofile_buttons">Browse</button>
             <input type="file" onChange={fileSelectedHandler} accept="image/*" style={{display:"none"}} id="file" name="file"/>
             <button onClick={resetClicked} className = "button-84s button-darker editprofile_buttons">Reset</button>
-            {image.myFile==="" || image.myFile===null?"": <img src={image.myFile} className="profile_picture"  alt="Profile Pic Preview"/>} 
+            {image.myFile==="" || image.myFile===null?"": <img src={image.myFile} className="profile_picture"  alt="Profile Pic Preview"/>}
           </div>
         </div>
         <div className="row">

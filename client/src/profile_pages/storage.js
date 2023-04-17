@@ -1,24 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router";
 import { Modal } from "react-bootstrap";
-import "../css/profile.css"; 
+import "../css/storage.css"; 
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
+import{Container, Row, Col, Button} from 'react-bootstrap';
+import storage from "../images/storage_pictures/Storage.jpg";
 
-const divStyle = {
-    backgroundImage: 'url(../../Storage.jpg)',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundColor: '#7f00c9',
-    width: '100%',
-    height: '100%',
-    paddingTop: '15vh',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    zIndex: -1
-};
 
 const UsersIngredient = (props) => (
   <ul className="ingredient" key={props.index}>{props.ingredient}</ul>
@@ -27,58 +15,45 @@ const UsersIngredient = (props) => (
 
 export default function Storage() {
 
-  // This method fetches the user's ingredients from the database.
-  const [username, setUsername] = useState([]);
-  useEffect(() => {
-      async function getUsername() {
-          
-      const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/user/getusername' : 'http://localhost:5005/user/getusername');
-      if (!response.ok) {
-          const message = `An error occurred: ${response.statusText}`;
-          window.alert(message);
-          return;
-      }
-      const username = await response.json();
-      setUsername(username);
-      if(username.username == "") {
-          handleNoLoginShow();
-      }
-      }
-      getUsername();
-      return;
-  }, [username.length]);
+  // This method fetches the user's info used to query db from the client storage.
+  const loggedIn = localStorage.getItem('logged_in');
+  const username = localStorage.getItem('username');
+  if(loggedIn === true) {
+    handleNoLoginShow();
+  }
+  if(username === "") {
+    handleNoLoginShow();
+  }
 
   // This method fetches the user's ingredients from the database.
   const [users_ingredients, setUsersIngredients] = useState([]);
   useEffect(() => {
     async function getUsersIngredients() {
-      const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage' : 'http://localhost:5005/userstorage');
+      const fetch_string = process.env.NODE_ENV === 'production' ?
+                           'https://mix-master.herokuapp.com/user/retrieve_storage/'+username : 
+                           'http://localhost:5005/user/retrieve_storage/'+username;
+      const response = await fetch(fetch_string);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         window.alert(message);
         return;
       }
-      const users_ingredients = await response.json();
-      setUsersIngredients(users_ingredients);
+      const users_info = await response.json();
+      console.log(users_info.ingredient_storage);
+      setUsersIngredients(users_info.ingredient_storage);
     }
     getUsersIngredients();
     return;
   }, [users_ingredients.length]);
 
   function ingredientsList() {
-    return(users_ingredients.map( user => {
-      if(user.username == username.username) {
-        return(
-          user.my_ingredients.map( (ingredient, index) => {
-            return(
-              <UsersIngredient
-                ingredient={ingredient}
-                key={index}
-              />
-            )
-          })
-        )
-      }
+    return(users_ingredients.map( (ingredient, index) => {
+      return(
+        <UsersIngredient
+          ingredient={ingredient}
+          key={index}
+        />
+      )
     }));
   }
 
@@ -91,10 +66,7 @@ export default function Storage() {
   const handleNoLoginShow = () => setShow(true);
 
   function findWithInvClicked() {
-      navigate("/");
-  }
-  function backClicked() {
-    navigate("/vault");
+      navigate("/favoriteslist");
   }
   function addClicked() {
     navigate("/storageadd");
@@ -104,35 +76,41 @@ export default function Storage() {
   }
 
  return (  
-  <div className="container-fluid" style={divStyle}>
-    <div className="row">
-      <div className="col-12 col-sm-6 mt-3" align="center">
-        <button onClick={backClicked} className = "button-84s">Back</button>
-      </div>
-      <div className="col-12 col-sm-6 mt-3" align="center">
-        <button onClick={findWithInvClicked} className = "button-84s button-two-line">Find a Drink to make<br></br> with my Inventory</button>
-      </div>
-    </div>
-    <div className="row mt-5">
-      <div className="col-sm" align="center">
-          <h1 id = "storagelist_header">Storage List</h1>
-      </div>
-    </div>
-    <div className="row mt-5">
-      <div className="col-sm" align="center">
-          <ul className="ingredients_wrapper">
+  <Container>
+    <img
+      src={storage}
+      style={{
+      objectFit: 'cover',
+      opacity: '70%',
+      width: '100%',
+      height: "100%",
+      position: 'fixed',
+      scale: "1",
+      top: 0,
+      left: 0,
+      zIndex: -1,
+      overflow: "auto"
+    }}
+    />
+     <Row className="justify-content-center align-items-center" style={{ marginTop: "4vh" }}>
+      <Col id="storage_title" className= "text-center" xs={10}>
+        <p>Storage List</p>
+      </Col>
+    </Row>
+    <Row className="justify-content-center align-items-center">
+      <Col id="ingredients_wrapper" xs={12}>
+          <ul id="storage_ingredients" className="ingredients_wrapper">
             {ingredientsList()}
           </ul>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col-sm" align="center">
-        <div id = "button-div">
-          <button onClick={addClicked} className = "button-84s button-special">Add</button>
-          <button onClick={editClicked} className = "button-84s" id = "button-edit">Edit</button>
-        </div>
-      </div>
-    </div>
+      </Col>
+    </Row>
+    <Row className="justify-content-center align-items-center">
+      <Col id="storage_buttons" xs={12} className="pb-3">
+        <Button id="add_button" onClick={addClicked} className = "btn mt-2">Add</Button>
+        <Button id="generate_button" onClick={findWithInvClicked} className = "btn mt-2">Find Drink w/ My Ingredients</Button>
+        <Button id="edit_button" onClick={editClicked} className = "btn mt-2">Edit</Button>
+      </Col>
+    </Row>
     <>
       <Modal show={show} onHide={handleNoLoginClose}>
         <Modal.Header closeButton>
@@ -141,6 +119,6 @@ export default function Storage() {
         <Modal.Body>You must be logged in to access the storage page.<br></br>Closing this window will return you to the homepage!</Modal.Body>
       </Modal>
     </>
-  </div>
+  </Container>
  );
 }

@@ -18,3 +18,8 @@
   .register-text span:hover {
     color: #ffd700;
   }
+
+  .compose-btn{
+    background-color: "#41C3FA";
+    color: "#fff";
+  }

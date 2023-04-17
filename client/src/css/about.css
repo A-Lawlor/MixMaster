@@ -1,7 +1,3 @@
-body{
-    background: linear-gradient(96.7deg, #CE54E2 15.84%, rgba(111, 58, 223, 0.78) 60.85%);
-}
-
 #about_title{
     font-weight: bold;
     color: white;
@@ -12,8 +8,8 @@ body{
     background-color: rgb(108,117,125, 0.65);
     padding: 2vh;
     border-radius: 10px;
-    height: 84vh;
-    width: 40vh;
+    min-height: 87vh;
+    width: 33vh;
     margin: 2vh;
 }
 
@@ -21,8 +17,8 @@ body{
     background-color: rgb(108,117,125, 0.65);
     padding: 2vh;
     border-radius: 10px;
-    height: 84vh;
-    width: 40vh;
+    min-height: 87vh;
+    width: 33vh;
     margin: 2vh;
 }
 
@@ -30,8 +26,8 @@ body{
     background-color: rgb(108,117,125, 0.65);
     padding: 2vh;
     border-radius: 10px;
-    height: 84vh;
-    width: 40vh;
+    min-height: 87vh;
+    width: 33vh;
     margin: 2vh;
 }
 
@@ -39,8 +35,8 @@ body{
     background-color: rgb(108,117,125, 0.65);
     padding: 2vh;
     border-radius: 10px;
-    height: 84vh;
-    width: 40vh;
+    min-height: 87vh;
+    width: 33vh;
     margin: 2vh;
 }
 
@@ -52,8 +48,8 @@ body{
 }
 
 .about_image{
-    width: 32vh;
-    height: 40vh;
+    width: 24vh;
+    height: 30vh;
     font-weight: bold;
 }
 

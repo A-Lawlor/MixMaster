@@ -1,53 +1,59 @@
 import React from "react";
-import { useNavigate } from "react-router";
-import "../css/vault.css"; 
+import { NavLink } from "react-router-dom";
+import "../css/vault.css";
 // We import bootstrap to make our application look better.
-import "bootstrap/dist/css/bootstrap.css";
+import{Container, Row, Col, Button} from 'react-bootstrap';
+import cellar from "../images/vault_pictures/WineCellar.jpg";
 
-const divStyle = {
-    backgroundImage: 'url(../../WineCellar.jpg)',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundColor: '#7f00c9',
-    width: '100%',
-    height: '100vh',
-    paddingTop: '15vh',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    zIndex: -1
-};
-
-
-export default function Vault() {
-  const navigate = useNavigate();
+  export default function Vault() {
+  return (   
   
-  function toStorage() {
-      navigate("/storage");
-  }
-  function toEditProfile() {
-      navigate("/editprofile");
-  }
-  function toFavoritesList() {
-      navigate("/favoriteslist");
-  }
- return (  
-  <div className="container-fluid" style={divStyle}>
-    <div className="row">
-      <div className="col text-center mt-5">
-        <button onClick={toEditProfile} className = "button-84v">Edit Profile</button>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col text-center mt-5">
-        <button onClick={toFavoritesList} className = "button-84v">Favorites List</button>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col text-center mt-5">
-        <button onClick={toStorage} className = "button-84v">View Storage</button>
-      </div>
-    </div>
-  </div>
+  <Container>
+       <img
+        src={cellar}
+        style={{
+          objectFit: 'cover',
+          opacity: '85%',
+          width: '100%',
+          height: '100%',
+          position: 'fixed',
+          scale: "1.1",
+          top: 0,
+          left: 0,
+          zIndex: -1,
+        }}
+        />
+    <Row className="justify-content-center align-items-center" style={{ marginTop: "3vh" }}>
+      <Col id="vault-title" className= "text-center" md={10}>
+        <p>Vault</p>
+      </Col>
+    </Row>
+    <Row className="justify-content-center align-items-center" style={{ marginTop: "5vh" }}>
+      <Col className="text-center">
+        <Button id="vault-btn" as={NavLink} to="/storage" className="btn btn-secondary">Storage</Button>
+      </Col>
+    </Row>
+    <Row className="justify-content-center align-items-center" style={{ marginTop: "2vh" }}>
+      <Col className="text-center">
+        <Button id="vault-btn" as={NavLink} to="/following" className="btn btn-secondary">Following</Button>
+      </Col>
+    </Row>
+    <Row className="justify-content-center align-items-center" style={{ marginTop: "2vh" }}>
+      <Col className="text-center"> 
+        <Button id="vault-btn" as={NavLink} to="/create" className="btn btn-secondary">Create Drink</Button>
+      </Col>
+    </Row>
+    <Row className="justify-content-center align-items-center" style={{ marginTop: "2vh" }}>
+      <Col className="text-center"> 
+        <Button id="vault-btn" as={NavLink} to="/trending" className="btn btn-secondary">Trending Drinks</Button>
+      </Col>
+    </Row>
+    <Row className="justify-content-center align-items-center" style={{ marginTop: "2vh" }}>
+      <Col className="text-center"> 
+        <Button id="vault-btn" as={NavLink} to="/editprofile" className="btn btn-secondary">Edit Profile</Button>
+      </Col>
+    </Row>
+
+  </Container>
  );
 }

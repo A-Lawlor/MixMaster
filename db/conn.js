@@ -1,9 +1,12 @@
 const { MongoClient } = require("mongodb");
 const Db = process.env.MONGO_URI;
 
+
+
 let _dbDrinks;
 let _dbIngredient;
 let _dbUser;
+
 const client = new MongoClient(Db, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -33,6 +36,8 @@ module.exports = {
     return _dbUser;
   },
 };
+
+
 /*module.exports = {
   connectToServer: async (callback) => {
     await client.connect();

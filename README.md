@@ -1,6 +1,6 @@
 # MixMaster
 
-in a terminal window
+In a terminal window
 run npm install inside of server folder
 run npm start
 
