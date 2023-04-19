@@ -38,22 +38,6 @@ const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
 const someOtherPlaintextPassword = 'not_bacon';
 
-
-
-async function checkPassword(password, hash){
-    const password_hashed = await bcrypt.hash(password, saltRounds);
-
-    // if (hash == this.password) {
-    //     return true;
-    // }
-    console.log(password);
-    console.log(hash);
-    const result = await bcrypt.compare(password, hash);
-    console.log(result);
-    return result;
-}
-
-
 userCredentialsRoutes.route("/user").get(function (req, res) {
     let db_connect = dbo.getUsersDb();
     db_connect

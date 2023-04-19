@@ -25,13 +25,13 @@ export default function Create() {
  }
  
  // This function will handle the submission.
- async function onSubmit(e) {
-   e.preventDefault();
- 
-   // When a post request is sent to the create url, we'll add a new record to the database.
+ async function onSubmit(event) {
+   event.preventDefault();
+   if (form.checkValidity() === false) {
+    event.stopPropagation();
+  } else {
+   // When a post request is sent to the create url, we'll add a new drink to the database.
    const newDrink = { ...form };
-   navigate("/");
-
    let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/drink/add' : 'http://localhost:5005/drink/add');
    await fetch(fetch_string, {
      method: "POST",
@@ -54,8 +54,9 @@ export default function Create() {
       window.alert(error);
       return;
    });
- 
- }
+   setForm({  picture: "", name: "", liqour: "", taste: "", ingredients: "", about: ""});
+  }
+ };
 
  async function fileSelectedHandler(e) {
   const file = e.target.files[0];
