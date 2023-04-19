@@ -10,6 +10,7 @@ app.use(require("./routes/ingredient"));
 app.use(require("./routes/user"));
 const { default: mongoose } = require("mongoose");
 const dbo = require("./db/conn");
+const uri = process.env.MONGODB_URI;
 
 //DB Config
 //mongoose.connect(process.env.MONGO_URI_USERS, {
@@ -18,7 +19,10 @@ const dbo = require("./db/conn");
 //  retryWrites: true,
 //  useUnifiedTopology: true,
 //}).catch((err) => console.log(err));
-mongoose.connect(process.env.MONGO_URI).catch((err) => console.log(err));
+mongoose
+  .connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
+  .then(() => console.log('MongoDB connected!'))
+  .catch(err => console.log('Error:- ' + err));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
