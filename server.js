@@ -10,10 +10,9 @@ app.use(require("./routes/ingredient"));
 app.use(require("./routes/user"));
 const { default: mongoose } = require("mongoose");
 const dbo = require("./db/conn");
-const uri = process.env.MONGO_URI;
 
 
-mongoose.connect(uri).catch((err) => console.log(err));
+mongoose.connect(process.env.MONGODB_URI).catch((err) => console.log(err));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
