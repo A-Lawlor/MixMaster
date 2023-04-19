@@ -13,7 +13,7 @@ const ObjectId = require("mongodb").ObjectId;
 
 // This section will help you get a list of all the ingredients.
 ingredientRoutes.route("/ingredient").get(function (req, res) {
- let db_connect = dbo.getIngredientsDb("ingredients");
+ let db_connect = dbo.getDrinksDb("ingredients");
  db_connect
    .collection("ingridientslist")
    .find({})
@@ -23,7 +23,7 @@ ingredientRoutes.route("/ingredient").get(function (req, res) {
 
 // This section will help you get a single ingredient by id
 ingredientRoutes.route("/ingredient/:id").get(function (req, res) {
-  let db_connect = dbo.getIngredientsDb("ingredients");
+  let db_connect = dbo.getDrinksDb("ingredients");
   let myquery = { _id: ObjectId(req.params.id) };
   db_connect
     .collection("ingridientslist")
