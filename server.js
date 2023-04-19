@@ -10,7 +10,7 @@ app.use(require("./routes/ingredient"));
 app.use(require("./routes/user"));
 const { default: mongoose } = require("mongoose");
 const dbo = require("./db/conn");
-const uri = process.env.MONGODB_URI;
+const db = config.get("MONGO_URI");
 
 //DB Config
 //mongoose.connect(process.env.MONGO_URI_USERS, {
@@ -20,7 +20,7 @@ const uri = process.env.MONGODB_URI;
 //  useUnifiedTopology: true,
 //}).catch((err) => console.log(err));
 mongoose
-  .connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
+  .connect(db || process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => console.log('MongoDB connected!'))
   .catch(err => console.log('Error:- ' + err));
 
