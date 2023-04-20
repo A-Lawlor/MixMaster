@@ -20,14 +20,8 @@ const userSchema = new mongoose.Schema({
     about: String,
     picture_id: String,
     picture_url: String,
-    following: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
-    }],
-    followers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
-    }],
+    following: [],
+    followers: [],
     ingredient_storage: [],
 }, {collection: 'credentials'});
 
@@ -193,21 +187,33 @@ userCredentialsRoutes.route("/user/edit").post(async function (req, res) {
         return(res.send(error));
     }
 });
+
+
 //  Follow / unfollow routes
 
 // Route for me to follow user
 // ex: PATCH localhost:5005/me/643379ae6157bbb888f4fa11/user/64305aca886115f36a865f30/follow
 userCredentialsRoutes.route("/me/:me/user/:user/follow").patch(async function (req, res) {
     try {
-        const query = {_id: req.params.me};
-        const update = {$addToSet: {following: req.params.user}};
+        let db_connect = dbo.getUsersDb();
+        var my_id = new ObjectId(req.params.me);
+        var user_id = new ObjectId(req.params.user);
+        let myquery = { _id: my_id };
+        let myupdate = { $addToSet: { following: user_id } };
 
-        await User.updateOne(query, update);
-        const updatedMe = await User.findOne(query, {projection: { password: 0 }}).populate('following').lean();
+        await db_connect.collection("credentials").updateOne(myquery, myupdate, function (err) {
+          if (err) throw err;
+        });
 
-        updatedMe.followers = await User.find({following: req.params.me});
+        let myquery2 = { _id: user_id };
+        let myupdate2 = { $addToSet: { followers: my_id } };
+        await db_connect.collection("credentials").updateOne(myquery2, myupdate2, function (err) {
+          if (err) throw err;
+        });
 
-        res.json(updatedMe);
+        let followers_arr = await db_connect.collection("credentials").findOne(myquery2);
+        res.json({message: followers_arr.followers.length});
+        return;
     } catch (error) {
         res.status(500).json({message: 'Something wrong append', error});
     }
@@ -217,28 +223,41 @@ userCredentialsRoutes.route("/me/:me/user/:user/follow").patch(async function (r
 // ex: PATCH localhost:5005/me/643379ae6157bbb888f4fa11/user/64305aca886115f36a865f30/unfollow
 userCredentialsRoutes.route("/me/:me/user/:user/unfollow").patch(async function (req, res) {
     try {
-        const query = {_id: req.params.me};
-        update =  {$pullAll: {following: [req.params.user]}};
+        let db_connect = dbo.getUsersDb();
+        var my_id = new ObjectId(req.params.me);
+        var user_id = new ObjectId(req.params.user);
+        let myquery = {_id: my_id};
+        let myupdate =  {$pullAll: {following: [user_id]}};
 
-        await User.updateOne(query, update);
-        const updatedMe = await User.findOne(query).populate('following').lean();
+        await db_connect.collection("credentials").updateOne(myquery, myupdate, function (err) {
+          if (err) throw err;
+        });
 
-        updatedMe.followers = await User.find({following: req.params.me});
+        let myquery2 = { _id: user_id };
+        let myupdate2 = { $pullAll: {followers: [my_id]} };
+        await db_connect.collection("credentials").updateOne(myquery2, myupdate2, function (err) {
+          if (err) throw err;
+        });
 
-        res.json(updatedMe);
+        let followers_arr = await db_connect.collection("credentials").findOne(myquery2);
+        res.json({message: followers_arr.followers.length});
+        return;
     } catch (error) {
         res.status(500).json({message: 'Something wrong append', error});
     }
 });
+
 // Retrieve all my information - /me/my_mongo_id
 // ex: GET localhost:5005/me/643379ae6157bbb888f4fa11
 userCredentialsRoutes.route("/me/:me").get(async function (req, res) {
     try {
-        const query = {_id: req.params.me};
+        let db_connect = dbo.getUsersDb();
+        var my_id = new ObjectId(req.params.me);
+        const query = {_id: my_id};
 
-        const me = await User.findOne(query).populate('following').lean();
+        const me = await db_connect.collection("credentials").findOne(query).populate('following').lean();
 
-        me.followers = await User.find({following: req.params.me});
+        me.followers = await db_connect.collection("credentials").find({following: my_id});
 
         res.json(me);
     } catch (error) {
