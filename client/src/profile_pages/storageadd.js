@@ -80,7 +80,6 @@ export default function StorageAdd() {
                 return;
             }
             const users_info = await response.json();
-            console.log(users_info.ingredient_storage);
             setUsersIngredients(users_info.ingredient_storage);
         }
         getUsersIngredients();
