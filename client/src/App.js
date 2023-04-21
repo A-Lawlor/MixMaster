@@ -18,8 +18,7 @@ import About from "./pages/about";
 import FavoritesList from "./profile_pages/favoriteslist";
 import Trending from "./pages/trending";
 import Mixology from "./pages/mixology";
-import Discover from "./pages/discover";
-import Following from "./pages/following";
+import Follow from "./pages/follow";
 import Register from "./components/register";
 import Drinkpage from "./pages/Drinkpage";  
 import TrendingTwo from "./pages/trending2";
@@ -45,8 +44,7 @@ const App = () => {
        <Route path="/trending" element={<Trending />} />
        <Route path="/trending2" element={<TrendingTwo />} />
        <Route path="/mixology" element={<Mixology />} />
-       <Route path="/discover" element={<Discover />} />
-       <Route path="/following" element={<Following />} />
+       <Route path="/follow" element={<Follow />} />
        <Route path="/register" element={<Register />} />
      </Routes>
    </div>

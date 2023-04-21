@@ -1,3 +1,5 @@
+// THIS FILE IS WHAT ALLOWS TO CONNECT TO THE MONGO CLUSTER.
+//DONT CONNECT USING MONGOOSE, CONNECTING USING MONGO.
 const { MongoClient } = require("mongodb");
 const Db = process.env.MONGODB_URI;
 
