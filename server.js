@@ -11,14 +11,8 @@ app.use(require("./routes/user"));
 const { default: mongoose } = require("mongoose");
 const dbo = require("./db/conn");
 
-//DB Config
-//mongoose.connect(process.env.MONGO_URI_USERS, {
-//  keepAlive: true,
-//  useNewUrlParser: true,
-//  retryWrites: true,
-//  useUnifiedTopology: true,
-//}).catch((err) => console.log(err));
-mongoose.connect(process.env.MONGO_URI).catch((err) => console.log(err));
+
+mongoose.connect(process.env.MONGODB_URI).catch((err) => console.log(err));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

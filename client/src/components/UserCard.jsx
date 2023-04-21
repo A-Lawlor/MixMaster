@@ -11,28 +11,54 @@ export function UserCard({ data, yourId, followStatus, followStatusColor, follow
   const [following, setFollowing] = useState(followStatus);
 
   //this code will determine whether to follow or unfollow the set of users in the discover page
-  const handleClick = () => {
+  async function handleClick() {
     if(following) {
       var followCommand = "me/" + yourId + "/user/" + data._id + "/unfollow";
-      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/' + followCommand : 'http://localhost:5005/' + followCommand);
-      fetch(fetch_string, {method:"PATCH"});
-      // Swap follow button variables and update w/ jquery
-      setColor("success");
-      $("#follow-command-button-"+data._id).text("Follow!");
-      console.log('you are now UNfollowing this user');
-      setFollowing(false);
-      return;
+      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/' +
+                                                    followCommand : 'http://localhost:5005/' + followCommand);
+      await fetch(fetch_string, {method:"PATCH", headers: {"Content-Type": "application/json"}})
+      .then(response => {
+          if (!response.ok) {throw new Error(`HTTP error: ${response.status}`);}
+          return response.json();
+      })
+      .then((response) => {
+        // Swap follow button variables and update w/ jquery
+        setColor("success");
+        $("#follow-command-button-" + data._id).text("Follow!");
+        $("#follower-count-badge-" + data._id).text(response.message + " Follower(s)");
+        console.log('you are now UNfollowing this user');
+        setFollowing(false);
+        return;
+      })
+      .catch(error => {
+        window.alert(error);
+        return;
+      });
+     
     }
     else{
       var followCommand = "me/" + yourId + "/user/" + data._id + "/follow";
-      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/' + followCommand : 'http://localhost:5005/' + followCommand);
-      fetch(fetch_string, {method:"PATCH"});
-      // Swap follow button variables and update w/ jquery
-      setColor("danger");
-      $("#follow-command-button-"+data._id).text("Unfollow");
-      console.log('you are now FOLLOWING this user');
-      setFollowing(true);
-      return;
+      let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/' +
+                                                    followCommand : 'http://localhost:5005/' + followCommand);
+      await fetch(fetch_string, {method:"PATCH", headers: {"Content-Type": "application/json"}})
+      .then(response => {
+        if (!response.ok) {throw new Error(`HTTP error: ${response.status}`);}
+        return response.json();
+      })
+      .then((response) => {
+        // Swap follow button variables and update w/ jquery
+        setColor("danger");
+        $("#follow-command-button-" + data._id).text("Unfollow");
+        $("#follower-count-badge-" + data._id).text(response.message + " Follower(s)");
+        console.log('you are now FOLLOWING this user');
+        setFollowing(true);
+        return;
+      })
+      .catch(error => {
+        window.alert(error);
+        return;
+      });
+      
     }
   };
 
@@ -42,8 +68,8 @@ export function UserCard({ data, yourId, followStatus, followStatusColor, follow
       <Card.Body className="d-flex flex-column">
         <div className="d-flex mb-2 justify-content-between">
           <Card.Title className="mb-0 font-weight-bold">{data.name}</Card.Title>
-          <Badge pill className="mb-1" bg="info" variant="warning">
-            {data.followers}
+          <Badge pill className="mb-1" bg="info" variant="warning" id={"follower-count-badge-" + data._id}>
+            {data.followers.length} Follower(s)
           </Badge>
         </div>
         <Card.Text id={"follow-command-button-appender" + data._id} className="text-secondary">{data.desc}</Card.Text>

@@ -39,7 +39,6 @@ export default function Storage() {
         return;
       }
       const users_info = await response.json();
-      console.log(users_info.ingredient_storage);
       setUsersIngredients(users_info.ingredient_storage);
     }
     getUsersIngredients();

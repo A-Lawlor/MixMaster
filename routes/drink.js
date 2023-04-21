@@ -66,7 +66,7 @@ recordRoutes.route("/drink/:id").get(function (req, res) {
 // This section will help you create a new record.
 
 recordRoutes.route("/drink/add").post(async function (req, response) {
- let db_connect = dbo.getDrinksDb();
+ let db_connect = dbo.getDrinksDb("drinks");
  const upload_result = await cloudinary.uploader.upload(req.body.picture, {
   folder: "mixmaster"
  })

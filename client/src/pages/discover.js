@@ -58,7 +58,6 @@ export default function Discover() {
         var yourId = user._id;
           return all_users.map((checkUser) => {
               if(user.following.includes(checkUser._id)) {
-                console.log('ENTERING IF');
                   return (
                   <FollowingUserCard
                   checkUser={checkUser}
@@ -67,7 +66,6 @@ export default function Discover() {
                   />);
               }
               else {
-                console.log('ENTERING ELSE');
                   return (
                   <NotFollowingUserCard
                   checkUser={checkUser}
