@@ -74,6 +74,7 @@ recordRoutes.route("/drink/add").post(async function (req, response) {
                           picture_url: upload_result.secure_url, taste: req.body.taste, ingredients: req.body.ingredients,
                           about: req.body.about, rating: [], likes: [], dislikes: [],
  });
+ //they use mongo connection not mongoose.
  db_connect.collection("drinkfourm").insertOne(drink, function (err, res) {
    if (err) throw err;
    response.json(res);

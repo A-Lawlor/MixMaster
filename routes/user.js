@@ -93,6 +93,7 @@ userCredentialsRoutes.route("/user/register").post(function (req, response) {
                                            picture_url: "https://res.cloudinary.com/dgco11qpv/image/upload/v1681153540/mixmaster/DefaultPicture.jpg",
                                            following:[], followers:[], ingredient_storage:[]
                                         });
+                                        //db_connect is mongo connect, not mongoose.
                     db_connect.collection("credentials").insertOne(user, function (err, res) {
                         if(err){
                             console.log("error inserting to credentials collection");

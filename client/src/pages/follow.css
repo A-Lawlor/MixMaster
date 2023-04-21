@@ -1,0 +1,16 @@
+.user-card {
+    color: white;
+    border: 1px solid white;
+    padding: 10px;
+  }
+
+  .header {
+    display: block;
+    margin: 20px auto 0; /* added 20px margin-top */
+    text-align: center;
+    color: white;
+    border: 3.5px solid white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 3em;
+  }

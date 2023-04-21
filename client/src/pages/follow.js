@@ -7,6 +7,8 @@ import{Container, Row, Col} from 'react-bootstrap';
 import {UserCard} from '../components/UserCard';
 import {Confirmation} from '../components/Confirmation';
 
+import "./follow.css";
+
 //testing github integration
 
 const NotFollowingUserCard = (props) => (
@@ -88,8 +90,8 @@ export default function Discover() {
 
   return (
       <Container>
-          <h1>
-            Who you can follow!
+          <h1 className="header col-4">
+            Welcome to the Follow Page!
           </h1>
         {follow && <Confirmation toggle={setFollow} />}
         <Row>
