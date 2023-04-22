@@ -4,25 +4,13 @@ import { Modal } from "react-bootstrap";
 import $ from "jquery";
 import "../css/profile.css"; 
 // We import bootstrap to make our application look better.
-import{Container, Row, Col, Button} from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import storage from "../images/storage_pictures/Storage.jpg";
-
-const divStyle = {
-    backgroundImage: 'url(../../Storage.jpg)',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    width: '100%',
-    height: '100%',
-    paddingTop: '15vh',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    zIndex: -1
-};
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 const UnownedIngredient = (props) => (
-    <ul className="ingredient" key={props.ingredient._id} id={props.ingredient._id}>{props.ingredient.name}
+    <ul className="ingredient-storage-li" key={props.ingredient._id} id={props.ingredient._id}>{props.ingredient.name}
         <button className="ingredient-button" id={props.ingredient._id+"-button"} onClick={() => {
             props.addUserIngredient(props.ingredient.name, props.ingredient._id);
         }}
@@ -31,7 +19,7 @@ const UnownedIngredient = (props) => (
 );
 
 const OwnedIngredient = (props) => (
-    <ul className="ingredient" key={props.ingredient._id}>{props.ingredient.name}
+    <ul className="ingredient-storage-li" key={props.ingredient._id}>{props.ingredient.name}
         <span className="ingredient-button">&#x2714;</span>
     </ul>
 );
@@ -52,14 +40,15 @@ export default function StorageAdd() {
     const [ingredient_data, setIngredientData] = useState([]);
     useEffect(() => {
         async function getIngredientData() {
-            const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/ingredient' : 'http://localhost:5005/ingredient');
+            const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/ingredient'
+                                                                  : 'http://localhost:5005/ingredient');
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
                 window.alert(message);
                 return;
             }
             const ingredient_data = await response.json();
-            setIngredientData(ingredient_data);
+            setIngredientData(ingredient_data.sort((a, b) => (a.name > b.name) ? 1 : -1));
         }
         getIngredientData()       
         return;
@@ -119,6 +108,7 @@ export default function StorageAdd() {
     }
 
     const navigate = useNavigate();
+
     const [show, setShow] = useState(false);
     const handleNoLoginClose = () => {
         setShow(false);
@@ -126,8 +116,42 @@ export default function StorageAdd() {
     };
     const handleNoLoginShow = () => setShow(true);
 
+
     function doneClicked() {
         navigate("/storage");
+    }
+
+
+    const [showSearch, setShowSearch] = useState(false);
+    const handleSearchViaAddClose = () => {
+        setSearchedIngredientList([]);
+        setShowSearch(false);
+    };
+    const handleSearchViaAddShow = () => setShowSearch(true);
+
+    function searchClicked() {
+        handleSearchViaAddShow();
+    }
+
+    function addAllClicked() {
+        console.log("Adding the following ingredients to user storage:");
+        searchedIngredientList.map((ingredient) => {
+            addUserIngredient(ingredient, ingredient.id);
+        });
+        handleSearchViaAddClose();
+    }
+
+    const [searchedIngredientList, setSearchedIngredientList] = useState([]);
+
+    function addToSearchedIngList(ingredient_to_list) {
+        if(ingredient_to_list === null)
+            return;
+        if(searchedIngredientList.includes(ingredient_to_list))
+            return;
+        let ingredient_to_list_OBJ = ingredient_data.filter(el => el.name === ingredient_to_list);
+        searchedIngredientList.push({name: ingredient_to_list, id: ingredient_to_list_OBJ[0]._id});
+        setSearchedIngredientList(searchedIngredientList);
+        $("#searched_storage_ingredients").append("<li>"+ingredient_to_list+"</li>");
     }
 
     function ingredientsList() {
@@ -181,6 +205,7 @@ export default function StorageAdd() {
         <Row className="justify-content-center align-items-center">
           <Col id="storage_buttons" xs={12} className="pb-3">
             <Button id="done_button" onClick={doneClicked} className = "btn mt-2">Done</Button>
+            <Button id="search_button" onClick={searchClicked} className = "btn mt-2">Add via Search</Button>
           </Col>
         </Row>
     <>
@@ -189,6 +214,33 @@ export default function StorageAdd() {
           <Modal.Title>ERROR</Modal.Title>
         </Modal.Header>
         <Modal.Body>You must be logged in to access the storage page.<br></br>Closing this window will return you to the homepage!</Modal.Body>
+      </Modal>
+    </>
+    <>
+      <Modal show={showSearch} onHide={handleSearchViaAddClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Ingredients By Search</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            Using the search bar below you may add multiple ingredients to a list.
+            <br></br>Upon clicking "Add All", all the ingredients in the list will be added to your storage!
+            <br></br>
+            <br></br>
+            <Autocomplete
+                onChange={(event, newValue) => {
+                    addToSearchedIngList(newValue);
+                }}
+                id="ingredient-add-search-box"
+                options={ingredient_data.map(a => a.name)}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Ingredients" />}
+            />
+            <br></br>
+            <ul id="searched_storage_ingredients">
+            </ul>
+            <br></br>
+            <Button id="add_all_button" onClick={addAllClicked}>Add All</Button>
+        </Modal.Body>
       </Modal>
     </>
   </Container>
