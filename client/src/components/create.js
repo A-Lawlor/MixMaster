@@ -12,7 +12,7 @@ export default function Create() {
    name: "",
    liqour: "",
    taste: "",
-   ingredients: "",
+   drink_ingredients: [],
    about: ""
  });
  const navigate = useNavigate();

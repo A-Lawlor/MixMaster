@@ -29,6 +29,14 @@
     height: fit-content;
 }
 
+
+#search_button {
+    margin-left: 10px;
+    background-color: rgb(168, 173, 178);
+    height: auto;
+    width: 150px;
+}
+
 #add_button {
     background-color: rgb(168, 173, 178);
     height: auto;
@@ -41,7 +49,6 @@
     height: auto;
     margin-left: 10px;
     width: 235px;
-
 }
 
 #edit_button {
@@ -49,4 +56,32 @@
     height: auto;
     width: 60px;
     margin-left: 10px;
+}
+
+#add_all_button {
+    background-color: #41C3FA;
+    height: auto;
+}
+
+.ingredient-storage-li {
+    margin-left: 0px;
+    padding-bottom: 0.25em;
+    margin-right: 20px;
+    margin-bottom: 0.25em;
+    border-bottom: 3px solid rgb(168, 173, 178);
+    overflow-x: auto;
+}
+
+.ingredient-storage-li:last-child {
+    border-bottom: none;
+}
+
+.ingredient-button {
+    float: right;
+    color: white;
+    background-color: transparent;
+    padding: 0;
+    padding-right: 10px;
+    border: none;
+    display: inline;
 }

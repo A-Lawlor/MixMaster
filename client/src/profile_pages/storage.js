@@ -9,7 +9,7 @@ import storage from "../images/storage_pictures/Storage.jpg";
 
 
 const UsersIngredient = (props) => (
-  <ul className="ingredient" key={props.index}>{props.ingredient}</ul>
+  <ul className="ingredient-storage-li" key={props.index}>{props.ingredient}</ul>
 );
 
 
@@ -39,7 +39,7 @@ export default function Storage() {
         return;
       }
       const users_info = await response.json();
-      setUsersIngredients(users_info.ingredient_storage);
+      setUsersIngredients(users_info.ingredient_storage.sort());
     }
     getUsersIngredients();
     return;
