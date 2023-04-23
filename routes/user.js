@@ -123,7 +123,7 @@ userCredentialsRoutes.route("/user/retrieve_storage/:username").get(function (re
 userCredentialsRoutes.route("/user/add_ingredient_to_storage/:username").post(function (req, res) {
     let db_connect = dbo.getUsersDb();
     let myquery = { name: req.params.username };
-    let myupdate = { $push: { ingredient_storage: req.body.name } };
+    let myupdate = { $addToSet: { ingredient_storage: req.body.name } };
     db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
       if (err) throw err;
         res.json(result);
