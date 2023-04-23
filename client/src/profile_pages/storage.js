@@ -18,11 +18,21 @@ export default function Storage() {
   // This method fetches the user's info used to query db from the client storage.
   const loggedIn = localStorage.getItem('logged_in');
   const username = localStorage.getItem('username');
-  if(loggedIn === true) {
-    handleNoLoginShow();
+  // Ensure user is signed in
+  const navigate = useNavigate();
+  const handleNoLoginClose = () => {
+      navigate("/");
+  };
+
+  // navigate functions
+  function findWithInvClicked() {
+    navigate("/favoriteslist");
   }
-  if(username === "") {
-    handleNoLoginShow();
+  function addClicked() {
+    navigate("/storageadd");
+  }
+  function editClicked() {
+    navigate("/storageedit");
   }
 
   // This method fetches the user's ingredients from the database.
@@ -54,24 +64,6 @@ export default function Storage() {
         />
       )
     }));
-  }
-
-  const navigate = useNavigate();
-  const [show, setShow] = useState(false);
-  const handleNoLoginClose = () => {
-      setShow(false);
-      navigate("/");
-  };
-  const handleNoLoginShow = () => setShow(true);
-
-  function findWithInvClicked() {
-      navigate("/favoriteslist");
-  }
-  function addClicked() {
-    navigate("/storageadd");
-  }
-  function editClicked() {
-    navigate("/storageedit");
   }
 
  return (  
@@ -111,7 +103,7 @@ export default function Storage() {
       </Col>
     </Row>
     <>
-      <Modal show={show} onHide={handleNoLoginClose}>
+      <Modal show={loggedIn === null} onHide={handleNoLoginClose}>
         <Modal.Header closeButton>
           <Modal.Title>ERROR</Modal.Title>
         </Modal.Header>

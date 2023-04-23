@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Modal } from "react-bootstrap";
 import $ from "jquery";
 import "../css/profile.css"; 
 // We import bootstrap to make our application look better.
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 import storage from "../images/storage_pictures/Storage.jpg";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -29,11 +28,14 @@ export default function StorageAdd() {
     // This method fetches the user's info used to query db from the client storage.
     const loggedIn = localStorage.getItem('logged_in');
     const username = localStorage.getItem('username');
-    if(loggedIn === true) {
-        handleNoLoginShow();
-    }
-    if(username === "") {
-        handleNoLoginShow();
+    // Ensure user is signed in
+    const navigate = useNavigate();
+    const handleNoLoginClose = () => {
+        navigate("/");
+    };
+
+    function doneClicked() {
+        navigate("/storage");
     }
 
     // This method fetches the ingredients from the database.
@@ -106,21 +108,6 @@ export default function StorageAdd() {
             return;
         });        
     }
-
-    const navigate = useNavigate();
-
-    const [show, setShow] = useState(false);
-    const handleNoLoginClose = () => {
-        setShow(false);
-        navigate("/");
-    };
-    const handleNoLoginShow = () => setShow(true);
-
-
-    function doneClicked() {
-        navigate("/storage");
-    }
-
 
     const [showSearch, setShowSearch] = useState(false);
     const handleSearchViaAddClose = () => {
@@ -205,11 +192,11 @@ export default function StorageAdd() {
         <Row className="justify-content-center align-items-center">
           <Col id="storage_buttons" xs={12} className="pb-3">
             <Button id="done_button" onClick={doneClicked} className = "btn mt-2">Done</Button>
-            <Button id="search_button" onClick={searchClicked} className = "btn mt-2">Add via Search</Button>
+            <Button id="storage_add_search_button" onClick={searchClicked} className = "btn mt-2">Add via Search</Button>
           </Col>
         </Row>
     <>
-      <Modal show={show} onHide={handleNoLoginClose}>
+      <Modal show={loggedIn === null} onHide={handleNoLoginClose}>
         <Modal.Header closeButton>
           <Modal.Title>ERROR</Modal.Title>
         </Modal.Header>

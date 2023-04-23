@@ -22,13 +22,15 @@ export default function StorageEdit() {
   // This method fetches the user's info used to query db from the client storage.
   const loggedIn = localStorage.getItem('logged_in');
   const username = localStorage.getItem('username');
-  if(loggedIn === true) {
-    handleNoLoginShow();
-  }
-  if(username === "") {
-    handleNoLoginShow();
-  }
+  // Ensure user is signed in
+  const navigate = useNavigate();
+  const handleNoLoginClose = () => {
+      navigate("/");
+  };
 
+  function doneClicked() {
+    navigate("/storage");
+  }
 
   // This method fetches the user's ingredients from the database.
   const [users_ingredients, setUsersIngredients] = useState([]);
@@ -92,18 +94,6 @@ export default function StorageEdit() {
     }));
   }
 
-  const navigate = useNavigate();
-  const [show, setShow] = useState(false);
-  const handleNoLoginClose = () => {
-    setShow(false);
-    navigate("/");
-  };
-  const handleNoLoginShow = () => setShow(true);
-
-  function doneClicked() {
-    navigate("/storage");
-  }
-
  return (  
 
   <Container>
@@ -139,7 +129,7 @@ export default function StorageEdit() {
     </Col>
   </Row>
     <>
-      <Modal show={show} onHide={handleNoLoginClose}>
+      <Modal show={loggedIn === null} onHide={handleNoLoginClose}>
         <Modal.Header closeButton>
           <Modal.Title>ERROR</Modal.Title>
         </Modal.Header>

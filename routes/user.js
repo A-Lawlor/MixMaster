@@ -47,24 +47,24 @@ userCredentialsRoutes.route("/user/logout").delete(function (req, res) {
 });
 
 userCredentialsRoutes.route("/user/login").post(function async(req, res) {
-    console.log("Getting into login");
+    //console.log("Getting into login");
     let db_connect = dbo.getUsersDb(); //Change name of this to be just user eventually
     db_connect
         .collection("credentials")
         .findOne({email: req.body.email})
         .then(async (existingUser)=>{
         if(existingUser){
-            console.log("is a user");
+            //console.log("is a user");
             const match = await bcrypt.compare(req.body.password, existingUser.password);
             if(match){
-                console.log("login successfull");
+                //console.log("login successfull");
                 res.send({message:"Login Success",name: String(existingUser.name)})
             }else{
-                console.log("wrong credentials");
+                //console.log("wrong credentials");
                 return(res.json({message:"Incorrect Username or Password"}));
             }
         } else {
-            console.log("Not registered");
+            //console.log("Not registered");
             return(res.json({message:"Incorrect Username or Password"}));
         }
         })
