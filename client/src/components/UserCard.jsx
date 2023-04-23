@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Card, Badge, Button } from "react-bootstrap";
+import './Usercard.css';
 import $ from "jquery";
 
 //"/me/:me/user/:user/follow"
@@ -25,7 +26,7 @@ export function UserCard({ data, yourId, followStatus, followStatusColor, follow
         // Swap follow button variables and update w/ jquery
         setColor("success");
         $("#follow-command-button-" + data._id).text("Follow!");
-        $("#follower-count-badge-" + data._id).text(response.message + " Follower(s)");
+        $("#follower-count-badge-span-" + data._id).text(response.message + " Follower(s)");
         console.log('you are now UNfollowing this user');
         setFollowing(false);
         return;
@@ -49,7 +50,7 @@ export function UserCard({ data, yourId, followStatus, followStatusColor, follow
         // Swap follow button variables and update w/ jquery
         setColor("danger");
         $("#follow-command-button-" + data._id).text("Unfollow");
-        $("#follower-count-badge-" + data._id).text(response.message + " Follower(s)");
+        $("#follower-count-badge-span-" + data._id).text(response.message + " Follower(s)");
         console.log('you are now FOLLOWING this user');
         setFollowing(true);
         return;
@@ -63,16 +64,16 @@ export function UserCard({ data, yourId, followStatus, followStatusColor, follow
   };
 
   return (
-    <Card className="h-100 shadow-sm bg-white rounded">
-      <Card.Img variant="top" src={data.image} />
+    <Card className="h-100 shadow-sm bg-white rounded" >
+      <Card.Img className="usercard-image" variant="top" src={data.picture_url} />
       <Card.Body className="d-flex flex-column">
         <div className="d-flex mb-2 justify-content-between">
-          <Card.Title className="mb-0 font-weight-bold">{data.name}</Card.Title>
-          <Badge pill className="mb-1" bg="info" variant="warning" id={"follower-count-badge-" + data._id}>
-            {data.followers.length} Follower(s)
+          <Card.Title className="mb-0 font-weight-bold card-username">User: {data.name}</Card.Title>
+          <Badge pill className="mb-1" bg="info" variant="warning">
+            <span id={"follower-count-badge-span-" + data._id} className="badge-text">{data.followers.length} Follower(s)</span>
           </Badge>
         </div>
-        <Card.Text id={"follow-command-button-appender" + data._id} className="text-secondary">{data.desc}</Card.Text>
+        <Card.Text id={"follow-command-button-appender" + data._id} className="text-secondary usercard-bio">Bio: {data.about}</Card.Text>
 
         <Button
           onClick={handleClick}

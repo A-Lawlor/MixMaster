@@ -7,6 +7,8 @@ import{Container, Row, Col} from 'react-bootstrap';
 import {UserCard} from '../components/UserCard';
 import {Confirmation} from '../components/Confirmation';
 
+import "./follow.css";
+
 //testing github integration
 
 const NotFollowingUserCard = (props) => (
@@ -28,12 +30,11 @@ export default function Discover() {
   // This method fetches the user's ingredients from the client storage.
   const loggedIn = localStorage.getItem('logged_in');
   const username = localStorage.getItem('username');
-  if(loggedIn === true) {
-    handleNoLoginShow();
-  }
-  if(username === "") {
-    handleNoLoginShow();
-  }
+  // Ensure user is signed in
+  const navigate = useNavigate();
+  const handleNoLoginClose = () => {
+      navigate("/");
+  };
 
   //starting process of getting users from database.
   const [all_users, setAllUsers] = useState([]);
@@ -78,25 +79,17 @@ export default function Discover() {
   }));
   }
 
-  const navigate = useNavigate();
-  const [show, setShow] = useState(false);
-  const handleNoLoginClose = () => {
-      setShow(false);
-      navigate("/");
-  };
-  const handleNoLoginShow = () => setShow(true);
-
   return (
       <Container>
-          <h1>
-            Who you can follow!
+          <h1 className="header col-4">
+            Welcome to the Follow Page!
           </h1>
         {follow && <Confirmation toggle={setFollow} />}
         <Row>
           {followlist()}
         </Row>
         <>
-          <Modal show={show} onHide={handleNoLoginClose}>
+          <Modal show={loggedIn === null} onHide={handleNoLoginClose}>
             <Modal.Header closeButton>
               <Modal.Title>ERROR</Modal.Title>
             </Modal.Header>

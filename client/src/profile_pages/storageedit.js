@@ -7,23 +7,8 @@ import "../css/profile.css";
 import{Container, Row, Col, Button} from 'react-bootstrap';
 import storage from "../images/storage_pictures/Storage.jpg";
 
-const divStyle = {
-    backgroundImage: 'url(../../Storage.jpg)',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundColor: '#7f00c9',
-    width: '100%',
-    height: '100%',
-    paddingTop: '15vh',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    zIndex: -1
-};
-
 const UsersIngredient = (props) => (
-  <ul className="ingredient" key={props.ingredient.replace(/ /g, "_")} id={props.ingredient.replace(/ /g, "_")+"-listitem"}>{props.ingredient}
+  <ul className="ingredient-storage-li" key={props.ingredient.replace(/ /g, "_")} id={props.ingredient.replace(/ /g, "_")+"-listitem"}>{props.ingredient}
     <button className="ingredient-button" onClick={() => {
       props.deleteUserIngredient(props.ingredient);
     }}
@@ -37,13 +22,15 @@ export default function StorageEdit() {
   // This method fetches the user's info used to query db from the client storage.
   const loggedIn = localStorage.getItem('logged_in');
   const username = localStorage.getItem('username');
-  if(loggedIn === true) {
-    handleNoLoginShow();
-  }
-  if(username === "") {
-    handleNoLoginShow();
-  }
+  // Ensure user is signed in
+  const navigate = useNavigate();
+  const handleNoLoginClose = () => {
+      navigate("/");
+  };
 
+  function doneClicked() {
+    navigate("/storage");
+  }
 
   // This method fetches the user's ingredients from the database.
   const [users_ingredients, setUsersIngredients] = useState([]);
@@ -59,7 +46,7 @@ export default function StorageEdit() {
               return;
           }
           const users_info = await response.json();
-          setUsersIngredients(users_info.ingredient_storage);
+          setUsersIngredients(users_info.ingredient_storage.sort());
       }
       getUsersIngredients();
       return;
@@ -107,18 +94,6 @@ export default function StorageEdit() {
     }));
   }
 
-  const navigate = useNavigate();
-  const [show, setShow] = useState(false);
-  const handleNoLoginClose = () => {
-    setShow(false);
-    navigate("/");
-  };
-  const handleNoLoginShow = () => setShow(true);
-
-  function doneClicked() {
-    navigate("/storage");
-  }
-
  return (  
 
   <Container>
@@ -154,7 +129,7 @@ export default function StorageEdit() {
     </Col>
   </Row>
     <>
-      <Modal show={show} onHide={handleNoLoginClose}>
+      <Modal show={loggedIn === null} onHide={handleNoLoginClose}>
         <Modal.Header closeButton>
           <Modal.Title>ERROR</Modal.Title>
         </Modal.Header>
