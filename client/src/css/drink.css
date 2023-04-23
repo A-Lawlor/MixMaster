@@ -1,0 +1,32 @@
+#create_search_button {
+    margin-left: 10px;
+    background-color: rgb(168, 173, 178);
+    height: auto;
+}
+
+#create_search_button:hover {
+    background-color: rgb(153, 153, 153);
+}
+
+.create_drink_form_list_item {
+    margin-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+    width:17em;
+}
+
+.create_drink_form_list_item:last-child {
+    border-bottom: none;
+}
+
+.create_drink_form_list_item:after {
+	content:attr(data-text);
+	color:red;
+	transform:translateX(-100%);
+	position:absolute;
+}
+
+.create_drink_form_list_item_amount {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

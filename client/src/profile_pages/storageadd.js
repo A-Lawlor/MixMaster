@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Modal } from "react-bootstrap";
 import $ from "jquery";
 import "../css/profile.css"; 
 // We import bootstrap to make our application look better.
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 import storage from "../images/storage_pictures/Storage.jpg";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -205,7 +204,7 @@ export default function StorageAdd() {
         <Row className="justify-content-center align-items-center">
           <Col id="storage_buttons" xs={12} className="pb-3">
             <Button id="done_button" onClick={doneClicked} className = "btn mt-2">Done</Button>
-            <Button id="search_button" onClick={searchClicked} className = "btn mt-2">Add via Search</Button>
+            <Button id="storage_add_search_button" onClick={searchClicked} className = "btn mt-2">Add via Search</Button>
           </Col>
         </Row>
     <>
