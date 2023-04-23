@@ -7,20 +7,20 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import "bootstrap/dist/css/bootstrap.css";
 
-/*
-<input
-  type="text"
-  className="form-control"
-  id="ingredients"
-  value={form.ingredients}
-  onChange={(e) => updateForm({ ingredients: e.target.value })}
-/>
-*/
 export default function Create() {
+ // Ensure user is signed in
+ const loggedIn = localStorage.getItem('logged_in');
+ const username = localStorage.getItem('username');
+ const handleNoLoginClose = () => {
+  navigate("/");
+ };
+
+ // Set up create drink form
  const [image, setImage] = useState({myFile:""});
  const [form, setForm] = useState({
    picture: "",
    name: "",
+   by: username,
    liqour: "",
    taste: "",
    drink_ingredients: [],
@@ -78,7 +78,8 @@ export default function Create() {
       }
    })
    .then(() => {
-      setForm({ picture: "", name: "", liqour: "", taste: "", drink_ingredients: [], about: "", bgColor1: "", bgColor2: ""});
+      setForm({ picture: "", name: "", by: username, liqour: "", taste: "",
+                drink_ingredients: [], about: "", bgColor1: "", bgColor2: ""});
       navigate("/");
       return;
    })
@@ -86,7 +87,8 @@ export default function Create() {
       window.alert(error);
       return;
    });
-   setForm({  picture: "", name: "", liqour: "", taste: "", drink_ingredients: [], about: "", bgColor1: "", bgColor2: ""});
+   setForm({  picture: "", name: "", by: username, liqour: "", taste: "", 
+              drink_ingredients: [], about: "", bgColor1: "", bgColor2: ""});
   //}
  };
 
@@ -326,6 +328,14 @@ function convertToBase64(file) {
          />
        </div>
      </form>
+     <>
+      <Modal show={loggedIn === null} onHide={handleNoLoginClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>ERROR</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>You must be logged in to access the storage page.<br></br>Closing this window will return you to the homepage!</Modal.Body>
+      </Modal>
+     </>
      <>
       <Modal show={showSearch} onHide={handleSearchViaAddClose}>
         <Modal.Header closeButton>

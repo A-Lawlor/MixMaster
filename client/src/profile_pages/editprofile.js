@@ -24,12 +24,12 @@ export default function EditProfile() {
   // This method fetches the user's info used to query db from the client storage.
   const loggedIn = localStorage.getItem('logged_in');
   const username = localStorage.getItem('username');
-  if(loggedIn === true) {
-    handleNoLoginShow();
-  }
-  if(username === "") {
-    handleNoLoginShow();
-  }
+  // Ensure user is signed in
+  const navigate = useNavigate();
+  const handleNoLoginClose = () => {
+      navigate("/");
+  };
+
   // Edit Profile form
   const [form, setForm] = useState({
     old_username: username,
@@ -40,12 +40,14 @@ export default function EditProfile() {
     old_picture_id: ""
   });
   const [image, setImage] = useState({myFile:""});
+
   // Update the state properties.
   function updateForm(value) {
     return setForm((prev) => {
       return { ...prev, ...value };
     });
   }
+
   // This method fetches the user's profile from the database.
   const [user_profiles, setUserProfiles] = useState([]);
   useEffect(() => {
@@ -72,27 +74,21 @@ export default function EditProfile() {
     getUserProfiles();
     return;
   }, [user_profiles.length]);
-
-  const navigate = useNavigate();
-
-  const [show, setShow] = useState(false);
-  const handleNoLoginClose = () => {
-    setShow(false);
-    navigate("/");
-  };
-  const handleNoLoginShow = () => setShow(true);
-
   
+  // browse user computer for images
   function browseClicked(e) {
     e.preventDefault();
     document.getElementById('file').click();
   }
+
+  // once file is selected, decode image
   async function fileSelectedHandler(e) {
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
     setImage({...image, myFile:base64});
     updateForm({ picture: base64 });
   }
+  // convert image to base 64 to upload to cloudinary upon profile update submission
   function convertToBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -106,9 +102,12 @@ export default function EditProfile() {
     })
   }
 
+  // @todo reset picture to original and don't perform image update on profile
   function resetClicked(e) {
     e.preventDefault();
   }
+
+  // Edit user information by telling backend to update database with edit profile form info
   async function saveClicked(e) {
     e.preventDefault();
 
@@ -137,6 +136,8 @@ export default function EditProfile() {
     setForm({ old_username: "", username: "", email: "", about: "", picture: ""});
     navigate("/vault");
   }
+
+  // Redirect user back to vault, do not post any changes made in page to database
   function cancelClicked(e) {
     e.preventDefault();
     setForm({ old_username: "", username: "", email: "", about: "", picture: ""});
@@ -208,7 +209,7 @@ export default function EditProfile() {
       </form>
     </div>
     <>
-      <Modal show={show} onHide={handleNoLoginClose}>
+      <Modal show={loggedIn === null} onHide={handleNoLoginClose}>
         <Modal.Header closeButton>
           <Modal.Title>ERROR</Modal.Title>
         </Modal.Header>
