@@ -125,11 +125,14 @@ recordRoutes.route("/drink/add").post(async function (req, response) {
                           picture_url: upload_result.secure_url, taste: req.body.taste, drink_ingredients: req.body.drink_ingredients,
                           about: req.body.about, rating: [], likes: [], dislikes: [], bgcolor1: req.body.bgColor1, bgcolor2: req.body.bgColor2
  });
- db_connect.collection("drinkform").insertOne(drink, function (err, res) {
-   if (err) throw err;
-   response.json(res);
- });
- return(response.json({message:"success"}));
+ db_connect.collection("drinkform").insertOne(drink)
+          .then((result) => {
+            return(response.json({message: result.insertedId.toString()}));
+          })
+          .catch(err => {
+            console.log("ERROR adding drink: " + err);
+            res.status(500).json({ error: "An error occurred while adding the drink" });
+          });
 });
 
 
