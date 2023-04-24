@@ -160,7 +160,7 @@ function convertToBase64(file) {
     searchedIngredientList.map((ingredient) => {
       if(!formIngredientList.includes(ingredient)) {
         // Ingredient name list item
-        li_item = $("<li>Amount of <span style='color:green'>"+ingredient+"</span>:</li>");
+        li_item = $("<li>Amount of <span style='color:yellow'>"+ingredient+"</span>:</li>");
         li_item.attr('id', 'create_drink_form_list_item_'+ingredient.replace(/ /g,"_"));
         li_item.attr('class', 'create_drink_form_list_item');
         // Ingredient amount list item
