@@ -79,7 +79,7 @@ const theme = createTheme({
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-    <Card sx={{ maxWidth: 345, marginTop: '30px', borderRadius: 8,background: theme.palette.customGradient }}>
+    <Card sx={{ width: '350px', maxHeight: '80vh', overflow: 'auto', marginTop: '30px', borderRadius: 8,background: theme.palette.customGradient }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -91,7 +91,7 @@ const theme = createTheme({
       <CardMedia
         component="img"
         image={drink.picture_url}
-        sx={{ width: '100%' }}
+        sx={{ width: '100%', minHeight:'438px', maxHeight:'438px' }}
         alt="drink image"
       />
       <CardContent>
@@ -118,15 +118,20 @@ const theme = createTheme({
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-        <Typography paragraph><em><u>Drink Ingredients:</u></em></Typography>
-          <Typography paragraph sx={{ fontStyle: 'italic' }}>
+       <CardContent>
+        <Typography 
+          paragraph><em><u>Drink Ingredients:</u></em>
+        </Typography>
+        <Typography paragraph sx={{ fontStyle: 'italic' }}>
           {ingredients}
-            </Typography>
-            <Typography>
-          About:{drink.about}
-            </Typography>
-        </CardContent>
+        </Typography>
+        <Typography
+          paragraph><em><u>About:</u></em>
+        </Typography>
+        <Typography paragraph>
+          {drink.about}
+        </Typography>
+       </CardContent>
       </Collapse>
     </Card>
     </Box>

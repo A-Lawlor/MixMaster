@@ -6,7 +6,7 @@ import { Modal } from "react-bootstrap";
 const Record = (props) => (
   <tr style={{verticalAlign: "middle", fontSize: "1.5em"}}>
     <td style={{width:"250px"}}>{<img src={props.record.picture_url} className="drink_picture"  alt="Drink Pic" 
-        style={{height: "150px", maxWidth: "150px"}}/>}</td>
+        style={{minHeight: "150px", minWidth: "120px", maxHeight: "150px", maxWidth: "120px"}}/>}</td>
     <td>{props.record.name}</td>
     <td>{props.record.percent_weight*100}%</td>
     <td>{props.record.taste}</td>
