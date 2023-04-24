@@ -16,11 +16,12 @@ const ObjectId = require("mongodb").ObjectId;
 
 const drinkSchema = new mongoose.Schema({
   name: String,
+  by: String,
   about: String,
   picture_id: String,
   picture_url: String,
   taste: String,
-  ingredients: String,
+  drink_ingredients: [],
   about: String,
   ratings: [],
   likes: [],
@@ -102,36 +103,20 @@ recordRoutes.route("/drink/:id").get(function (req, res) {
 });
 
 // This section will help you create a new record.
-recordRoutes.route("/drink/add/").post(async function (req, response) {
-  try {
-    console.log("getting into add drink");
-    let db_connect = dbo.getDrinksDb("drinks");
-    const upload_result = await cloudinary.uploader.upload(req.body.picture, {
-      folder: "mixmaster"
-    });
-    const drink = new Drink({
-      name: req.body.name,
-      liqour: req.body.liqour,
-      picture_id: upload_result.public_id,
-      picture_url: upload_result.secure_url,
-      taste: req.body.taste,
-      ingredients: req.body.ingredients,
-      about: req.body.about,
-      rating: [],
-      likes: [],
-      dislikes: [],
-    });
-    // Insert the drink into the database and return the inserted document to the front end
-    db_connect.collection("drinkform").insertOne(drink, function (err, res) {
-      if (err) throw err;
-      db_connect.collection("drinkform").findOne({_id: res.insertedId}, function(err, doc) {
-        if (err) throw err;
-        response.json(doc);
-      });
-    });
-  } catch (error) {
-    console.error(error);
-  }
+recordRoutes.route("/drink/add").post(async function (req, response) {
+ let db_connect = dbo.getDrinksDb("drinks");
+ const upload_result = await cloudinary.uploader.upload(req.body.picture, {
+  folder: "mixmaster"
+ })
+ const drink = new Drink({name: req.body.name, by: req.body.by, picture_id: upload_result.public_id,
+                          picture_url: upload_result.secure_url, taste: req.body.taste, drink_ingredients: req.body.drink_ingredients,
+                          about: req.body.about, rating: [], likes: [], dislikes: [],
+ });
+ db_connect.collection("drinkfourm").insertOne(drink, function (err, res) {
+   if (err) throw err;
+   response.json(res);
+ });
+ return(response.json({message:"success"}));
 });
 
 
