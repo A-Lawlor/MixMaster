@@ -140,6 +140,7 @@ export default function Navbar() {
         setLoggedIn(false);
         localStorage.removeItem('username');
         setUsername("");
+        localStorage.removeItem('user_drink_ing_array');
         return;
       })
       .catch(error => {
