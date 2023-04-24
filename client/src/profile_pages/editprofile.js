@@ -185,7 +185,8 @@ export default function EditProfile() {
             <button onClick={browseClicked} className = "button-84s button-special editprofile_buttons">Browse</button>
             <input type="file" onChange={fileSelectedHandler} accept="image/*" style={{display:"none"}} id="file" name="file"/>
             <button onClick={resetClicked} className = "button-84s button-darker editprofile_buttons">Reset</button>
-            {image.myFile==="" || image.myFile===null?"": <img src={image.myFile} className="profile_picture"  alt="Profile Pic Preview"/>}
+            {image.myFile==="" || image.myFile===null?"": <img src={image.myFile}
+              className="profile_picture"  alt="Profile Pic Preview"/>}
           </div>
         </div>
         <div className="row">

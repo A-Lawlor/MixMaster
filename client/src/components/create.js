@@ -198,7 +198,7 @@ function convertToBase64(file) {
 
  // This following section will display the form that takes the input from the user.
  return (
-  <div className="d-flex justify-content-center align-items-center vh-100">
+  <div className="d-flex justify-content-center align-items-center">
    <div className="create_wrapper container-fluid border" style={{width:"60vw"}}>
      <h3 className="text-center">Create New Drink</h3>
      <form onSubmit={onSubmit}>
@@ -222,8 +222,8 @@ function convertToBase64(file) {
             id="image_input"
             onChange={(e) => fileSelectedHandler(e)}
           />
-          {image.myFile==="" || image.myFile===null?"": <img src={image.myFile} className="drink_picture"  
-            style={{marginTop: '10px'}} alt="Drink Pic Preview"/>}
+          {image.myFile==="" || image.myFile===null?"": <img src={image.myFile} className="drink_picture"
+            style={{marginTop: '10px', minWidth:'200px', minHeight:'250px', maxWidth:'200px', maxHeight:'250px'}} alt="Drink Pic Preview"/>}
         </div>
         <br></br>
         <div className="form-group">
