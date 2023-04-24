@@ -16,7 +16,6 @@ const ObjectId = require("mongodb").ObjectId;
 
 const drinkSchema = new mongoose.Schema({
   name: String,
-  liqour: String,
   about: String,
   picture_id: String,
   picture_url: String,

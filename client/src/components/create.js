@@ -30,7 +30,6 @@ export default function Create() {
    picture: "",
    name: "",
    by: username,
-   liqour: "Vodka",
    taste: "",
    drink_ingredients: [],
    about: "",

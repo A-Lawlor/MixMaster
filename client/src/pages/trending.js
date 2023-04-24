@@ -11,7 +11,6 @@ const Record = (props) => (
     <td style={{width:"250px"}}>{<img src={props.record.picture_url} className="drink_picture"  alt="Drink Pic" 
         style={{height: "150px", maxWidth: "150px"}}/>}</td>
     <td>{props.record.name}</td>
-    <td>{props.record.liqour}</td>
     <td>{props.record.taste}</td>
     <td>{props.record.rating}</td>
     <td>{props.record.likes}</td>
