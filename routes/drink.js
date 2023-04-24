@@ -16,12 +16,13 @@ const ObjectId = require("mongodb").ObjectId;
 
 const drinkSchema = new mongoose.Schema({
   name: String,
+  by: String,
   liqour: String,
   about: String,
   picture_id: String,
   picture_url: String,
   taste: String,
-  ingredients: String,
+  drink_ingredients: [],
   about: String,
   ratings: [],
   likes: [],
@@ -106,14 +107,15 @@ recordRoutes.route("/drink/add").post(async function (req, response) {
  const upload_result = await cloudinary.uploader.upload(req.body.picture, {
   folder: "mixmaster"
  })
- const drink = new Drink({name: req.body.name, liqour: req.body.liqour, picture_id: upload_result.public_id,
-                          picture_url: upload_result.secure_url, taste: req.body.taste, ingredients: req.body.ingredients,
+ const drink = new Drink({name: req.body.name, by: req.body.by, liqour: req.body.liqour, picture_id: upload_result.public_id,
+                          picture_url: upload_result.secure_url, taste: req.body.taste, drink_ingredients: req.body.drink_ingredients,
                           about: req.body.about, rating: [], likes: [], dislikes: [],
  });
  db_connect.collection("drinkfourm").insertOne(drink, function (err, res) {
    if (err) throw err;
    response.json(res);
  });
+ return(response.json({message:"success"}));
 });
 
 // This section will help you update a record by id.
