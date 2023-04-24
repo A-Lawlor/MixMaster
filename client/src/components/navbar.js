@@ -235,6 +235,9 @@ export default function Navbar() {
                   <Dropdown.Item as={NavLink} to="/trending">
                     Trending Drinks
                   </Dropdown.Item>
+                  <Dropdown.Item as={NavLink} to="/favoriteslist">
+                    Favorites List
+                  </Dropdown.Item>
 
                   <Dropdown.Item as={NavLink} to="/editprofile">
                     Edit Profile
