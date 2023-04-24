@@ -79,8 +79,8 @@ export default function RecordList() {
   // This following section will display the table with the records of individuals.
   return (
 
-    <div style={{ textAlign: 'center' , marginTop: '150px'}}>
-      <h3>Trending drinks</h3>
+    <div style={{ textAlign: 'center' , marginTop: '4vh'}}>
+      <h3 className='trending_header'>Trending Drinks</h3>
           <div  className="record-list-container">
       
       <table className="table table-striped" style={{ marginTop: 20 }}>

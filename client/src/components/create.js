@@ -94,7 +94,7 @@ export default function Create() {
       bgColor1: "#AA00FF",
       bgColor2: "#0099FF",
     });
-    window.location.href = `/drink/${response.message}`;
+    navigate(`/drink/${response.message}`);
   })
   .catch((error) => {
     window.alert(error);
