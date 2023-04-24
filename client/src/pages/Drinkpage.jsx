@@ -40,7 +40,7 @@ export default function Drinkpage() {
 const theme = createTheme({
   palette: {
     // your other color settings
-    customGradient: 'linear-gradient(135deg, #6aa84f 0%, #e8d5fb 100%)',
+    customGradient: 'linear-gradient(135deg, #667eea 0%, #e8d5fb 100%)',
   },
   // your other theme settings
 });
