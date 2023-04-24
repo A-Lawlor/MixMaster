@@ -112,7 +112,7 @@ recordRoutes.route("/drink/add").post(async function (req, response) {
                           picture_url: upload_result.secure_url, taste: req.body.taste, drink_ingredients: req.body.drink_ingredients,
                           about: req.body.about, rating: [], likes: [], dislikes: [],
  });
- db_connect.collection("drinkfourm").insertOne(drink, function (err, res) {
+ db_connect.collection("drinkform").insertOne(drink, function (err, res) {
    if (err) throw err;
    response.json(res);
  });
@@ -133,7 +133,6 @@ recordRoutes.route("/update/:id").post(function (req, response) {
       picture_url: req.body.picture_url,
       drink_ingredients: req.body.drink_ingredients,
       about: req.body.about,
-      liqour: req.body.liqour,
       taste: req.body.taste,
       rating: req.body.rating,
       likes: req.body.likes,

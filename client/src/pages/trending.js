@@ -11,6 +11,7 @@ const Record = (props) => (
     <td style={{width:"250px"}}>{<img src={props.record.picture_url} className="drink_picture"  alt="Drink Pic" 
         style={{height: "150px", maxWidth: "150px"}}/>}</td>
     <td>{props.record.name}</td>
+    <td>{props.record.by}</td>
     <td>{props.record.taste}</td>
     <td>{props.record.rating}</td>
     <td>{props.record.likes}</td>
@@ -87,7 +88,7 @@ export default function RecordList() {
           <tr>
             <th>Image</th>  
             <th>Drink Name</th>
-            <th>Liquor</th>
+            <th>Posted By</th>
             <th>Taste</th>
             <th>Rating</th>
             <th>Likes</th>

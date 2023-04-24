@@ -138,7 +138,7 @@ const theme = createTheme({
       <p>Description: {drink.about}</p>
      {<img src={drink.picture_url} className="drink_picture"  alt="Drink Pic" 
         style={{height: "150px", maxWidth: "150px"}}/>}
-      <p>Liquor: {drink.liqour}</p>
+      <p>Posted By: {drink.by}</p>
       <p>Taste: {drink.taste}</p>
       <p>Rating: {drink.rating}</p>
       <p>Likes: {drink.likes}</p>
