@@ -6,6 +6,15 @@ import "../css/drink.css";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import "bootstrap/dist/css/bootstrap.css";
+import "../css/create.css"
+
+//Import for Liqour images
+import sweet from "../images/generate_drink_icons/Sweet.png";
+import spicy from "../images/generate_drink_icons/Spicy.png";
+import sour from "../images/generate_drink_icons/Sour.png";
+import bitter from "../images/generate_drink_icons/Bitter.png";
+import salty from "../images/generate_drink_icons/Salty.png";
+
 
 export default function Create() {
  // Ensure user is signed in
@@ -21,7 +30,7 @@ export default function Create() {
    picture: "",
    name: "",
    by: username,
-   liqour: "",
+   liqour: "Vodka",
    taste: "",
    drink_ingredients: [],
    about: "",
@@ -55,42 +64,45 @@ export default function Create() {
      return;
  } , [ingredient_data.length]);
 
+
  // This function will handle the submission.
  async function onSubmit(event) {
+  console.log("Getting into submit drink");
    event.preventDefault();
    //if (form.checkValidity() === false) {
     //event.stopPropagation();
    //} else {
    // When a post request is sent to the create url, we'll add a new drink to the database.
    const newDrink = { ...form };
-   let fetch_string = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/drink/add' :
-                                                'http://localhost:5005/drink/add');
-   await fetch(fetch_string, {
-     method: "POST",
-     headers: {
-       "Content-Type": "application/json",
-     },
-     body: JSON.stringify(newDrink),
-   })
-   .then((response) => {
+   //this will print out the object attributes in the console
+    console.log(newDrink);
+   await fetch("/drink/add/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newDrink),
+  })
+    .then((response) => {
       if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`);
+        throw new Error(`HTTP error: ${response.status}`);
       }
-   })
-   .then(() => {
-      setForm({ picture: "", name: "", by: username, liqour: "", taste: "",
-                drink_ingredients: [], about: "", bgColor1: "", bgColor2: ""});
-      navigate("/");
-      return;
-   })
-   .catch(error => {
+      setForm({
+        picture: "",
+        name: "",
+        by: username,
+        taste: "",
+        drink_ingredients: [],
+        about: "",
+        bgColor1: "",
+        bgColor2: "",
+      });
+      window.location.href = `/drink/${response.json()._id}`;
+    })
+    .catch((error) => {
       window.alert(error);
-      return;
-   });
-   setForm({  picture: "", name: "", by: username, liqour: "", taste: "", 
-              drink_ingredients: [], about: "", bgColor1: "", bgColor2: ""});
-  //}
- };
+    });
+  }  
 
 
  // Image code
@@ -189,8 +201,9 @@ function convertToBase64(file) {
 
  // This following section will display the form that takes the input from the user.
  return (
-   <div className="container-fluid mt-5 ms-5 p-5 bg-light border" style={{width:"60vw"}}>
-     <h3>Create New Drink</h3>
+  <div className="d-flex justify-content-center align-items-center vh-100">
+   <div className="create_wrapper container-fluid border" style={{width:"60vw"}}>
+     <h3 className="text-center">Create New Drink</h3>
      <form onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="name">Drink Name</label>
@@ -198,6 +211,7 @@ function convertToBase64(file) {
             type="text"
             className="form-control"
             id="name"
+            placeholder="Enter Drink Name"
             value={form.name}
             onChange={(e) => updateForm({ name: e.target.value })}
           />
@@ -216,45 +230,6 @@ function convertToBase64(file) {
         </div>
         <br></br>
         <div className="form-group">
-          <div className="form-check form-check-inline">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="liqourOptions"
-              id="positionVodka"
-              value="Vodka"
-              checked={form.liqour === "Vodka"}
-              onChange={(e) => updateForm({ liqour: e.target.value })}
-            />
-            <label htmlFor="positionIntern" className="form-check-label">Vodka</label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="liqourOptions"
-              id="positionTequila"
-              value="Tequila"
-              checked={form.liqour === "Tequila"}
-              onChange={(e) => updateForm({ liqour: e.target.value })}
-            />
-            <label htmlFor="positionJunior" className="form-check-label">Tequila</label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="liqourOptions"
-              id="positionWhiskey"
-              value="Whiskey"
-              checked={form.liqour === "Whiskey"}
-              onChange={(e) => updateForm({ liqour: e.target.value })}
-            />
-            <label htmlFor="positionSenior" className="form-check-label">Whiskey</label>
-          </div>
-        </div>
-        <br></br>
-        <div className="form-group">
          <div className="form-check form-check-inline">
            <input
              className="form-check-input"
@@ -265,69 +240,104 @@ function convertToBase64(file) {
              checked={form.taste === "Sweet"}
              onChange={(e) => updateForm({ taste: e.target.value })}
            />
+           <img src={sweet} width="30" />
            <label htmlFor="positionIntern" className="form-check-label">Sweet</label>
          </div>
          <div className="form-check form-check-inline">
-           <input
-             className="form-check-input"
-             type="radio"
-             name="positionTaste"
-             id="positionSalty"
-             value="Salty"
-             checked={form.taste === "Salty"}
-             onChange={(e) => updateForm({ taste: e.target.value })}
-           />
-           <label htmlFor="positionJunior" className="form-check-label">Salty</label>
+            <input
+              className="form-check-input"
+              type="radio"
+              name="positionTaste"
+              id="positionSpicy"
+              value="Spicy"
+              checked={form.taste === "Spicy"}
+              onChange={(e) => updateForm({ taste: e.target.value })}
+            />
+            <img src={spicy} width="30" />
+            <label htmlFor="positionJunior" className="form-check-label">Spicy</label>
           </div>
           <div className="form-check form-check-inline">
-           <input
-             className="form-check-input"
-             type="radio"
-             name="positionTaste"
-             id="positionSpicy"
-             value="Spicy"
-             checked={form.taste === "Spicy"}
-             onChange={(e) => updateForm({ taste: e.target.value })}
-           />
-          <label htmlFor="positionJunior" className="form-check-label">Spicy</label>
-        </div>
+            <input
+              className="form-check-input"
+              type="radio"
+              name="positionTaste"
+              id="positionSour"
+              value="Sour"
+              checked={form.taste === "Sour"}
+              onChange={(e) => updateForm({ taste: e.target.value })}
+            />
+            <img src={sour} width="30" />
+            <label htmlFor="positionJunior" className="form-check-label">Sour</label>
+          </div>
+          <div className="form-check form-check-inline">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="positionTaste"
+              id="positionBitter"
+              value="Bitter"
+              checked={form.taste === "Bitter"}
+              onChange={(e) => updateForm({ taste: e.target.value })}
+            />
+            <img src={bitter} width="30" />
+            <label htmlFor="positionJunior" className="form-check-label">Bitter</label>
+          </div>
+          <div className="form-check form-check-inline">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="positionTaste"
+              id="positionSalty"
+              value="Salty"
+              checked={form.taste === "Salty"}
+              onChange={(e) => updateForm({ taste: e.target.value })}
+            />
+              <img src={salty} width="30" />
+              <label htmlFor="positionJunior" className="form-check-label">Salty</label>
+          </div>
         </div>
         <br></br>
-        <div className="form-group">
+        <div className="form-group d-md-flex justify-content-center">
          <label htmlFor="ingredients">Ingredients: </label>
          <Button id="create_search_button" onClick={searchClicked} className = "btn">Add</Button>
          <ul id = "create_searched_ingredient_list_form_display"></ul>
        </div>
        <div className="form-group">
-         <label htmlFor="about">About</label>
+         <label htmlFor="about">Description</label>
          <input
            type="text"
            className="form-control"
            id="about"
+           placeholder="Enter description of drink"
            value={form.about}
            onChange={(e) => updateForm({ about: e.target.value })}
          />
        </div>
        <br></br>
-       <div className="form-group">
-          <label htmlFor="bg-color1">Background Color 1</label>
-          <input type="color" id="bg-color1" className="form-control" name="bg-color1" 
-            value={form.bgColor1} onChange={e => updateForm({bgColor1: e.target.value})} style={{width:'10em'}}/>
-       </div>
-       <div className="form-group">
-          <label htmlFor="bg-color2">Background Color 2</label>
-          <input type="color" id="bg-color2" className="form-control" name="bg-color2" 
-            value={form.bgColor2} onChange={e => updateForm({bgColor2: e.target.value})} style={{width:'10em'}}/>
-       </div>
+       <div className="form-group d-md-flex justify-content-center">
+        <div className="me-5">
+            <label htmlFor="bg-color1">Background Color 1</label>
+            <input type="color" id="bg-color1" className="form-control" name="bg-color1" 
+              value={form.bgColor1} onChange={e => updateForm({bgColor1: e.target.value})} style={{width:'10em'}}/>
+        </div>
+        <div>
+            <label htmlFor="bg-color2">Background Color 2</label>
+            <input type="color" id="bg-color2" className="form-control" name="bg-color2" 
+              value={form.bgColor2} onChange={e => updateForm({bgColor2: e.target.value})} style={{width:'10em'}}/>
+        </div>
+      </div>
+
        <br></br>
-       <div className="form-group">
-         <input
+       <div className="d-md-flex justify-content-center form-group">
+         <button
            type="submit"
-           value="Create Drink"
-           className="btn btn-primary"
-         />
+           className="btn btn-primary" 
+           id="create_drink_button"
+         >Create Drink
+          </button>
        </div>
      </form>
+     </div>
      <>
       <Modal show={loggedIn === null} onHide={handleNoLoginClose}>
         <Modal.Header closeButton>
