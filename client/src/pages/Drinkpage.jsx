@@ -78,8 +78,9 @@ const theme = createTheme({
   ));
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-    <Card sx={{ width: '350px', maxHeight: '80vh', overflow: 'auto', marginTop: '30px', borderRadius: 8,background: theme.palette.customGradient }}>
+    <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+    <Card className='disable-scrollbars' 
+      sx={{ width: '350px', maxHeight: '80vh', overflow: 'auto', marginTop: '30px', borderRadius: 8,background: theme.palette.customGradient }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
