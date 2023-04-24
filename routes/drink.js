@@ -125,7 +125,7 @@ recordRoutes.route("/drink/add/").post(async function (req, response) {
     // Insert the drink into the database and return the inserted document to the front end
     db_connect.collection("drinkform").insertOne(drink, function (err, res) {
       if (err) throw err;
-      db_connect.collection("drinkfrom").findOne({_id: res.insertedId}, function(err, doc) {
+      db_connect.collection("drinkform").findOne({_id: res.insertedId}, function(err, doc) {
         if (err) throw err;
         response.json(doc);
       });
