@@ -22,7 +22,6 @@ import Mixology from "./pages/mixology";
 import Follow from "./pages/follow";
 import Register from "./components/register";
 import Drinkpage from "./pages/Drinkpage";  
-import TrendingTwo from "./pages/trending2";
 
 const App = () => {
  return (
@@ -44,7 +43,6 @@ const App = () => {
        <Route path="/favoriteslist" element={<FavoritesList />} />
        <Route path="/trending" element={<Trending />} />
        <Route path="/listbyingredients" element={<ListByIngredients />} />
-       <Route path="/trending2" element={<TrendingTwo />} />
        <Route path="/mixology" element={<Mixology />} />
        <Route path="/follow" element={<Follow />} />
        <Route path="/register" element={<Register />} />
