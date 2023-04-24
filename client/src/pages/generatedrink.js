@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/generatedrink.css';
 
@@ -55,7 +55,8 @@ function Homepage() {
   //       console.error('Error:', error);
   //     });
   // };
-
+  const navigate = useNavigate();
+  //Function to find a drink with the two attributes liqour and taste when generate drink button is clicked
   const handleGenerateDrink = () => {
     console.log("Generate Drink Clicked");
     console.log("Selected Liqour Button:", selectedButton);
@@ -66,7 +67,7 @@ function Homepage() {
         console.log("Data:", data);
         //This code will redirect to the drink page which is drink/:id if there is a document with a specific id
         if(!data.error){
-          window.location.href = `/drink/${data._id}`;
+          navigate(`/drink/${data._id}`);
         }
       })
       .catch((error) => {
