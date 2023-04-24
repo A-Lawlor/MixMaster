@@ -17,15 +17,28 @@ export default function Drinkpage() {
   }, [id]);
 
   if (!drink) return <div>Loading...</div>;
-  console.log(drink)
+  console.log(drink);
+  const ingredients = drink.drink_ingredients.map((ingredient) => (
+    <p key={ingredient.name}>
+      {ingredient.name}: {ingredient.amount}
+    </p>
+  ));
   return (
-    <div>
+    <div style={{ textAlign: 'center' , marginTop: '150px'}}>
       <h1>{drink.name}</h1>
+      <p>Description: {drink.about}</p>
+     {<img src={drink.picture_url} className="drink_picture"  alt="Drink Pic" 
+        style={{height: "150px", maxWidth: "150px"}}/>}
       <p>Liquor: {drink.liqour}</p>
       <p>Taste: {drink.taste}</p>
       <p>Rating: {drink.rating}</p>
       <p>Likes: {drink.likes}</p>
       <p>Dislikes: {drink.dislikes}</p>
+      <div>
+        <h2>Ingredients:</h2>
+        {ingredients}
+      </div>
+      
     </div>
   );
 }

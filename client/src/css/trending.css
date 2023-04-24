@@ -1,0 +1,27 @@
+.record-list-container {
+    max-height: 400px;
+    overflow: auto;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 10px;
+    background-color: rgba(245, 245, 245, 0.3);
+    
+    width: 90%;
+    margin: auto;
+  }
+  
+  .table {
+    margin-bottom: 0;
+  }
+
+  .record-list-container2 {
+    max-height: 400px;
+    overflow: auto;
+    border: 1px solid #ccc;
+    border-radius: 10px !;
+    padding: 10px;
+    background-color: rgba(245, 245, 245, 0.3);
+    
+    width: 90%;
+    margin: auto;
+  }

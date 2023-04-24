@@ -16,13 +16,12 @@ const ObjectId = require("mongodb").ObjectId;
 
 const drinkSchema = new mongoose.Schema({
   name: String,
-  by: String,
   liqour: String,
   about: String,
   picture_id: String,
   picture_url: String,
   taste: String,
-  drink_ingredients: [],
+  ingredients: String,
   about: String,
   ratings: [],
   likes: [],
@@ -49,6 +48,33 @@ recordRoutes.route("/drink/get_ids_and_ings").get(function (req, res) {
     .toArray()
     .then((result) => res.json(result))
 });
+
+
+// This section will help you get a drink by passed in liqour and taste attributes then will search the database for a drink with the liqour that contains the name of the liqour and the taste.
+recordRoutes.route("/drink/generatedrink/:liqour/:taste").get(function (req, res) {
+  console.log("getting into generatedrink");
+  let db_connect = dbo.getDrinksDb("drinks");
+  let myquery = { liqour: { $regex: req.params.liqour, $options: "i" }, taste: req.params.taste };
+  console.log("myquery:", myquery);
+  console.log("req.params.liqour:", req.params.liqour);
+  console.log("req.params.taste:", req.params.taste);
+  db_connect
+    .collection("drinkfourm")
+    .findOne(myquery)
+    .then((result) => {
+      if (result) {
+        res.json(result);
+      } else {
+        console.error("No Drink Found");
+        res.status(404).json({ error: "No Drink Found" });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "An error occurred while retrieving the drink" });
+    });
+});
+
 
 // This section will help you get a single record by id
 recordRoutes.route("/drink/:id").get(function (req, res) {
@@ -80,22 +106,19 @@ recordRoutes.route("/drink/add").post(async function (req, response) {
  const upload_result = await cloudinary.uploader.upload(req.body.picture, {
   folder: "mixmaster"
  })
- const drink = new Drink({name: req.body.name, by:req.body.by, liqour: req.body.liqour, picture_id: upload_result.public_id,
-                          picture_url: upload_result.secure_url, taste: req.body.taste, drink_ingredients: req.body.drink_ingredients,
+ const drink = new Drink({name: req.body.name, liqour: req.body.liqour, picture_id: upload_result.public_id,
+                          picture_url: upload_result.secure_url, taste: req.body.taste, ingredients: req.body.ingredients,
                           about: req.body.about, rating: [], likes: [], dislikes: [],
  });
- //they use mongo connection not mongoose.
  db_connect.collection("drinkfourm").insertOne(drink, function (err, res) {
    if (err) throw err;
    response.json(res);
  });
- return(response.json({message:"success"}));
 });
-
 
 // This section will help you update a record by id.
 recordRoutes.route("/update/:id").post(function (req, response) {
-  let db_connect = dbo.getDrinksDb();
+  let db_connect = dbo.getDrinksDb("drinks");
   let myquery = { _id: ObjectId(req.params.id) };
   let newvalues = {
     $set: {
