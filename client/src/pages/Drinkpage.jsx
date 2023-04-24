@@ -93,7 +93,7 @@ export default function Drinkpage() {
     <Box sx={{ display: 'flex', justifyContent: 'center', marginTop:'10vh'}}>
     <Card className='disable-scrollbars' 
       sx={{ width: '380px', maxHeight: '80vh', overflow: 'auto', marginTop: '30px', borderRadius: 5,
-            border: '8px solid #8100c2', boxShadow:'0 0 20px #bf9900', background: theme.palette.customGradient }}>
+            border: '8px solid #8100c2', boxShadow: '0 0 45px 7px rgba(255, 255, 255, 0.5)', background: theme.palette.customGradient }}>
       <CardHeader
         avatar={
           <Rating name="size-large" defaultValue={null} max={1} size="large" />
