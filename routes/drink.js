@@ -54,7 +54,10 @@ recordRoutes.route("/drink/get_ids_and_ings").get(function (req, res) {
 recordRoutes.route("/drink/generatedrink/:liqour/:taste").get(function (req, res) {
   console.log("getting into generatedrink");
   let db_connect = dbo.getDrinksDb("drinks");
-  let myquery = { liqour: { $regex: req.params.liqour, $options: "i" }, taste: req.params.taste };
+  //This query will regex the liqour from the ingredients array and it will also check if the taste is equal to the taste attribute
+  let myquery = { $and: [ { drink_ingredients: { $regex: req.params.liqour, $options: "i" } }, { taste: req.params.taste } ] };
+
+  //Old query let myquery = { Ingredients: { $regex: req.params.liqour, $options: "i" }, taste: req.params.taste };
   console.log("myquery:", myquery);
   console.log("req.params.liqour:", req.params.liqour);
   console.log("req.params.taste:", req.params.taste);
@@ -116,6 +119,7 @@ recordRoutes.route("/drink/add").post(async function (req, response) {
  });
  return(response.json({message:"success"}));
 });
+
 
 // This section will help you update a record by id.
 recordRoutes.route("/update/:id").post(function (req, response) {
