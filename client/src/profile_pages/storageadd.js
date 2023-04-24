@@ -106,7 +106,7 @@ export default function StorageAdd() {
         .catch(error => {
             window.alert(error);
             return;
-        });        
+        });
     }
 
     const [showSearch, setShowSearch] = useState(false);

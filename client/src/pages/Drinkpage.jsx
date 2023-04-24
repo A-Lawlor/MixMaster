@@ -37,6 +37,8 @@ const ExpandMore = styled((props) => {
 
 export default function Drinkpage() {
 
+  const loggedIn = localStorage.getItem('logged_in');
+  const username = localStorage.getItem('username');
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -56,19 +58,81 @@ export default function Drinkpage() {
     const fetchDrink = async () => {
       const res = await fetch(`/drink/${id}`);
       const data = await res.json();
-      console.log("data:", data);
+      //console.log("data:", data); USE FOR DEBUGGING
       setDrink(data);
     };
     fetchDrink();
   }, [id]);
 
+  // This method fetches the user's favorites list from the database.
+  const [favorited, setFavorited] = useState(null);
+  useEffect(() => {
+      async function getFavoritesList() {
+          const fetch_string = process.env.NODE_ENV === 'production' ?
+                         'https://mix-master.herokuapp.com/user/retrieve_storage/'+username : 
+                         'http://localhost:5005/user/retrieve_storage/'+username;
+          const response = await fetch(fetch_string);
+          if (!response.ok) {
+              const message = `An error occurred: ${response.statusText}`;
+              window.alert(message);
+              return;
+          }
+          const users_info = await response.json();
+          setFavorited(users_info.favorites_list.includes(id) === true ? 1 : null);
+      }
+      getFavoritesList();
+      return;
+  }, []);
+
   if (!drink) return <div>Loading...</div>;
-  console.log(drink);
+  //console.log(drink); USE FOR DEBUGGING
   const ingredients = drink.drink_ingredients.map((ingredient) => (
     <p key={ingredient.name}>
       {ingredient.name}: {ingredient.amount}
     </p>
-  ));
+  ));  
+
+  async function updateFavorite(newValue) {
+
+    if(loggedIn === null) {
+      console.log("ERROR: You must be logged in to use this feature!");
+      return;
+    }
+
+    // Assume favoriting drink, if not these variables will be updated
+    let fetch_string = (process.env.NODE_ENV === 'production' ?
+    'https://mix-master.herokuapp.com/user/add_drink_to_favorites/'+username : 
+    'http://localhost:5005/user/add_drink_to_favorites/'+username);
+    let fetch_method = "POST";
+
+    // Update variables if favorite star was unchecked
+    if(newValue === null) {
+      fetch_string = (process.env.NODE_ENV === 'production' ?
+        'https://mix-master.herokuapp.com/user/delete_drink_from_favorites/'+username : 
+        'http://localhost:5005/user/delete_drink_from_favorites/'+username);
+      fetch_method = "DELETE";
+    }
+
+    // Tell node to update database
+    await fetch(fetch_string, {
+        method: fetch_method,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({id: drink._id}),
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+        setFavorited(favorited === 1 ? null : 1);
+        return;
+    })
+    .catch(error => {
+        window.alert(error);
+        return;
+    });
+  }
 
   const theme = createTheme({
     palette: {
@@ -96,7 +160,14 @@ export default function Drinkpage() {
             border: '8px solid #8100c2', boxShadow:'0 0 20px #bf9900', background: theme.palette.customGradient }}>
       <CardHeader
         avatar={
-          <Rating name="size-large" defaultValue={null} max={1} size="large" />
+          <Rating name="favorite_icon"
+            value={favorited}
+            max={1}
+            size="large" 
+            onChange={(event, newValue) => {
+              updateFavorite(newValue);
+            }}
+          />
         }
         titleTypographyProps={{variant:'h5', fontWeight:'bold'}}
         title={drink.name}
