@@ -40,6 +40,15 @@ recordRoutes.route("/drink").get(function (req, res) {
     .toArray()
     .then((result) => res.json(result))
 });
+// This section will help you get a list of all the records.
+recordRoutes.route("/drink/get_ids_and_ings").get(function (req, res) {
+  let db_connect = dbo.getDrinksDb("drinks");
+  db_connect
+    .collection("drinkfourm")
+    .find({}, {projection: { drink_ingredients: 1, likes: 1, dislikes: 1 }})
+    .toArray()
+    .then((result) => res.json(result))
+});
 
 // This section will help you get a single record by id
 recordRoutes.route("/drink/:id").get(function (req, res) {
@@ -83,9 +92,6 @@ recordRoutes.route("/drink/add").post(async function (req, response) {
  return(response.json({message:"success"}));
 });
 
-  
-
-
 
 // This section will help you update a record by id.
 recordRoutes.route("/update/:id").post(function (req, response) {
@@ -95,6 +101,11 @@ recordRoutes.route("/update/:id").post(function (req, response) {
     $set: {
       image: req.body.image,
       name: req.body.name,
+      by: req.body.by,
+      picture_id: req.body.picture_id,
+      picture_url: req.body.picture_url,
+      drink_ingredients: req.body.drink_ingredients,
+      about: req.body.about,
       liqour: req.body.liqour,
       taste: req.body.taste,
       rating: req.body.rating,

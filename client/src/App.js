@@ -17,6 +17,7 @@ import GenerateDrink from "./pages/generatedrink";
 import About from "./pages/about";
 import FavoritesList from "./profile_pages/favoriteslist";
 import Trending from "./pages/trending";
+import ListByIngredients from "./pages/listbyingredients";
 import Mixology from "./pages/mixology";
 import Follow from "./pages/follow";
 import Register from "./components/register";
@@ -42,6 +43,7 @@ const App = () => {
        <Route path="/editprofile" element={<EditProfile />} />
        <Route path="/favoriteslist" element={<FavoritesList />} />
        <Route path="/trending" element={<Trending />} />
+       <Route path="/listbyingredients" element={<ListByIngredients />} />
        <Route path="/trending2" element={<TrendingTwo />} />
        <Route path="/mixology" element={<Mixology />} />
        <Route path="/follow" element={<Follow />} />
