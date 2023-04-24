@@ -53,15 +53,26 @@ recordRoutes.route("/drink/get_ids_and_ings").get(function (req, res) {
 
 
 // This section will help you get a drink by passed in liqour and taste attributes then will search the database for a drink with the liqour that contains the name of the liqour and the taste.
-recordRoutes.route("/drink/generatedrink/:liqour/:taste").get(function (req, res) {
+recordRoutes.route("/drink/generatedrink/:liquor/:taste").get(function (req, res) {
   console.log("getting into generatedrink");
   let db_connect = dbo.getDrinksDb("drinks");
+  let liquor = req.params.liquor ? req.params.liquor.toString() : '';
   //This query will regex the liqour from the ingredients array and it will also check if the taste is equal to the taste attribute
-  let myquery = { $and: [ { drink_ingredients: { $regex: req.params.liqour, $options: "i" } }, { taste: req.params.taste } ] };
-
+  let myquery = {
+    $and: [
+      {
+        drink_ingredients: {
+          $elemMatch: {
+            name: { $regex: liquor, $options: "i" }
+          }
+        }
+      },
+      { taste: req.params.taste }
+    ]
+  };
   //Old query let myquery = { Ingredients: { $regex: req.params.liqour, $options: "i" }, taste: req.params.taste };
   console.log("myquery:", myquery);
-  console.log("req.params.liqour:", req.params.liqour);
+  console.log("req.params.liqour:", req.params.liquor);
   console.log("req.params.taste:", req.params.taste);
   db_connect
     .collection("drinkform")
