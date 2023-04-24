@@ -26,6 +26,8 @@ const drinkSchema = new mongoose.Schema({
   ratings: [],
   likes: [],
   dislikes: [],
+  bgcolor1: String,
+  bgcolor2: String,
 }, {collection: 'drinkform'});
 
 const Drink = new mongoose.model("drinks", drinkSchema)
@@ -94,8 +96,8 @@ recordRoutes.route("/drink/generatedrink/:liquor/:taste").get(function (req, res
 recordRoutes.route("/drink/:id").get(function (req, res) {
   let db_connect = dbo.getDrinksDb("drinks");
   let myquery = { _id: new ObjectId(req.params.id) };
-  console.log("myquery:", myquery);
-  console.log("req.params.id:", req.params.id);
+  //console.log("myquery:", myquery); use for debugging
+  //console.log("req.params.id:", req.params.id); use for debugging
   db_connect
     .collection("drinkform")
     .findOne(myquery)
@@ -121,7 +123,7 @@ recordRoutes.route("/drink/add").post(async function (req, response) {
  })
  const drink = new Drink({name: req.body.name, by: req.body.by, picture_id: upload_result.public_id,
                           picture_url: upload_result.secure_url, taste: req.body.taste, drink_ingredients: req.body.drink_ingredients,
-                          about: req.body.about, rating: [], likes: [], dislikes: [],
+                          about: req.body.about, rating: [], likes: [], dislikes: [], bgcolor1: req.body.bgColor1, bgcolor2: req.body.bgColor2
  });
  db_connect.collection("drinkform").insertOne(drink, function (err, res) {
    if (err) throw err;
@@ -147,7 +149,9 @@ recordRoutes.route("/update/:id").post(function (req, response) {
       taste: req.body.taste,
       rating: req.body.rating,
       likes: req.body.likes,
-      dislikes: req.body.dislikes
+      dislikes: req.body.dislikes,
+      bgcolor1: req.body.bgcolor1,
+      bgcolor2: req.body.bgcolor2
     },
   };
   db_connect

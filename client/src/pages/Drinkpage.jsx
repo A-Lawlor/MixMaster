@@ -56,7 +56,6 @@ const theme = createTheme({
     setValue(newValue);
   };
 
-  console.log("here");
   const [drink, setDrink] = useState(null);
   const { id } = useParams();
 
