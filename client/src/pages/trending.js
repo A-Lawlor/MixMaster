@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
-
+import "../css/trending.css"; 
+import "bootstrap/dist/css/bootstrap.css";
 
 
 
@@ -77,8 +78,11 @@ export default function RecordList() {
 
   // This following section will display the table with the records of individuals.
   return (
-    <div>
-      <h3>Drink List</h3>
+
+    <div style={{ textAlign: 'center' , marginTop: '150px'}}>
+      <h3>Trending drinks</h3>
+          <div  className="record-list-container">
+      
       <table className="table table-striped" style={{ marginTop: 20 }}>
         <thead>
           <tr>
@@ -92,8 +96,9 @@ export default function RecordList() {
             <th>View Drink</th> 
           </tr>
         </thead>
-        <tbody>{recordList()}</tbody>
+        <tbody >{recordList()}</tbody>
       </table>
+    </div>
     </div>
   );
 }
