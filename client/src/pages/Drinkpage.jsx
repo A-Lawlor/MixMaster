@@ -37,13 +37,6 @@ const ExpandMore = styled((props) => {
 
 export default function Drinkpage() {
 
-const theme = createTheme({
-  palette: {
-    // your other color settings
-    customGradient: 'linear-gradient(135deg, #667eea 0%, #e8d5fb 100%)',
-  },
-  // your other theme settings
-});
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -77,37 +70,47 @@ const theme = createTheme({
     </p>
   ));
 
+  const theme = createTheme({
+    palette: {
+      // your other color settings
+      customGradient: 'linear-gradient(135deg, #667eea 0%, #e8d5fb 100%)',
+    },
+    // your other theme settings
+  });
+
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+  <div style={{
+      objectFit: 'cover',
+      backgroundImage: 'linear-gradient(to right,'+drink.bgcolor1+','+drink.bgcolor2+')',
+      width: '100%',
+      height: "100%",
+      position: 'fixed',
+      scale: "1",
+      top: 0,
+      left: 0,
+      zIndex: -1,
+    }}>
+    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop:'10vh'}}>
     <Card className='disable-scrollbars' 
-      sx={{ width: '350px', maxHeight: '80vh', overflow: 'auto', marginTop: '30px', borderRadius: 8,background: theme.palette.customGradient }}>
+      sx={{ width: '380px', maxHeight: '80vh', overflow: 'auto', marginTop: '30px', borderRadius: 5,
+            border: '8px solid #8100c2', boxShadow:'0 0 20px #bf9900', background: theme.palette.customGradient }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
+          <Rating name="size-large" defaultValue={null} max={1} size="large" />
         }
-        title="Mismosa"
+        titleTypographyProps={{variant:'h5', fontWeight:'bold'}}
+        title={drink.name}
       />
       <CardMedia
         component="img"
         image={drink.picture_url}
-        sx={{ width: '100%', minHeight:'438px', maxHeight:'438px' }}
+        sx={{ width: '94%', minHeight:'438px', maxHeight:'438px', borderRadius:3, alignSelf: 'center', margin:'auto' }}
         alt="drink image"
       />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-        {drink.name}
-        </Typography>
-      </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <RecommendIcon />
-        </IconButton>
-        <Rating
-        name="simple-controlled"
-        value={value}
-        onChange={handleRatingChange}/>
+        <Typography sx={{marginLeft:'1em'}}>
+          By: {drink.by}
+        </Typography>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -121,21 +124,40 @@ const theme = createTheme({
       <Collapse in={expanded} timeout="auto" unmountOnExit>
        <CardContent>
         <Typography 
-          paragraph><em><u>Drink Ingredients:</u></em>
+          paragraph><em><b><u>Drink Ingredients:</u></b></em>
         </Typography>
         <Typography paragraph sx={{ fontStyle: 'italic' }}>
           {ingredients}
         </Typography>
         <Typography
-          paragraph><em><u>About:</u></em>
+          ><em><b><u>About:</u></b></em>
         </Typography>
         <Typography paragraph>
           {drink.about}
         </Typography>
+        
+        <Typography>
+          <em><b><u>Overall Rating:</u></b></em>
+        </Typography>
+        <Rating
+          name="overall-rating"
+          value={value}
+          onChange={handleRatingChange}
+        />
+        
+        <Typography>
+          <em><b><u>{drink.taste}-ness Rating:</u></b></em>
+        </Typography>
+        <Rating
+          name="taste-rating"
+          value={value}
+          onChange={handleRatingChange}
+          />
        </CardContent>
       </Collapse>
     </Card>
     </Box>
+  </div>
     
     /*
     <div style={{ textAlign: 'center' , marginTop: '150px'}}>
