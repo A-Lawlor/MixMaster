@@ -220,10 +220,6 @@ export default function Navbar() {
                 {username}
               </Dropdown.Toggle>
               <Dropdown.Menu>
-              
-                  <Dropdown.Item as={NavLink} to="/vault">
-                    Vault
-                  </Dropdown.Item>
 
                   <Dropdown.Item as={NavLink} to="/storage">
                     Storage

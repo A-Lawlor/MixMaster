@@ -81,8 +81,9 @@ export default function RecordList() {
 
   // This following section will display the table with the records of individuals.
   return (
-    <div>
-      <h3>Drink List</h3>
+    <div style={{ textAlign: 'center' , marginTop: '4vh'}}>
+      <h3 className='trending_header'>Drinks Ordered By Your Ingredients!</h3>
+      <div  className="record-list-container">
       <table className="table table-striped" style={{ marginTop: 20 }}>
         <thead>
           <tr>
@@ -98,6 +99,7 @@ export default function RecordList() {
         </thead>
         <tbody>{recordList()}</tbody>
       </table>
+      </div>
         <>
         <Modal show={user_drink_ing_array === null} onHide={handleNoLoginClose}>
             <Modal.Header closeButton>

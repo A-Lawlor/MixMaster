@@ -1,5 +1,5 @@
 .record-list-container {
-    max-height: 400px;
+    max-height: 70vh;
     overflow: auto;
     border: 1px solid #ccc;
     border-radius: 25px;
@@ -8,20 +8,32 @@
     
     width: 90%;
     margin: auto;
-  }
+}
   
-  .table {
-    margin-bottom: 0;
-  }
+.table {
+   margin-bottom: 0;
+}
 
-  .record-list-container2 {
-    max-height: 400px;
-    overflow: auto;
-    border: 1px solid #ccc;
-    border-radius: 10px !;
-    padding: 10px;
-    background-color: rgba(245, 245, 245, 0.3);
-    
-    width: 90%;
-    margin: auto;
-  }
+.record-list-container2 {
+  max-height: 400px;
+  overflow: auto;
+  border: 1px solid #ccc;
+  border-radius: 10px !;
+  padding: 10px;
+  background-color: rgba(245, 245, 245, 0.3);
+  
+  width: 90%;
+  margin: auto;
+}
+
+.trending_header {
+  display: block;
+  width: fit-content;
+  margin: 20px auto 20px; /* added 20px margin-top */
+  text-align: center;
+  color: white;
+  border: 3.5px solid white;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 3em;
+}
