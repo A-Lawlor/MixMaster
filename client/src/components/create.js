@@ -74,7 +74,7 @@ export default function Create() {
    // When a post request is sent to the create url, we'll add a new drink to the database.
    const newDrink = { ...form };
    //this will print out the object attributes in the console
-    console.log(newDrink);
+   //console.log(newDrink);
    await fetch("/drink/add/", {
     method: "POST",
     headers: {
@@ -82,26 +82,24 @@ export default function Create() {
     },
     body: JSON.stringify(newDrink),
   })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-      }
-      setForm({
-        picture: "",
-        name: "",
-        by: username,
-        taste: "",
-        drink_ingredients: [],
-        about: "",
-        bgColor1: "",
-        bgColor2: "",
-      });
-      window.location.href = `/drink/${response.json()._id}`;
-    })
-    .catch((error) => {
-      window.alert(error);
+  .then(response => response.json())
+  .then(response => {
+    setForm({
+      picture: "",
+      name: "",
+      by: username,
+      taste: "",
+      drink_ingredients: [],
+      about: "",
+      bgColor1: "#AA00FF",
+      bgColor2: "#0099FF",
     });
-  }  
+    window.location.href = `/drink/${response.message}`;
+  })
+  .catch((error) => {
+    window.alert(error);
+  });
+}  
 
 
  // Image code

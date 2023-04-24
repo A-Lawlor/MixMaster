@@ -195,34 +195,6 @@ export default function Navbar() {
       });
   };
 
-  async function setStorage (_username) {
-    const newUserStorage = { username:_username };
-    let fetch_string2 = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage/adduser' : 'http://localhost:5005/userstorage/adduser');
-    await fetch(fetch_string2, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUserStorage),
-    })
-    .then(response => response.json())
-    .then(response => {
-      console.log(response.message + " setting up ingredient storage for " + _username);
-      return;
-    })
-    .catch(error => {
-      window.alert(error);
-      return;
-    });
-  }
-
-
-
-
- 
-
-
-
   return (
   <nav className="navbar navbar-expand-sm navbar-light sticky-top" style={{ height: "60px", backgroundColor: "rgba(51, 51, 51, 0.9)" }}>
       <div className="container-fluid">
