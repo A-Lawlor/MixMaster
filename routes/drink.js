@@ -17,7 +17,6 @@ const ObjectId = require("mongodb").ObjectId;
 const drinkSchema = new mongoose.Schema({
   name: String,
   by: String,
-  liqour: String,
   about: String,
   picture_id: String,
   picture_url: String,
@@ -27,7 +26,7 @@ const drinkSchema = new mongoose.Schema({
   ratings: [],
   likes: [],
   dislikes: [],
-}, {collection: 'drinkfourm'});
+}, {collection: 'drinkform'});
 
 const Drink = new mongoose.model("drinks", drinkSchema)
 
@@ -35,7 +34,7 @@ const Drink = new mongoose.model("drinks", drinkSchema)
 recordRoutes.route("/drink").get(function (req, res) {
   let db_connect = dbo.getDrinksDb("drinks");
   db_connect
-    .collection("drinkfourm")
+    .collection("drinkform")
     .find({})
     .toArray()
     .then((result) => res.json(result))
@@ -44,7 +43,7 @@ recordRoutes.route("/drink").get(function (req, res) {
 recordRoutes.route("/drink/get_ids_and_ings").get(function (req, res) {
   let db_connect = dbo.getDrinksDb("drinks");
   db_connect
-    .collection("drinkfourm")
+    .collection("drinkform")
     .find({}, {projection: { drink_ingredients: 1, likes: 1, dislikes: 1 }})
     .toArray()
     .then((result) => res.json(result))
@@ -60,7 +59,7 @@ recordRoutes.route("/drink/generatedrink/:liqour/:taste").get(function (req, res
   console.log("req.params.liqour:", req.params.liqour);
   console.log("req.params.taste:", req.params.taste);
   db_connect
-    .collection("drinkfourm")
+    .collection("drinkform")
     .findOne(myquery)
     .then((result) => {
       if (result) {
@@ -84,7 +83,7 @@ recordRoutes.route("/drink/:id").get(function (req, res) {
   console.log("myquery:", myquery);
   console.log("req.params.id:", req.params.id);
   db_connect
-    .collection("drinkfourm")
+    .collection("drinkform")
     .findOne(myquery)
     .then((result) => {
       if (result) {
@@ -107,11 +106,11 @@ recordRoutes.route("/drink/add").post(async function (req, response) {
  const upload_result = await cloudinary.uploader.upload(req.body.picture, {
   folder: "mixmaster"
  })
- const drink = new Drink({name: req.body.name, by: req.body.by, liqour: req.body.liqour, picture_id: upload_result.public_id,
+ const drink = new Drink({name: req.body.name, by: req.body.by, picture_id: upload_result.public_id,
                           picture_url: upload_result.secure_url, taste: req.body.taste, drink_ingredients: req.body.drink_ingredients,
                           about: req.body.about, rating: [], likes: [], dislikes: [],
  });
- db_connect.collection("drinkfourm").insertOne(drink, function (err, res) {
+ db_connect.collection("drinkform").insertOne(drink, function (err, res) {
    if (err) throw err;
    response.json(res);
  });
@@ -131,7 +130,6 @@ recordRoutes.route("/update/:id").post(function (req, response) {
       picture_url: req.body.picture_url,
       drink_ingredients: req.body.drink_ingredients,
       about: req.body.about,
-      liqour: req.body.liqour,
       taste: req.body.taste,
       rating: req.body.rating,
       likes: req.body.likes,
@@ -139,7 +137,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
     },
   };
   db_connect
-    .collection("drinkfourm")
+    .collection("drinkform")
     .updateOne(myquery, newvalues, function (err, res) {
       if (err) throw err;
       console.log("1 document updated");
@@ -153,7 +151,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
 recordRoutes.route("/drink/delete").delete((req, response) => {
   let db_connect = dbo.getDrinksDb();
   let myobj = { _id: new ObjectId(req.body._id) };
-  db_connect.collection("drinkfourm").deleteOne(myobj, function (err, res) {
+  db_connect.collection("drinkform").deleteOne(myobj, function (err, res) {
     if (err) throw err;
     response.json(res);
 

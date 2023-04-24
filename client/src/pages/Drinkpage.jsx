@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function Drinkpage() {
-  console.log("here");
   const [drink, setDrink] = useState(null);
   const { id } = useParams();
 
@@ -29,7 +28,7 @@ export default function Drinkpage() {
       <p>Description: {drink.about}</p>
      {<img src={drink.picture_url} className="drink_picture"  alt="Drink Pic" 
         style={{height: "150px", maxWidth: "150px"}}/>}
-      <p>Liquor: {drink.liqour}</p>
+      <p>Posted By: {drink.by}</p>
       <p>Taste: {drink.taste}</p>
       <p>Rating: {drink.rating}</p>
       <p>Likes: {drink.likes}</p>

@@ -7,7 +7,6 @@ import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Edit from "./components/edit";
 import Create from "./components/create";
-import Vault from "./profile_pages/vault";
 import Storage from "./profile_pages/storage";
 import StorageAdd from "./profile_pages/storageadd";
 import StorageEdit from "./profile_pages/storageedit";
@@ -21,8 +20,7 @@ import ListByIngredients from "./pages/listbyingredients";
 import Mixology from "./pages/mixology";
 import Follow from "./pages/follow";
 import Register from "./components/register";
-import Drinkpage from "./pages/Drinkpage";  
-import TrendingTwo from "./pages/trending2";
+import Drinkpage from "./pages/Drinkpage";
 
 const App = () => {
  return (
@@ -37,14 +35,12 @@ const App = () => {
        <Route path="/storage" element={<Storage />} />
        <Route path="/storageadd" element={<StorageAdd />} />
        <Route path="/storageedit" element={<StorageEdit />} />
-       <Route path="/vault" element={<Vault />} />
        <Route path="/about" element={<About />} />
        <Route path="/create" element={<Create />} />
        <Route path="/editprofile" element={<EditProfile />} />
        <Route path="/favoriteslist" element={<FavoritesList />} />
        <Route path="/trending" element={<Trending />} />
        <Route path="/listbyingredients" element={<ListByIngredients />} />
-       <Route path="/trending2" element={<TrendingTwo />} />
        <Route path="/mixology" element={<Mixology />} />
        <Route path="/follow" element={<Follow />} />
        <Route path="/register" element={<Register />} />
