@@ -8,7 +8,7 @@ const Record = (props) => (
     <td style={{width:"250px"}}>{<img src={props.record.picture_url} className="drink_picture"  alt="Drink Pic" 
         style={{minHeight: "150px", minWidth: "120px", maxHeight: "150px", maxWidth: "120px"}}/>}</td>
     <td>{props.record.name}</td>
-    <td>{props.record.percent_weight*100}%</td>
+    <td>{Math.round(props.record.percent_weight*100)}%</td>
     <td>{props.record.taste}</td>
     <td>{props.record.rating}</td>
     <td>{props.record.likes}</td>
