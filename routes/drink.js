@@ -59,6 +59,7 @@ recordRoutes.route("/drink/generatedrink/:liquor/:taste").get(function (req, res
   console.log("getting into generatedrink");
   let db_connect = dbo.getDrinksDb("drinks");
   let liquor = req.params.liquor ? req.params.liquor.toString() : '';
+
   //This query will regex the liqour from the ingredients array and it will also check if the taste is equal to the taste attribute
   let myquery = {
     $and: [
@@ -77,21 +78,23 @@ recordRoutes.route("/drink/generatedrink/:liquor/:taste").get(function (req, res
   console.log("req.params.liqour:", req.params.liquor);
   console.log("req.params.taste:", req.params.taste);
   db_connect
-    .collection("drinkform")
-    .findOne(myquery)
-    .then((result) => {
-      if (result) {
-        res.json(result);
-      } else {
-        console.error("No Drink Found");
-        res.status(404).json({ error: "No Drink Found" });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "An error occurred while retrieving the drink" });
-    });
+  .collection("drinkform")
+  .aggregate([{ $match: myquery }, { $sample: { size: 1 } }])
+  .toArray()
+  .then((result) => {
+    if (result && result.length > 0) {
+      res.json(result[0]);
+    } else {
+      console.error("No Drink Found");
+      res.status(404).json({ error: "No Drink Found" });
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).json({ error: "An error occurred while retrieving the drink" });
+  });
 });
+
 
 // This section will help you get a new drink based on previous drinks liqour and taste prefrences
 recordRoutes.route("/drink/generatenewdrink/:liquor/:taste/:id").get(function (req, res) {
@@ -119,21 +122,23 @@ recordRoutes.route("/drink/generatenewdrink/:liquor/:taste/:id").get(function (r
   console.log("req.params.taste:", req.params.taste);
 
   db_connect
-    .collection("drinkform")
-    .findOne(myquery)
-    .then((result) => {
-      if (result) {
-        res.json(result);
-      } else {
-        console.error("No Drink Found");
-        res.status(404).json({ error: "No Drink Found" });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: "An error occurred while retrieving the drink" });
-    });
+  .collection("drinkform")
+  .aggregate([{ $match: myquery }, { $sample: { size: 1 } }])
+  .toArray()
+  .then((result) => {
+    if (result && result.length > 0) {
+      res.json(result[0]);
+    } else {
+      console.error("No Drink Found");
+      res.status(404).json({ error: "No Drink Found" });
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).json({ error: "An error occurred while retrieving the drink" });
+  });
 });
+
 
 
 
