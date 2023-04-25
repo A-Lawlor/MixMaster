@@ -12,11 +12,11 @@ const Record = (props) => (
         style={{minHeight: "150px", minWidth: "120px", maxHeight: "150px", maxWidth: "120px"}}/>}</td>
     <td>{props.record.name}</td>
     <td>{props.record.by}</td>
-    <td>{props.record.taste}</td>
     <td>{props.record.overall_ratings.length === 0 ? 'n/a' :
           props.record.overall_ratings.reduce((a, b) => a + b) / props.record.overall_ratings.length}</td>
-    <td>{props.record.likes}</td>
-    <td>{props.record.dislikes}</td>
+    <td>{props.record.taste}</td>
+    <td>{props.record.taste_ratings.length === 0 ? 'n/a' :
+          props.record.taste_ratings.reduce((a, b) => a + b) / props.record.taste_ratings.length}</td>
     <td>
       <Button onClick={() => props.NavigateToDrink(props.record._id)}>
         View Drink
@@ -44,7 +44,22 @@ export default function RecordList() {
       }
 
       const records = await response.json();
-      setRecords(records);
+      // order records for overall rating
+      var records_averages = [];
+      records.forEach(record => {
+        records_averages.push(record.overall_ratings.length === 0 ? {id: record._id, average: -1} :
+          {id: record._id, average: record.overall_ratings.reduce((a, b) => a + b) / record.overall_ratings.length});
+      });
+      records_averages.sort((a, b) => parseFloat(b.average) - parseFloat(a.average));
+      var ordered_records = [];
+      records_averages.forEach(record => {
+        records.forEach(base_record => {
+          if(record.id === base_record._id) {
+            ordered_records.push(base_record);
+          }
+        })
+      });
+      setRecords(ordered_records);
     }
 
     getRecords();
@@ -84,10 +99,9 @@ export default function RecordList() {
             <th>Image</th>  
             <th>Drink Name</th>
             <th>Posted By</th>
-            <th>Taste</th>
             <th>Rating</th>
-            <th>Likes</th>
-            <th>Dislikes</th>
+            <th>Taste</th>
+            <th>Taste Level</th>
             <th>View Drink</th> 
           </tr>
         </thead>
