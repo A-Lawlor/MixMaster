@@ -18,7 +18,7 @@ const Record = (props) => (
     <td>{props.record.taste_ratings.length === 0 ? 'n/a' :
           props.record.taste_ratings.reduce((a, b) => a + b) / props.record.taste_ratings.length}</td>
     <td>
-      <Button onClick={() => props.NavigateToDrink(props.record._id)}>
+      <Button onClick={() => props.NavigateToDrink(props.record._id)} style={{backgroundColor: '#3EB3E7' }}>
         View Drink
       </Button>
     </td>
