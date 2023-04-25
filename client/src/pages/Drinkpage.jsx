@@ -172,6 +172,9 @@ export default function Drinkpage() {
       .then((res) => res.json())
       .then((data) => {
         console.log("Data:", data);
+        if(data.error === "No Drink Found"){
+          window.alert("No Other Drinks Found with Liquor and Taste Prefrence.");
+        }
         //This code will redirect to the drink page which is drink/:id if there is a document with a specific id
         if(!data.error){
           navigate(`/drink/${data._id}`);
