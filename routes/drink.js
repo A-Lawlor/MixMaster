@@ -57,6 +57,8 @@ recordRoutes.route("/drink/generatedrink/:liquor/:taste").get(function (req, res
   console.log("getting into generatedrink");
   let db_connect = dbo.getDrinksDb("drinks");
   let liquor = req.params.liquor ? req.params.liquor.toString() : '';
+
+
   //This query will regex the liqour from the ingredients array and it will also check if the taste is equal to the taste attribute
   let myquery = {
     $and: [
