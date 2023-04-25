@@ -91,6 +91,49 @@ recordRoutes.route("/drink/generatedrink/:liquor/:taste").get(function (req, res
     });
 });
 
+// This section will help you get a new drink based on previous drinks liqour and taste prefrences
+recordRoutes.route("/drink/generatenewdrink/:liquor/:taste/:id").get(function (req, res) {
+  console.log("getting into generatenewdrink");
+  let db_connect = dbo.getDrinksDb("drinks");
+ 
+    //This query will regex the liqour from the ingredients array and it will also check if the taste is equal to the taste attribute and the id cannot be equal to the id param
+    let myquery = {
+      $and: [
+        {
+          drink_ingredients: {
+            $elemMatch: {
+              name: { $regex: req.params.liquor, $options: "i" }
+            }
+          }
+        },
+        { taste: req.params.taste },
+        { _id: { $ne: new ObjectId(req.params.id) } }
+      ]
+    };
+
+
+  console.log("myquery:", myquery);
+  console.log("req.params.liquor:", req.params.liquor);
+  console.log("req.params.taste:", req.params.taste);
+
+  db_connect
+    .collection("drinkform")
+    .findOne(myquery)
+    .then((result) => {
+      if (result) {
+        res.json(result);
+      } else {
+        console.error("No Drink Found");
+        res.status(404).json({ error: "No Drink Found" });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: "An error occurred while retrieving the drink" });
+    });
+});
+
+
 
 // This section will help you get a single record by id
 recordRoutes.route("/drink/:id").get(function (req, res) {

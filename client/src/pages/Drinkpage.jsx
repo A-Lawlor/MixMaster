@@ -3,7 +3,7 @@
 import { useParams } from 'react-router-dom';*/
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { styled, createTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import Card from '@mui/material/Card';
@@ -22,6 +22,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Rating from '@mui/material/Rating';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -40,6 +41,7 @@ export default function Drinkpage() {
   const loggedIn = localStorage.getItem('logged_in');
   const username = localStorage.getItem('username');
   const [expanded, setExpanded] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -142,6 +144,44 @@ export default function Drinkpage() {
     // your other theme settings
   });
 
+
+  //function for generate drink where there is a fetch post to the backend to get a new drink
+  //Function to find a drink with the two attributes liqour and taste when generate drink button is clicked
+  const generateDrink = () => {
+
+    console.log(JSON.stringify(drink.drink_ingredients));
+
+   //This function will take drink_ingredients and set a variable equal to vodka, rum, gin, tequila, or whiskey depending on which one is in the array does not have to be the same capitalization
+    function getLiquor(drink_ingredients) {
+      if (drink_ingredients.includes("Vodka")) {
+        return "Vodka";
+      } else if (drink_ingredients.includes("Rum")) {
+        return "Rum";
+      } else if (drink_ingredients.includes("Gin")) {
+        return "Gin";
+      } else if (drink_ingredients.includes("Tequila")) {
+        return "Tequila";
+      } else if (drink_ingredients.includes("Whiskey")) {
+        return "Whiskey";
+      } else {
+        return "none";
+      }
+    }
+
+    fetch(`/drink/generatenewdrink/${getLiquor(JSON.stringify(drink.drink_ingredients))}/${drink.taste}/${drink._id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Data:", data);
+        //This code will redirect to the drink page which is drink/:id if there is a document with a specific id
+        if(!data.error){
+          navigate(`/drink/${data._id}`);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
   return (
   <div style={{
       objectFit: 'cover',
@@ -156,7 +196,7 @@ export default function Drinkpage() {
     }}>
     <Box sx={{ display: 'flex', justifyContent: 'center', marginTop:'10vh'}}>
     <Card className='disable-scrollbars' 
-      sx={{ width: '380px', maxHeight: '80vh', overflow: 'auto', marginTop: '30px', borderRadius: 5,
+      sx={{ width: '380px', maxHeight: '80vh', overflow: 'auto', marginTop: '10px', borderRadius: 5,
             border: '8px solid #8100c2', boxShadow: '0 0 45px 7px rgba(255, 255, 255, 0.5)', background: theme.palette.customGradient }}>
       <CardHeader
         avatar={
@@ -228,6 +268,14 @@ export default function Drinkpage() {
       </Collapse>
     </Card>
     </Box>
+    <div style={{ textAlign: 'center' , marginTop: '2vh'}}>
+      <Button style={{marginTop: '1vh', backgroundColor: '#8100c2', color: '#FFFFFF'}} 
+              variant="contained" 
+              className="generate-button"
+              onClick={generateDrink}>
+        Generate New Drink
+      </Button>
+    </div>
   </div>
     
     /*
