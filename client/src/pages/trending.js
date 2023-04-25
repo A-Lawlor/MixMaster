@@ -13,10 +13,10 @@ const Record = (props) => (
     <td>{props.record.name}</td>
     <td>{props.record.by}</td>
     <td>{props.record.overall_ratings.length === 0 ? 'n/a' :
-          props.record.overall_ratings.reduce((a, b) => a + b) / props.record.overall_ratings.length}</td>
+          Math.round(props.record.overall_ratings.reduce((a, b) => a + b) / props.record.overall_ratings.length)}</td>
     <td>{props.record.taste}</td>
     <td>{props.record.taste_ratings.length === 0 ? 'n/a' :
-          props.record.taste_ratings.reduce((a, b) => a + b) / props.record.taste_ratings.length}</td>
+          Math.round(props.record.taste_ratings.reduce((a, b) => a + b) / props.record.taste_ratings.length)}</td>
     <td>
       <Button onClick={() => props.NavigateToDrink(props.record._id)} style={{backgroundColor: '#3EB3E7' }}>
         View Drink
