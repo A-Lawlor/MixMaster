@@ -25,6 +25,16 @@ function Homepage() {
   const [selectedButton, setSelectedButton] = useState(null);
   const [tasteSelectedButton, setTasteSelectedButton] = useState(null);
 
+  //Reset function to reset the buttons
+  const reset = () => {
+    setShowButtons(false);
+    setTasteShowButtons(true);
+    setShowGenerateButton(false);
+    setSelectedButton(null);
+    setTasteSelectedButton(null);
+  };
+
+
   const handleGenerateDrinkClick = (buttonId) => {
     setShowButtons(true);
     setTasteShowButtons(false);
@@ -182,17 +192,27 @@ function Homepage() {
         </Row>
         )}
         {showGenerateButton && (
-        <Row className="justify-content-center align-items-center" style={{ transition: 'all 0.5s ease', opacity: showGenerateButton ? 1 : 0}}>
+        <><Row className="justify-content-center align-items-center" style={{ transition: 'all 0.5s ease', opacity: showGenerateButton ? 1 : 0 }}>
           <Col>
-            <Button 
-              style={{marginTop: '1vh', backgroundColor: '#3EB3E7'}} 
+            <Button
+              style={{ marginTop: '1vh', backgroundColor: '#3EB3E7' }}
               size="lg"
               className="generate-button"
               onClick={handleGenerateDrink}>
               Generate Drink
             </Button>
           </Col>
-        </Row>
+        </Row><Row className="justify-content-center align-items-center" style={{ transition: 'all 0.5s ease', opacity: showGenerateButton ? 1 : 0 }}>
+            <Col>
+              <Button
+                style={{ marginTop: '1vh', backgroundColor: 'rgb(108,117,125, 0.75)' }}
+                size="lg"
+                className="generate-button"
+                onClick={reset}>
+                Reset
+              </Button>
+            </Col>
+          </Row></>
         )}
       </Container>
       );
