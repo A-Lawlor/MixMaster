@@ -13,7 +13,8 @@ const Record = (props) => (
     <td>{props.record.name}</td>
     <td>{props.record.by}</td>
     <td>{props.record.taste}</td>
-    <td>{props.record.rating}</td>
+    <td>{props.record.overall_ratings.length === 0 ? 'n/a' :
+          props.record.overall_ratings.reduce((a, b) => a + b) / props.record.overall_ratings.length}</td>
     <td>{props.record.likes}</td>
     <td>{props.record.dislikes}</td>
     <td>
@@ -34,11 +35,6 @@ export default function RecordList() {
   // This method fetches the records from the database.
   useEffect(() => {
     async function getRecords() {
-      if((process.env.NODE_ENV === 'production')){
-        console.log("In production");
-    } else {
-        console.log("Local Testing");
-    }
 
     const response = await fetch(process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/drink' : 'http://localhost:5005/drink');
       if (!response.ok) {
@@ -48,7 +44,6 @@ export default function RecordList() {
       }
 
       const records = await response.json();
-      console.log(records);
       setRecords(records);
     }
 

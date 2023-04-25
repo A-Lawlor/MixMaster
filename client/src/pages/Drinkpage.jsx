@@ -47,12 +47,6 @@ export default function Drinkpage() {
     setExpanded(!expanded);
   };
 
-  const [value, setValue] = useState(0);
-
-  const handleRatingChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   const [drink, setDrink] = useState(null);
   const { id } = useParams();
 
@@ -66,10 +60,13 @@ export default function Drinkpage() {
     fetchDrink();
   }, [id]);
 
-  // This method fetches the user's favorites list from the database.
+
+  const [og_rating_value, setRatingValue] = useState(null);
+  const [taste_rating_value, setTasteValue] = useState(null);
   const [favorited, setFavorited] = useState(null);
+  // This method fetches the user's favorites list from the database.
   useEffect(() => {
-      async function getFavoritesList() {
+      async function getUserInfo() {
           const fetch_string = process.env.NODE_ENV === 'production' ?
                          'https://mix-master.herokuapp.com/user/retrieve_storage/'+username : 
                          'http://localhost:5005/user/retrieve_storage/'+username;
@@ -81,8 +78,16 @@ export default function Drinkpage() {
           }
           const users_info = await response.json();
           setFavorited(users_info.favorites_list.includes(id) === true ? 1 : null);
+          var i = users_info.overall_ratings.findIndex(e => e.drink_id === id);
+          if (i > -1) {
+            setRatingValue(users_info.overall_ratings[i].rating);
+          }
+          i = users_info.taste_ratings.findIndex(e => e.drink_id === id);
+          if (i > -1) {
+            setTasteValue(users_info.taste_ratings[i].rating);
+          }
       }
-      getFavoritesList();
+      getUserInfo();
       return;
   }, []);
 
@@ -92,15 +97,17 @@ export default function Drinkpage() {
     <p key={ingredient.name}>
       {ingredient.name}: {ingredient.amount}
     </p>
-  ));  
+  ));
 
-  async function updateFavorite(newValue) {
-
+  const handleFavoriteChange = (newValue) => {
     if(loggedIn === null) {
       console.log("ERROR: You must be logged in to use this feature!");
       return;
     }
+    updateFavorite(newValue);
+  }
 
+  async function updateFavorite(newValue) {
     // Assume favoriting drink, if not these variables will be updated
     let fetch_string = (process.env.NODE_ENV === 'production' ?
     'https://mix-master.herokuapp.com/user/add_drink_to_favorites/'+username : 
@@ -128,6 +135,102 @@ export default function Drinkpage() {
             throw new Error(`HTTP error: ${response.status}`);
         }
         setFavorited(favorited === 1 ? null : 1);
+        return;
+    })
+    .catch(error => {
+        window.alert(error);
+        return;
+    });
+  }
+
+
+  const handleORatingChange = (event, newValue) => {
+    if(loggedIn === null) {
+      console.log("ERROR: You must be logged in to use this feature!");
+      return;
+    }
+    // If star unchecked do nothing
+    if(newValue === null) {
+      console.log("ERROR: You cannot rate 0 stars!");
+      return;
+    }
+    var old_rating_val = og_rating_value;
+    setRatingValue(newValue);
+    updateRating(old_rating_val, newValue, "overall");
+  };
+  const handleTRatingChange = (event, newValue) => {
+    if(loggedIn === null) {
+      console.log("ERROR: You must be logged in to use this feature!");
+      return;
+    }
+    // If star unchecked do nothing
+    if(newValue === null) {
+      console.log("ERROR: You cannot rate 0 stars!");
+      return;
+    }
+    var old_rating_val = taste_rating_value;
+    setTasteValue(newValue);
+    updateRating(old_rating_val, newValue, "taste");
+  };
+
+  async function updateRating(old_rating, new_rating, rating_type) {
+    //console.log(username + " is changing their rating from " + old_rating + " to " \
+    //            + new_rating + " for " + rating_type + " for " + drink.name);
+    // Assume favoriting drink, if not these variables will be updated
+    let fetch_string = (process.env.NODE_ENV === 'production' ?
+    'https://mix-master.herokuapp.com/user/rate_drink_'+rating_type : 
+    'http://localhost:5005/user/rate_drink_'+rating_type);
+
+    if(old_rating === null) {
+      fetch_string = (process.env.NODE_ENV === 'production' ?
+        'https://mix-master.herokuapp.com/user/first_rate_drink_'+rating_type : 
+        'http://localhost:5005/user/first_rate_drink_'+rating_type);
+    }
+    // console.log(fetch_string); FOR DEBUGGING
+    // Tell node to update database
+    await fetch(fetch_string, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({id: drink._id, username: username, rating: new_rating}),
+    })
+    .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        updateDrinksRating(old_rating, new_rating, rating_type);
+        return;
+    })
+    .catch(error => {
+        window.alert(error);
+        return;
+    });
+  }
+
+  async function updateDrinksRating(old_rating, new_rating, rating_type) {
+    let fetch_string = (process.env.NODE_ENV === 'production' ?
+    'https://mix-master.herokuapp.com/drink/rate_drink_'+rating_type :
+    'http://localhost:5005/drink/rate_drink_'+rating_type);
+
+    if(old_rating === null) {
+      fetch_string = (process.env.NODE_ENV === 'production' ?
+        'https://mix-master.herokuapp.com/drink/first_rate_drink_'+rating_type :
+        'http://localhost:5005/drink/first_rate_drink_'+rating_type);
+    }
+    // console.log(fetch_string); FOR DEBUGGING
+    // Tell node to update database
+    await fetch(fetch_string, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({id: drink._id, old_rating: old_rating, new_rating: new_rating}),
+    })
+    .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
         return;
     })
     .catch(error => {
@@ -208,7 +311,7 @@ export default function Drinkpage() {
             max={1}
             size="large" 
             onChange={(event, newValue) => {
-              updateFavorite(newValue);
+              handleFavoriteChange(newValue);
             }}
           />
         }
@@ -237,36 +340,33 @@ export default function Drinkpage() {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
        <CardContent>
-        <Typography 
-          paragraph><em><b><u>Drink Ingredients:</u></b></em>
+        <Typography><em><b><u>Drink Ingredients:</u></b></em>
         </Typography>
-        <Typography paragraph sx={{ fontStyle: 'italic' }}>
+        <Typography sx={{ fontStyle: 'italic' }}>
           {ingredients}
         </Typography>
-        <Typography
-          ><em><b><u>About:</u></b></em>
+        <Typography>
+          <em><b><u>About:</u></b></em>
         </Typography>
-        <Typography paragraph>
+        <Typography>
           {drink.about}
         </Typography>
-        
         <Typography>
           <em><b><u>Overall Rating:</u></b></em>
         </Typography>
         <Rating
           name="overall-rating"
-          value={value}
-          onChange={handleRatingChange}
+          value={og_rating_value}
+          onChange={handleORatingChange}
         />
-        
         <Typography>
           <em><b><u>{drink.taste}-ness Rating:</u></b></em>
         </Typography>
         <Rating
           name="taste-rating"
-          value={value}
-          onChange={handleRatingChange}
-          />
+          value={taste_rating_value}
+          onChange={handleTRatingChange}
+        />
        </CardContent>
       </Collapse>
     </Card>
@@ -280,24 +380,5 @@ export default function Drinkpage() {
       </Button>
     </div>
   </div>
-    
-    /*
-    <div style={{ textAlign: 'center' , marginTop: '150px'}}>
-      <h1>{drink.name}</h1>
-      <p>Description: {drink.about}</p>
-     {<img src={drink.picture_url} className="drink_picture"  alt="Drink Pic" 
-        style={{height: "150px", maxWidth: "150px"}}/>}
-      <p>Posted By: {drink.by}</p>
-      <p>Taste: {drink.taste}</p>
-      <p>Rating: {drink.rating}</p>
-      <p>Likes: {drink.likes}</p>
-      <p>Dislikes: {drink.dislikes}</p>
-      <div>
-        <h2>Ingredients:</h2>
-        {ingredients}
-      </div>
-      
-    </div>
-    */
   );
 }

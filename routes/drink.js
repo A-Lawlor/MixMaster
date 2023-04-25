@@ -24,6 +24,8 @@ const drinkSchema = new mongoose.Schema({
   drink_ingredients: [],
   about: String,
   ratings: [],
+  overall_ratings: [],
+  taste_ratings: [],
   likes: [],
   dislikes: [],
   bgcolor1: String,
@@ -171,7 +173,8 @@ recordRoutes.route("/drink/add").post(async function (req, response) {
  })
  const drink = new Drink({name: req.body.name, by: req.body.by, picture_id: upload_result.public_id,
                           picture_url: upload_result.secure_url, taste: req.body.taste, drink_ingredients: req.body.drink_ingredients,
-                          about: req.body.about, rating: [], likes: [], dislikes: [], bgcolor1: req.body.bgColor1, bgcolor2: req.body.bgColor2
+                          about: req.body.about, rating: [], likes: [], dislikes: [], overall_ratings: [], taste_ratings: [],
+                          bgcolor1: req.body.bgColor1, bgcolor2: req.body.bgColor2
  });
  db_connect.collection("drinkform").insertOne(drink)
           .then((result) => {
@@ -199,6 +202,8 @@ recordRoutes.route("/update/:id").post(function (req, response) {
       about: req.body.about,
       taste: req.body.taste,
       rating: req.body.rating,
+      overall_ratings: req.body.overall_ratings,
+      taste_ratings: req.body.taste_ratings,
       likes: req.body.likes,
       dislikes: req.body.dislikes,
       bgcolor1: req.body.bgcolor1,
@@ -218,14 +223,57 @@ recordRoutes.route("/update/:id").post(function (req, response) {
 
 // This section will help you delete a record
 recordRoutes.route("/drink/delete").delete((req, response) => {
-  let db_connect = dbo.getDrinksDb();
+  let db_connect = dbo.getDrinksDb("drinks");
   let myobj = { _id: new ObjectId(req.body._id) };
   db_connect.collection("drinkform").deleteOne(myobj, function (err, res) {
     if (err) throw err;
     response.json(res);
-
   });
   return response.send(JSON.stringify(myobj));
 });
+
+
+// THE FOUR BELOW FUNCTIONS UPDATE USERS RATINGS FOR SPECIFIC DRINKS
+recordRoutes.route("/drink/first_rate_drink_overall").post((req, res) => {
+  let db_connect = dbo.getDrinksDb("drinks");
+  let myquery = { _id: new ObjectId(req.body.id) };
+  let myupdate = { $push: { overall_ratings: req.body.new_rating } };
+  db_connect.collection("drinkform").updateOne(myquery, myupdate, function (err, result) {
+    if (err) throw err;
+      res.json(result);
+  });
+  return res.send(JSON.stringify(req.body.new_rating));
+});
+recordRoutes.route("/drink/first_rate_drink_taste").post((req, res) => {
+  let db_connect = dbo.getDrinksDb("drinks");
+  let myquery = { _id: new ObjectId(req.body.id) };
+  let myupdate = { $push: { taste_ratings: req.body.new_rating } };
+  db_connect.collection("drinkform").updateOne(myquery, myupdate, function (err, result) {
+    if (err) throw err;
+      res.json(result);
+  });
+  return res.send(JSON.stringify(req.body.new_rating));
+});
+recordRoutes.route("/drink/rate_drink_overall").post((req, res) => {
+  let db_connect = dbo.getDrinksDb("drinks");
+  let myquery = { _id: new ObjectId(req.body.id), "overall_ratings": req.body.old_rating };
+  let myupdate = { $set: { "overall_ratings.$" : req.body.new_rating } };
+  db_connect.collection("drinkform").updateOne(myquery, myupdate, function (err, result) {
+      if (err) throw err;
+      res.json(result);
+  });
+  return res.send(JSON.stringify(req.body.new_rating));
+});
+recordRoutes.route("/drink/rate_drink_taste").post((req, res) => {
+  let db_connect = dbo.getDrinksDb("drinks");
+  let myquery = { _id: new ObjectId(req.body.id), "taste_ratings": req.body.old_rating };
+  let myupdate = { $set: { "taste_ratings.$" : req.body.new_rating } };
+  db_connect.collection("drinkform").updateOne(myquery, myupdate, function (err, result) {
+      if (err) throw err;
+      res.json(result);
+  });
+  return res.send(JSON.stringify(req.body.new_rating));
+});
+
 
 module.exports = recordRoutes
