@@ -179,7 +179,7 @@ export default function StorageAdd() {
         />
          <Row className="justify-content-center align-items-center" style={{ marginTop: "4vh" }}>
           <Col id="storage_title" className= "text-center" xs={10}>
-            <p>Add Ingredients</p>
+          <h3 className='storage_header'>Add Ingredients</h3>
           </Col>
         </Row>
         <Row className="justify-content-center align-items-center">

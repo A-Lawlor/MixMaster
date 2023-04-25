@@ -124,7 +124,7 @@ export default function Storage() {
     />
      <Row className="justify-content-center align-items-center" style={{ marginTop: "4vh" }}>
       <Col id="storage_title" className= "text-center" xs={10}>
-        <p>Storage List</p>
+      <h3 className='storage_header'>Storage List</h3>
       </Col>
     </Row>
     <Row className="justify-content-center align-items-center">

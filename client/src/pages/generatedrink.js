@@ -73,8 +73,13 @@ function Homepage() {
 
   return (
     <Container fluid className="d-flex flex-column justify-content-center align-items-center">
+      <Row className="justify-content-center align-items-center" style={{ marginTop: "3vh" }}>
+        <Col id="about_title" className= "text-center" md={12}>
+        <h3 className='generate_header'>Generate Drink</h3>
+        </Col>
+      </Row>
       {!showButtons && (
-      <Row className="justify-content-center align-items-center" style={{ marginTop: '20vh', opacity: showButtons ? 0 : 1 }}>
+      <Row className="justify-content-center align-items-center" style={{ marginTop: '5vh', opacity: showButtons ? 0 : 1 }}>
         <Col id="generate_text" className="text-center text-white">
           Select Type of liquor
         </Col>
@@ -107,7 +112,7 @@ function Homepage() {
         </Row>
       )}
       {showButtons && (
-        <Row className="justify-content-center align-items-center" style={{marginTop: '20vh', transition: 'all 0.5s ease', opacity: showButtons ? 1 : 0 }}>
+        <Row className="justify-content-center align-items-center" style={{marginTop: '5vh', transition: 'all 0.5s ease', opacity: showButtons ? 1 : 0 }}>
           <Col>
             <Button className={`liquor_buttons mb-3 ${selectedButton === "Vodka" ? "d-block" : "d-none"}`}>
             <img src={vodka} width="60" />

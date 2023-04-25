@@ -23,6 +23,18 @@
     background-color: white;
     color: black;
   }
+
+  .generate_header {
+    display: block;
+    width: fit-content;
+    margin: 10px auto 5px; /* added 20px margin-top */
+    text-align: center;
+    color: white;
+    border: 3.5px solid white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1.5em;
+  }
   
   @keyframes pulse {
     0% {
