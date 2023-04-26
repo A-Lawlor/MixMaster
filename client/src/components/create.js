@@ -17,6 +17,14 @@ import salty from "../images/generate_drink_icons/Salty.png";
 
 
 export default function Create() {
+  const [formIngredientList, setFormIngredientList] = useState([]);
+  const [isFormValid, setIsFormValid] = useState(false);
+  function validateForm() {
+    setIsFormValid(formIngredientList.length > 0);
+  }
+  useEffect(() => {
+    validateForm();
+  }, [formIngredientList]);
  // Ensure user is signed in
  const loggedIn = localStorage.getItem('logged_in');
  const username = localStorage.getItem('username');
@@ -44,6 +52,7 @@ export default function Create() {
      return { ...prev, ...value };
    });
  }
+
  
  // This method fetches the ingredients from the database.
  const [ingredient_data, setIngredientData] = useState([]);
@@ -62,6 +71,11 @@ export default function Create() {
      getIngredientData()       
      return;
  } , [ingredient_data.length]);
+
+
+ 
+
+
 
 
  // This function will handle the submission.
@@ -125,7 +139,9 @@ function convertToBase64(file) {
 // Add ingredients code
   const [showSearch, setShowSearch] = useState(false);
   const [searchedIngredientList, setSearchedIngredientList] = useState([]);
-  const [formIngredientList, setFormIngredientList] = useState([]);
+  
+   
+ 
   const handleSearchViaAddClose = () => {
     setSearchedIngredientList([]);
     setShowSearch(false);
@@ -148,6 +164,7 @@ function convertToBase64(file) {
       drink_ingredients_input.push(drink_OBJ);
     });
     updateForm({ drink_ingredients: drink_ingredients_input });
+    validateForm();
   }
 
   // Call when Add All button is clicked inside of add drink ingredients modal
@@ -177,6 +194,7 @@ function convertToBase64(file) {
       }
     });
     updateFormIngredientArray();
+    validateForm();
     handleSearchViaAddClose();
   }
 
@@ -211,6 +229,7 @@ function convertToBase64(file) {
             placeholder="Enter Drink Name"
             value={form.name}
             onChange={(e) => updateForm({ name: e.target.value })}
+            required
           />
         </div>
         <div className="form-group">
@@ -236,6 +255,7 @@ function convertToBase64(file) {
              value="Sweet"
              checked={form.taste === "Sweet"}
              onChange={(e) => updateForm({ taste: e.target.value })}
+             required
            />
            <img src={sweet} width="30" />
            <label htmlFor="positionIntern" className="form-check-label">Sweet</label>
@@ -308,6 +328,7 @@ function convertToBase64(file) {
            placeholder="Enter description of drink"
            value={form.about}
            onChange={(e) => updateForm({ about: e.target.value })}
+           required
          />
        </div>
        <br></br>
@@ -315,12 +336,12 @@ function convertToBase64(file) {
         <div className="me-5">
             <label htmlFor="bg-color1">Background Color 1</label>
             <input type="color" id="bg-color1" className="form-control" name="bg-color1" 
-              value={form.bgColor1} onChange={e => updateForm({bgColor1: e.target.value})} style={{width:'10em'}}/>
+              value={form.bgColor1} onChange={e => updateForm({bgColor1: e.target.value})} style={{width:'10em'}} required/>
         </div>
         <div>
             <label htmlFor="bg-color2">Background Color 2</label>
             <input type="color" id="bg-color2" className="form-control" name="bg-color2" 
-              value={form.bgColor2} onChange={e => updateForm({bgColor2: e.target.value})} style={{width:'10em'}}/>
+              value={form.bgColor2} onChange={e => updateForm({bgColor2: e.target.value})} style={{width:'10em'}} required/>
         </div>
       </div>
 
@@ -330,12 +351,26 @@ function convertToBase64(file) {
            type="submit"
            className="btn btn-primary" 
            id="create_drink_button"
+           disabled={!isFormValid}
          >Create Drink
           </button>
        </div>
      </form>
      </div>
      <>
+
+
+
+
+
+
+
+
+
+
+
+
+
       <Modal show={loggedIn === null} onHide={handleNoLoginClose}>
         <Modal.Header closeButton>
           <Modal.Title>ERROR</Modal.Title>
