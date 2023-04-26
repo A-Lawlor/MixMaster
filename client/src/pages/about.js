@@ -19,7 +19,7 @@ function About() {
     <Container>
       <Row className="justify-content-center align-items-center" style={{ marginTop: "3vh" }}>
         <Col id="about_title" className= "text-center" md={12}>
-          <p>About Us</p>
+        <h3 className='storage_header'>About the Creators</h3>
         </Col>
       </Row>
       <Row className="justify-content-center align-items-center" style={{ marginTop: "2vh", marginBottom: "5vh"}}>

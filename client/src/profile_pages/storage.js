@@ -26,7 +26,26 @@ export default function Storage() {
 
   // navigate functions
   function findWithInvClicked() {
-    navigate("/favoriteslist");
+    var ingredientNamesArray = drinks.map(function (drinkObj) {
+      return drinkObj.drink_ingredients.map(function (nameObj) {
+        return nameObj.name;
+      });
+    });
+    // declare variables to use in drink to user ingredient percent finding
+    var drink_to_user_ing_percent = 0.0;
+    var ordered_drinks = [];
+    var intersection = [];
+    // find percent of ingredients in a drink that exist in a user's inventory
+    ingredientNamesArray.map(function(drinkIngArray, index){
+      intersection = drinkIngArray.filter(element => users_ingredients.includes(element));
+      drink_to_user_ing_percent = intersection.length / drinkIngArray.length;
+      ordered_drinks.push({_id: drinks[index]._id, percent_weight: drink_to_user_ing_percent.toFixed(2)});
+    });
+    ordered_drinks.sort(function(a, b) {
+      return parseFloat(b.percent_weight) - parseFloat(a.percent_weight);
+    });
+    localStorage.setItem('user_drink_ing_array', JSON.stringify(ordered_drinks));
+    navigate("/listbyingredients")
   }
   function addClicked() {
     navigate("/storageadd");
@@ -34,6 +53,26 @@ export default function Storage() {
   function editClicked() {
     navigate("/storageedit");
   }
+
+   // This method fetches the user's ingredients from the database.
+   const [drinks, setDrinks] = useState([]);
+   useEffect(() => {
+     async function getDrinks() {
+       const fetch_string = process.env.NODE_ENV === 'production' ?
+                            'https://mix-master.herokuapp.com/drink/get_ids_and_ings/' : 
+                            'http://localhost:5005/drink/get_ids_and_ings/';
+       const response = await fetch(fetch_string);
+       if (!response.ok) {
+         const message = `An error occurred: ${response.statusText}`;
+         window.alert(message);
+         return;
+       }
+       const drinks = await response.json();
+       setDrinks(drinks);
+     }
+     getDrinks();
+     return;
+   }, [drinks.length]);
 
   // This method fetches the user's ingredients from the database.
   const [users_ingredients, setUsersIngredients] = useState([]);
@@ -85,7 +124,7 @@ export default function Storage() {
     />
      <Row className="justify-content-center align-items-center" style={{ marginTop: "4vh" }}>
       <Col id="storage_title" className= "text-center" xs={10}>
-        <p>Storage List</p>
+      <h3 className='storage_header'>Storage List</h3>
       </Col>
     </Row>
     <Row className="justify-content-center align-items-center">

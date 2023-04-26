@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema({
     following: [],
     followers: [],
     ingredient_storage: [],
+    favorites_list: [],
+    overall_ratings: [],
+    taste_ratings: []
 }, {collection: 'credentials'});
 
 const User = new mongoose.model("users", userSchema)
@@ -91,7 +94,8 @@ userCredentialsRoutes.route("/user/register").post(function (req, response) {
                     const user = new User({email: req.body.email, name: req.body.name, password: hash,
                                            about: "", picture_id: "mixmaster/DefaultPicture",
                                            picture_url: "https://res.cloudinary.com/dgco11qpv/image/upload/v1681153540/mixmaster/DefaultPicture.jpg",
-                                           following:[], followers:[], ingredient_storage:[]
+                                           following:[], followers:[], ingredient_storage:[], favorites_list: [], overall_ratings: [], 
+                                           taste_ratings: []
                                         });
                                         //db_connect is mongo connect, not mongoose.
                     db_connect.collection("credentials").insertOne(user, function (err, res) {
@@ -129,13 +133,84 @@ userCredentialsRoutes.route("/user/add_ingredient_to_storage/:username").post(fu
         res.json(result);
     });
     return res.send(JSON.stringify(req.body.name));
-  });
-  
+});
+
 // This section will help you delete an ingredient from a user's storage
 userCredentialsRoutes.route("/user/delete_ingredient_from_storage/:username").delete((req, res) => {
     let db_connect = dbo.getUsersDb();
     let myquery = { name: req.params.username };
     let myupdate = { $pull: { ingredient_storage: req.body.name } };
+    db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+    return res.send(JSON.stringify(req.body.name));
+});
+
+
+// THE FOUR BELOW FUNCTIONS UPDATE USERS RATINGS FOR SPECIFIC DRINKS
+userCredentialsRoutes.route("/user/first_rate_drink_overall").post((req, res) => {
+    let db_connect = dbo.getUsersDb();
+    var drink_id = new ObjectId(req.body.id);
+    let myquery = { name: req.body.username };
+    let myupdate = { $push: { overall_ratings: {drink_id: drink_id, rating: req.body.rating} } };
+    db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
+      if (err) throw err;
+        res.json(result);
+    });
+    return res.send(JSON.stringify(req.body.username));
+});
+userCredentialsRoutes.route("/user/first_rate_drink_taste").post((req, res) => {
+    let db_connect = dbo.getUsersDb();
+    var drink_id = new ObjectId(req.body.id);
+    let myquery = { name: req.body.username };
+    let myupdate = { $push: { taste_ratings: {drink_id: drink_id, rating: req.body.rating} } };
+    db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
+      if (err) throw err;
+        res.json(result);
+    });
+    return res.send(JSON.stringify(req.body.username));
+});
+userCredentialsRoutes.route("/user/rate_drink_overall").post((req, res) => {
+    let db_connect = dbo.getUsersDb();
+    var drink_id = new ObjectId(req.body.id);
+    let myquery = { name: req.body.username, "overall_ratings.drink_id": drink_id };
+    let myupdate = { $set: { "overall_ratings.$.rating" : req.body.rating } };
+    db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+    return res.send(JSON.stringify(req.body.username));
+});
+userCredentialsRoutes.route("/user/rate_drink_taste").post((req, res) => {
+    let db_connect = dbo.getUsersDb();
+    var drink_id = new ObjectId(req.body.id);
+    let myquery = { name: req.body.username, "taste_ratings.drink_id": drink_id };
+    let myupdate = { $set: { "taste_ratings.$.rating" : req.body.rating } };
+    db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+    return res.send(JSON.stringify(req.body.username));
+});
+
+// Add ingredients to a user's storage
+userCredentialsRoutes.route("/user/add_drink_to_favorites/:username").post(function (req, res) {
+    let db_connect = dbo.getUsersDb();
+    let myquery = { name: req.params.username };
+    let myupdate = { $addToSet: { favorites_list: req.body.id } };
+    db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
+      if (err) throw err;
+        res.json(result);
+    });
+    return res.send(JSON.stringify(req.body.name));
+});
+
+// This section will help you delete an ingredient from a user's storage
+userCredentialsRoutes.route("/user/delete_drink_from_favorites/:username").delete((req, res) => {
+    let db_connect = dbo.getUsersDb();
+    let myquery = { name: req.params.username };
+    let myupdate = { $pull: { favorites_list: req.body.id } };
     db_connect.collection("credentials").updateOne(myquery, myupdate, function (err, result) {
         if (err) throw err;
         res.json(result);

@@ -10,7 +10,7 @@ function Mixology() {
     <Container>
       <Row className="justify-content-center align-items-center" style={{ marginTop: "3vh" }}>
         <Col id="mixology_title" className= "text-center" md={10}>
-          <p>Mixology Tutorial</p>
+        <h3 className='storage_header'>Mixology Tutorial</h3>
         </Col>
       </Row>
       <Row className="justify-content-center align-items-center" style={{ marginTop: "2vh" }}>

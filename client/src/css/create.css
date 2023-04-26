@@ -1,0 +1,14 @@
+.create_wrapper{
+    color:#ffffff;
+    background: rgb(108,117,125, 0.8);
+    font-size: 1.2em;
+    margin-top: 20px;
+    padding: 1em;
+    border-radius: 10px;
+    text-align: left;
+}
+
+#create_drink_button{
+    background-color: #41C3FA;
+    width: 150px;
+}

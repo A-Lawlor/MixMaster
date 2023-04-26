@@ -30,3 +30,8 @@
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+.disable-scrollbars::-webkit-scrollbar {
+    background: transparent; /* Chrome/Safari/Webkit */
+    width: 0px;
+}

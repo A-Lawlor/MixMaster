@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/generatedrink.css';
 
-//Import for Liqour images
+//Import for liquor images
 import vodka from "../images/generate_drink_icons/Vodka.png";
 import rum from "../images/generate_drink_icons/Rum.png";
 import whiskey from "../images/generate_drink_icons/Whiskey.png";
@@ -25,6 +25,16 @@ function Homepage() {
   const [selectedButton, setSelectedButton] = useState(null);
   const [tasteSelectedButton, setTasteSelectedButton] = useState(null);
 
+  //Reset function to reset the buttons
+  const reset = () => {
+    setShowButtons(false);
+    setTasteShowButtons(true);
+    setShowGenerateButton(false);
+    setSelectedButton(null);
+    setTasteSelectedButton(null);
+  };
+
+
   const handleGenerateDrinkClick = (buttonId) => {
     setShowButtons(true);
     setTasteShowButtons(false);
@@ -38,35 +48,63 @@ function Homepage() {
   };
   
 
+  const navigate = useNavigate();
+  //Function to find a drink with the two attributes liquor and taste when generate drink button is clicked
+  const handleGenerateDrink = () => {
+    console.log("Generate Drink Clicked");
+    console.log("Selected liquor Button:", selectedButton);
+    console.log("Selected Taste Button:", tasteSelectedButton);
+    fetch(`/drink/generatedrink/${selectedButton}/${tasteSelectedButton}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Data:", data)
+        if(data.error === "No Drink Found"){
+          window.alert("No Drinks Found with Liquor and Taste Prefrence.");
+        }
+        //This code will redirect to the drink page which is drink/:id if there is a document with a specific id
+        if(!data.error){
+          navigate(`/drink/${data._id}`);
+        }
+      })
+      .catch((error) => {      
+        console.error('Error:', error);
+      });
+  };
+
   return (
     <Container fluid className="d-flex flex-column justify-content-center align-items-center">
+      <Row className="justify-content-center align-items-center" style={{ marginTop: "3vh" }}>
+        <Col id="about_title" className= "text-center" md={12}>
+        <h3 className='generate_header'>Generate Drink</h3>
+        </Col>
+      </Row>
       {!showButtons && (
-      <Row className="justify-content-center align-items-center" style={{ marginTop: '20vh', opacity: showButtons ? 0 : 1 }}>
+      <Row className="justify-content-center align-items-center" style={{ marginTop: '5vh', opacity: showButtons ? 0 : 1 }}>
         <Col id="generate_text" className="text-center text-white">
-          Select Type of Liqour
+          Select Type of liquor
         </Col>
       </Row>
       )}
       {!showButtons && (
         <Row className="justify-content-center align-items-center" style={{transition: 'all 0.5s ease', opacity: showButtons ? 0 : 1 }}>
           <Col>
-            <Button id="liqour_buttons" className="mb-3" onClick={() => handleGenerateDrinkClick("liqour_buttons_1")}>
+            <Button className="liquor_buttons mb-3" onClick={() => handleGenerateDrinkClick("Vodka")}>
             <img src={vodka} width="60" />
               Vodka
             </Button>
-            <Button id="liqour_buttons" className="mb-3" onClick={() => handleGenerateDrinkClick("liqour_buttons_2")}>
+            <Button className="liquor_buttons  mb-3" onClick={() => handleGenerateDrinkClick("Rum")}>
             <img src={rum} width="60" />
               Rum
             </Button>
-            <Button id="liqour_buttons" className="mb-3" onClick={() => handleGenerateDrinkClick("liqour_buttons_3")}>
+            <Button className="liquor_buttons mb-3" onClick={() => handleGenerateDrinkClick("Tequila")}>
             <img src={tequila} width="60" />
               Tequila
             </Button>
-            <Button id="liqour_buttons" className="mb-3" onClick={() => handleGenerateDrinkClick("liqour_buttons_4")}>
+            <Button className="liquor_buttons mb-3" onClick={() => handleGenerateDrinkClick("Whiskey")}>
             <img src={whiskey} width="60" />
               Whiskey
             </Button>
-            <Button id="liqour_buttons" className="mb-3" onClick={() => handleGenerateDrinkClick("liqour_buttons_5")}>
+            <Button className="liquor_buttons mb-3" onClick={() => handleGenerateDrinkClick("Gin")}>
             <img src={gin} width="60" />
               Gin
             </Button>
@@ -74,25 +112,25 @@ function Homepage() {
         </Row>
       )}
       {showButtons && (
-        <Row className="justify-content-center align-items-center" style={{marginTop: '20vh', transition: 'all 0.5s ease', opacity: showButtons ? 1 : 0 }}>
+        <Row className="justify-content-center align-items-center" style={{marginTop: '5vh', transition: 'all 0.5s ease', opacity: showButtons ? 1 : 0 }}>
           <Col>
-            <Button id="liqour_buttons" className={`mb-3 ${selectedButton === "liqour_buttons_1" ? "d-block" : "d-none"}`}>
+            <Button className={`liquor_buttons mb-3 ${selectedButton === "Vodka" ? "d-block" : "d-none"}`}>
             <img src={vodka} width="60" />
               Vodka
             </Button>
-            <Button id="liqour_buttons" className={`mb-3 ${selectedButton === "liqour_buttons_2" ? "d-block" : "d-none"}`}>
+            <Button className={`liquor_buttons mb-3 ${selectedButton === "Rum" ? "d-block" : "d-none"}`}>
             <img src={rum} width="60" />
               Rum
             </Button>
-            <Button id="liqour_buttons" className={`mb-3 ${selectedButton === "liqour_buttons_3" ? "d-block" : "d-none"}`}>
+            <Button className={`liquor_buttons mb-3 ${selectedButton === "Tequila" ? "d-block" : "d-none"}`}>
             <img src={tequila} width="60" />
              Tequila
             </Button>
-            <Button id="liqour_buttons" className={`mb-3 ${selectedButton === "liqour_buttons_4" ? "d-block" : "d-none"}`}>
+            <Button className={`liquor_buttons mb-3 ${selectedButton === "Whiskey" ? "d-block" : "d-none"}`}>
               <img src={whiskey} width="60" />
               Whiskey
             </Button>
-            <Button id="liqour_buttons" className={`mb-3 ${selectedButton === "liqour_buttons_5" ? "d-block" : "d-none"}`}>
+            <Button className={`liquor_buttons mb-3 ${selectedButton === "Gin" ? "d-block" : "d-none"}`}>
             <img src={gin} width="60" />
               Gin
             </Button>
@@ -109,23 +147,23 @@ function Homepage() {
         {!showTasteButtons && (
         <Row className="justify-content-center align-items-center" style={{ transition: 'all 0.5s ease', opacity: showTasteButtons ? 0 : 1 }}>
         <Col>
-          <Button id="taste_buttons" className="mb-3" onClick={() => handleGenerateDrinkClickTaste("taste_button_1")}>
+          <Button className="taste_buttons mb-3" onClick={() => handleGenerateDrinkClickTaste("Sweet")}>
           <img src={sweet} width="60" />
             Sweet
           </Button>
-          <Button id="taste_buttons" className="mb-3" onClick={() => handleGenerateDrinkClickTaste("taste_button_2")}>
+          <Button className="taste_buttons mb-3" onClick={() => handleGenerateDrinkClickTaste("Spicy")}>
           <img src={spicy} width="60" />
             Spicy
           </Button>
-          <Button id="taste_buttons" className="mb-3" onClick={() => handleGenerateDrinkClickTaste("taste_button_3")}>
+          <Button className="taste_buttons mb-3" onClick={() => handleGenerateDrinkClickTaste("Sour")}>
           <img src={sour} width="60" />
             Sour
           </Button>
-          <Button id="taste_buttons" className="mb-3" onClick={() => handleGenerateDrinkClickTaste("taste_button_4")}>
+          <Button className="taste_buttons mb-3" onClick={() => handleGenerateDrinkClickTaste("Bitter")}>
           <img src={bitter} width="60" />
             Bitter
           </Button>
-          <Button id="taste_buttons" className="mb-3" onClick={() => handleGenerateDrinkClickTaste("taste_button_5")} >
+          <Button className="taste_buttons mb-3" onClick={() => handleGenerateDrinkClickTaste("Salty")} >
           <img src={salty} width="60" />
             Salty
           </Button>
@@ -135,23 +173,23 @@ function Homepage() {
         {showTasteButtons && (
         <Row className="justify-content-center align-items-center" style={{ transition: 'all 0.5s ease', opacity: showTasteButtons ? 1 : 0 }}>
           <Col>
-            <Button id="taste_buttons" className={`mb-3 ${tasteSelectedButton === "taste_button_1" ? "d-block" : "d-none"}`}>
+            <Button className={`taste_buttons mb-3 ${tasteSelectedButton === "Sweet" ? "d-block" : "d-none"}`}>
             <img src={sweet} width="60" />
               Sweet
             </Button>
-            <Button id="taste_buttons" className={`mb-3 ${tasteSelectedButton === "taste_button_2" ? "d-block" : "d-none"}`}>
+            <Button className={`taste_buttons mb-3 ${tasteSelectedButton === "Spicy" ? "d-block" : "d-none"}`}>
             <img src={spicy} width="60" />
              Spicy
             </Button>
-            <Button id="taste_buttons" className={`mb-3 ${tasteSelectedButton === "taste_button_3" ? "d-block" : "d-none"}`}>
+            <Button className={`taste_buttons mb-3 ${tasteSelectedButton === "Sour" ? "d-block" : "d-none"}`}>
             <img src={sour} width="60" />
               Sour
             </Button>
-            <Button id="taste_buttons" className={`mb-3 ${tasteSelectedButton === "taste_button_4" ? "d-block" : "d-none"}`}>
+            <Button className={`taste_buttons mb-3 ${tasteSelectedButton === "Bitter" ? "d-block" : "d-none"}`}>
             <img src={bitter} width="60" />
               Bitter
             </Button>
-            <Button id="taste_buttons" className={`mb-3 ${tasteSelectedButton === "taste_button_5" ? "d-block" : "d-none"}`}>
+            <Button className={`taste_buttons mb-3 ${tasteSelectedButton === "Salty" ? "d-block" : "d-none"}`}>
             <img src={salty} width="60" />
               Salty
             </Button>
@@ -159,17 +197,27 @@ function Homepage() {
         </Row>
         )}
         {showGenerateButton && (
-        <Row className="justify-content-center align-items-center" style={{ transition: 'all 0.5s ease', opacity: showGenerateButton ? 1 : 0}}>
+        <><Row className="justify-content-center align-items-center" style={{ transition: 'all 0.5s ease', opacity: showGenerateButton ? 1 : 0 }}>
           <Col>
-            <Button 
-              style={{marginTop: '1vh', backgroundColor: '#3EB3E7'}} 
+            <Button
+              style={{ marginTop: '1vh', backgroundColor: '#3EB3E7' }}
               size="lg"
               className="generate-button"
-              as={NavLink} to="/favoriteslist">
+              onClick={handleGenerateDrink}>
               Generate Drink
             </Button>
           </Col>
-        </Row>
+        </Row><Row className="justify-content-center align-items-center" style={{ transition: 'all 0.5s ease', opacity: showGenerateButton ? 1 : 0 }}>
+            <Col>
+              <Button
+                style={{ marginTop: '1vh', backgroundColor: 'rgb(108,117,125, 0.75)' }}
+                size="lg"
+                className="generate-button"
+                onClick={reset}>
+                Reset
+              </Button>
+            </Col>
+          </Row></>
         )}
       </Container>
       );

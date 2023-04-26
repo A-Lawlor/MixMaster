@@ -140,6 +140,7 @@ export default function Navbar() {
         setLoggedIn(false);
         localStorage.removeItem('username');
         setUsername("");
+        localStorage.removeItem('user_drink_ing_array');
         return;
       })
       .catch(error => {
@@ -194,34 +195,6 @@ export default function Navbar() {
       });
   };
 
-  async function setStorage (_username) {
-    const newUserStorage = { username:_username };
-    let fetch_string2 = (process.env.NODE_ENV === 'production' ? 'https://mix-master.herokuapp.com/userstorage/adduser' : 'http://localhost:5005/userstorage/adduser');
-    await fetch(fetch_string2, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUserStorage),
-    })
-    .then(response => response.json())
-    .then(response => {
-      console.log(response.message + " setting up ingredient storage for " + _username);
-      return;
-    })
-    .catch(error => {
-      window.alert(error);
-      return;
-    });
-  }
-
-
-
-
- 
-
-
-
   return (
   <nav className="navbar navbar-expand-sm navbar-light sticky-top" style={{ height: "60px", backgroundColor: "rgba(51, 51, 51, 0.9)" }}>
       <div className="container-fluid">
@@ -247,10 +220,6 @@ export default function Navbar() {
                 {username}
               </Dropdown.Toggle>
               <Dropdown.Menu>
-              
-                  <Dropdown.Item as={NavLink} to="/vault">
-                    Vault
-                  </Dropdown.Item>
 
                   <Dropdown.Item as={NavLink} to="/storage">
                     Storage
@@ -265,6 +234,9 @@ export default function Navbar() {
 
                   <Dropdown.Item as={NavLink} to="/trending">
                     Trending Drinks
+                  </Dropdown.Item>
+                  <Dropdown.Item as={NavLink} to="/favoriteslist">
+                    Favorites List
                   </Dropdown.Item>
 
                   <Dropdown.Item as={NavLink} to="/editprofile">
