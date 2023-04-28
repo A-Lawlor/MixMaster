@@ -75,13 +75,21 @@ export default function Create() {
 
  
 
-
-
+ const [nameError, setNameError] = useState("");
+ 
 
  // This function will handle the submission.
  async function onSubmit(event) {
   console.log("Getting into submit drink");
    event.preventDefault();
+    if (formIngredientList.length === 0) {
+    setNameError("Please add at least one ingredient.");
+    return;
+  }
+  if (form.name.length > 30) {
+    setNameError("Drink name is too long.");
+    return;
+  }
    //if (form.checkValidity() === false) {
     //event.stopPropagation();
    //} else {
@@ -230,7 +238,9 @@ function convertToBase64(file) {
             value={form.name}
             onChange={(e) => updateForm({ name: e.target.value })}
             required
+            maxLength={30}
           />
+          {nameError && <span className="invalid-feedback">{nameError}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="image">Picture of Drink</label>
