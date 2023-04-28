@@ -339,6 +339,7 @@ function convertToBase64(file) {
            value={form.about}
            onChange={(e) => updateForm({ about: e.target.value })}
            required
+           maxLength="1000"
          />
        </div>
        <br></br>
